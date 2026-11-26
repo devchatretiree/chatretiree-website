@@ -411,7 +411,7 @@ HOME = f'''
     <div class="h-trust-grid">
       <div><span class="h-trust-ic">{I["tick"]}</span><h3>We don’t keep what you check</h3><p>Your messages, pictures, links and questions are looked at, answered, and let go.</p></div>
       <div><span class="h-trust-ic">{I["tick"]}</span><h3>Private details hidden first</h3><p>Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes.</p></div>
-      <div><span class="h-trust-ic">{I["tick"]}</span><h3>Your information is never for sale</h3><p>What you share is yours. We never sell it, and we’ll never ask for your passwords.</p></div>
+      <div><span class="h-trust-ic">{I["tick"]}</span><h3>Your information is never for sale</h3><p>What you share with ChatRetiree is yours. We never sell it or pass it along to anyone who wants to market to you.</p></div>
     </div>
     <a class="h-link h-link-light" href="privacy/">Read our privacy policy{I["arrow"]}</a>
   </div>
