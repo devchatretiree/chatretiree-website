@@ -550,7 +550,7 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 .pv-sec p{color:var(--ink)}
 /* About hero: full photo with text over a teal fade */
 .a-hero-photo{position:relative;overflow:hidden;padding:0;background:var(--deep)}
-.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-wide.webp?v=14) 78% 20%/cover no-repeat}
+.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-wide.webp?v=15) 78% 20%/cover no-repeat}
 .a-photo-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,68,64,.05) 0%,rgba(10,68,64,.35) 30%,var(--deep) 52%)}
 .a-hero-photo .a-hero-copy{position:relative;z-index:1;padding-top:300px;padding-bottom:64px}
 .a-hero-photo h1{max-width:13em}
@@ -582,3 +582,18 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
   .a-photo-bg::after{background:linear-gradient(180deg,rgba(10,68,64,0) 45%,var(--deep) 100%)}
   .a-hero-photo .a-hero-copy{padding-top:250px}
 }
+/* About photo: show all of her and the phone, on the right */
+@media (min-width:900px){
+  .a-photo-bg{background-size:auto 100%;background-position:right center}
+  .a-photo-bg::after{background:linear-gradient(90deg,var(--deep) 0,var(--deep) max(45%,calc(100% - 700px)),rgba(10,68,64,0) max(62%,calc(100% - 520px)))}
+}
+@media (max-width:899px){.a-photo-bg{background-position:70% 30%}}
+@media (min-width:900px){
+  .a-hero-photo .a-photo-bg::after{background:linear-gradient(90deg,var(--deep) 0%,var(--deep) calc(100% - 720px),rgba(10,68,64,.55) calc(100% - 610px),rgba(10,68,64,0) calc(100% - 480px))}
+}
+@media (min-width:900px){
+  .a-hero-photo .a-photo-bg::after{background:linear-gradient(90deg,var(--deep) 0%,var(--deep) calc(100% - 640px),rgba(10,68,64,.6) calc(100% - 540px),rgba(10,68,64,0) calc(100% - 400px))}
+}
+.a-credit{background:none;padding:0;border-radius:0;color:rgba(255,255,255,.85);font-size:12px;text-shadow:0 1px 3px rgba(0,0,0,.5);opacity:1}
+.a-credit a{color:rgba(255,255,255,.95);text-decoration-thickness:1px}
+.a-credit:hover{color:#FFFFFF}
