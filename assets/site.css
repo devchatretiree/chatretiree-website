@@ -693,3 +693,5 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 /* Official sources strip: plain text links to each source (no logos) */
 .h-sources-list a{color:inherit;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;text-decoration-color:var(--accent)}
 .h-sources-list a:hover{color:var(--accent)}
+/* ChatRetiree in big headings: bold "Chat", lighter "Retiree", like the logo */
+h1 .wm,h2 .wm{font-weight:500}h1 .wm b,h2 .wm b{font-weight:800}

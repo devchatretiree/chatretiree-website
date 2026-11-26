@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "33"
+VERSION = "34"
 
 def ico(body, fill=False):
     if fill:
@@ -164,7 +164,7 @@ def ex_page(slug, title, lead, chips_title, examples, current):
     </div>
   </div>
   <div class="next-ex">
-    <h2>See more of what ChatRetiree can do</h2>
+    <h2>See more of what <span class="wm"><b>Chat</b>Retiree</span> can do</h2>
     <div class="next-list">{nxt}</div>
   </div>
 </div>"""
@@ -530,7 +530,7 @@ GETAPP = f'''
 <section class="a-hero" aria-labelledby="app-h">
   <div class="wrap">
     <p class="h-eyebrow">Get the App</p>
-    <h1 id="app-h">ChatRetiree is coming to iPhone and Android.</h1>
+    <h1 id="app-h"><span class="wm"><b>Chat</b>Retiree</span> is coming to iPhone and Android.</h1>
     <p class="a-lead">We’re trying it with a small group of people first, so we can make it as simple and helpful as possible. It’s not in the app stores yet.</p>
   </div>
 </section>
