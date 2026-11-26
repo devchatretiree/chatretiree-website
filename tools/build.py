@@ -440,7 +440,6 @@ HOME = f'''
       <h2>On iPhone and Android</h2>
       <p>We’re trying ChatRetiree with a small group of people first. Have a question in the meantime? We’d love to hear from you.</p>
       <a class="btn h-btn-light" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
-      <p class="h-mail">support@chatretiree.com</p>
     </div>
     <div class="h-end-card" id="partner">
       <p class="h-eyebrow">Partner with Us</p>
@@ -513,7 +512,6 @@ ABOUT = f'''
       <h2>We’d love to hear from you</h2>
       <p>Questions, ideas, or a story about a scam you spotted? Write to us any time.</p>
       <a class="btn h-btn-light" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
-      <p class="h-mail">support@chatretiree.com</p>
     </div>
     <div class="h-end-card">
       <p class="h-eyebrow">Partner with Us</p>
@@ -546,7 +544,6 @@ GETAPP = f'''
       <h2>Want us to tell you when it’s ready?</h2>
       <p>Send us a quick email and we’ll write back when ChatRetiree is in the app stores. We’ll only use your address for that.</p>
       <a class="btn h-btn-light" href="mailto:support@chatretiree.com?subject=Tell%20me%20when%20the%20ChatRetiree%20app%20is%20ready">{I["mail"]}Email us</a>
-      <p class="h-mail">support@chatretiree.com</p>
     </div>
     <p class="app-more">Until then, you can <a href="../#help">see what the app does</a> with real screens from the app.</p>
   </div>
