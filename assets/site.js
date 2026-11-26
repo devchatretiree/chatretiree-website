@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded",function(){
 function live(ph,screen){
   var front=ph.classList.contains("h-ph-front");
   var els=[].slice.call(screen.querySelectorAll("[data-type]"));
-  var parts=[].slice.call(screen.querySelectorAll(".lv-a,.lv-dots"));
+  var parts=[].slice.call(screen.querySelectorAll(".lv-a,.lv-dots,.lv-after"));
 
   function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
   function type(el,byWord,speed){
@@ -51,7 +51,8 @@ function live(ph,screen){
     if(!front){
       p=p.then(function(){return type(screen.querySelector(".lv-q"),false,55)})
        .then(function(){show(".lv-dots");return wait(1300)})
-       .then(function(){hide(".lv-dots");show(".lv-a");return type(screen.querySelector(".lv-a p"),true,70)});
+       .then(function(){hide(".lv-dots");show(".lv-a");return type(screen.querySelector(".lv-a p"),true,70)})
+       .then(function(){return wait(350)}).then(function(){[].forEach.call(screen.querySelectorAll(".lv-after"),function(e){e.classList.remove("lv-hide")})});
     }else{
       p=p.then(function(){return type(screen.querySelector(".lv-msg"),false,22)})
        .then(function(){var b=screen.querySelector(".lv-btn");b.classList.add("lv-press");return wait(450)})

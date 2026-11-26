@@ -684,3 +684,9 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
   .lv-q,.lv-btn{font-size:11.5px}.lv-msg{font-size:11px}.lv-verdict b{font-size:13px}
 }
 @media (max-width:699px){.lv-next b{font-size:12.5px}.lv-a{padding:8px 10px}.lv-label{font-size:11px}.lv-btn{min-height:0;padding:7px 10px}}
+/* Medicare phone: the app's "More detail and sources" link and follow-up box under the answer */
+.lv-more{display:flex;align-items:center;gap:6px;font:700 13.5px/1.3 "Atkinson",sans-serif;color:#0F5F5A;margin-top:2px}
+.lv-more svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.lv-ask{background:#FFFFFF;border:1.5px solid #8C8578;border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.4;color:#6B7477;min-height:4.2em}
+.h-ph-screen.live .lv-after.lv-hide{display:none}
+@media (max-width:699px){.lv-more{font-size:11.5px}.lv-more svg{width:14px;height:14px}.lv-ask{font-size:11px;padding:8px 10px;min-height:3.6em}}
