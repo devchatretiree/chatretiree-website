@@ -346,7 +346,7 @@ HOME = f'''
         <p>Paste a text or email, add a picture of your screen, or just tell us what happened. In a few seconds you’ll see what we noticed and exactly what to do next.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}Looks for the warning signs scammers rely on</li>
-          <li>{I["tick"]}Checks links against Google’s list of harmful sites, without opening them</li>
+          <li>{I["tick"]}Checks links against Google’s list of known dangerous websites, without opening them</li>
           <li>{I["tick"]}Never calls anything “safe.” When we can’t tell, we say so</li>
         </ul>
         <a class="h-link" href="examples/check/">See four real samples{I["arrow"]}</a>
