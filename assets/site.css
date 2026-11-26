@@ -548,15 +548,37 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 .pv-sec ul{padding-left:24px}
 .pv-sec li{margin-top:10px;color:var(--ink)}
 .pv-sec p{color:var(--ink)}
-/* About hero with photo */
-.a-hero-grid{display:grid;gap:36px;align-items:center}
-@media (min-width:960px){.a-hero-grid{grid-template-columns:1.1fr .9fr;gap:56px}.a-hero-photo h1{font-size:clamp(40px,4.6vw,64px)}}
-.a-hero-copy{min-width:0}
-.a-photo{margin:0;min-width:0}
-.a-photo img{display:block;width:100%;height:auto;aspect-ratio:900/816;object-fit:cover;border-radius:32px;box-shadow:0 30px 60px -24px rgba(0,0,0,.45)}
-.a-photo figcaption{margin-top:10px;font-size:15px;color:var(--deep-ink2)}
-.a-photo figcaption a{color:var(--deep-ink)}
-.a-photo{position:relative}
-.a-photo figcaption{position:absolute;right:12px;bottom:12px;margin:0;font-size:13px;line-height:1.2;padding:6px 10px;border-radius:999px;background:rgba(10,20,22,.55);color:#FFFFFF;opacity:.7;transition:opacity .15s ease}
-.a-photo:hover figcaption,.a-photo figcaption:focus-within{opacity:1}
-.a-photo figcaption a{color:#FFFFFF}
+/* About hero: full photo with text over a teal fade */
+.a-hero-photo{position:relative;overflow:hidden;padding:0;background:var(--deep)}
+.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-wide.webp?v=14) 78% 20%/cover no-repeat}
+.a-photo-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,68,64,.05) 0%,rgba(10,68,64,.35) 30%,var(--deep) 52%)}
+.a-hero-photo .a-hero-copy{position:relative;z-index:1;padding-top:300px;padding-bottom:64px}
+.a-hero-photo h1{max-width:13em}
+.a-hero-photo .a-lead{max-width:30em}
+.a-credit{position:absolute;z-index:1;right:max(16px,env(safe-area-inset-right,0px));top:16px;margin:0;font-size:13px;line-height:1.2;padding:6px 10px;border-radius:999px;background:rgba(10,20,22,.55);color:#FFFFFF;opacity:.75;transition:opacity .15s ease}
+.a-credit:hover,.a-credit:focus-within{opacity:1}
+.a-credit a{color:#FFFFFF}
+@media (min-width:900px){
+  .a-photo-bg{background-position:right center}
+  .a-photo-bg::after{background:linear-gradient(90deg,var(--deep) 0%,var(--deep) 30%,rgba(10,68,64,.82) 46%,rgba(10,68,64,.15) 68%,rgba(10,68,64,0) 80%)}
+  .a-hero-photo .a-hero-copy{padding-top:128px;padding-bottom:128px}
+  .a-hero-photo h1,.a-hero-photo .a-lead{max-width:min(13em,560px)}
+  .a-hero-photo .a-lead{max-width:520px}
+  .a-credit{top:auto;bottom:16px}
+}
+/* Shorter About photo hero */
+.a-hero-photo .a-hero-copy{padding-top:210px;padding-bottom:48px}
+.a-hero-photo h1{font-size:clamp(34px,5vw,52px);max-width:15em}
+.a-photo-bg{background-position:72% 22%}
+@media (min-width:900px){
+  .a-hero-photo{min-height:0}
+  .a-photo-bg{background-position:right 28%}
+  .a-hero-photo .a-hero-copy{padding-top:72px;padding-bottom:72px}
+  .a-hero-photo h1{max-width:12em}
+  .a-hero-photo .a-lead{font-size:21px;max-width:500px}
+}
+@media (max-width:899px){
+  .a-photo-bg{bottom:auto;height:280px;background-size:cover;background-position:80% 35%}
+  .a-photo-bg::after{background:linear-gradient(180deg,rgba(10,68,64,0) 45%,var(--deep) 100%)}
+  .a-hero-photo .a-hero-copy{padding-top:250px}
+}

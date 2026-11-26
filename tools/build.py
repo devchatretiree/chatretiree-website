@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "13"
+VERSION = "14"
 
 def ico(body, fill=False):
     if fill:
@@ -451,17 +451,13 @@ HOME = f'''
 
 ABOUT = f'''
 <section class="a-hero a-hero-photo" aria-labelledby="about-h">
-  <div class="wrap a-hero-grid">
-    <div class="a-hero-copy">
-      <p class="h-eyebrow">About ChatRetiree</p>
-      <h1 id="about-h">Clear answers, and a calm second look, whenever you need one.</h1>
-      <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare in plain words, and keep up with the scams going around. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
-    </div>
-    <figure class="a-photo">
-      <img src="../assets/photos/woman-phone.webp?v={VERSION}" width="900" height="816" alt="A smiling older woman looking at her phone at home.">
-      <figcaption>Photo by Vitaly Gariev on <a href="https://unsplash.com/photos/elderly-woman-smiling-while-looking-at-smartphone-cHbyGVOQspk" rel="noopener">Unsplash</a></figcaption>
-    </figure>
+  <div class="a-photo-bg" role="img" aria-label="A smiling older woman looking at her phone at home."></div>
+  <div class="wrap a-hero-copy">
+    <p class="h-eyebrow">About ChatRetiree</p>
+    <h1 id="about-h">Clear answers, and a calm second look, whenever you need one.</h1>
+    <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare in plain words, and keep up with the scams going around. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
   </div>
+  <p class="a-credit">Photo by Vitaly Gariev on <a href="https://unsplash.com/photos/elderly-woman-smiling-while-looking-at-smartphone-cHbyGVOQspk" rel="noopener">Unsplash</a></p>
 </section>
 
 <section class="a-sec" aria-labelledby="story-h">
