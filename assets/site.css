@@ -626,3 +626,7 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 }
 @media (min-width:1300px){.a-hero-photo .a-hero-copy > *{max-width:46%}}
 @media (min-width:700px){.a-hero-photo .a-photo-bg{background-position:70% 72%}}
+@media (min-width:700px){
+  .a-hero-photo .a-photo-bg{width:min(56%,760px)}
+  .a-hero-photo .a-photo-bg::after{background:linear-gradient(270deg,var(--deep) 0%,rgba(10,68,64,.9) 8%,rgba(10,68,64,.7) 18%,rgba(10,68,64,.45) 30%,rgba(10,68,64,.22) 42%,rgba(10,68,64,.08) 54%,rgba(10,68,64,0) 64%)}
+}
