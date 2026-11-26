@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "31"
+VERSION = "32"
 
 def ico(body, fill=False):
     if fill:
@@ -289,15 +289,15 @@ HOME = f'''
           <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
-      <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text about a package on hold with a $1.99 fee. Its answer: This has the signs of a scam. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
+      <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text that claims to be from Medicare about a new Medicare card. Its answer: This has the signs of a scam. What we’d do next: Don’t call any number in the message. Contact the agency using the number on your card or its official website.">
         <div class="h-ph-screen live" aria-hidden="true">
           <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
           <p class="lv-label">Message or web address</p>
-          <p class="lv-msg" data-type="PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: https://parcel-redelivery.example/pay">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: https://parcel-redelivery.example/pay</p>
+          <p class="lv-msg" data-type="MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.">MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.</p>
           <span class="lv-btn">Look at it together</span>
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
-          <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
+          <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t call any number in the message. Contact the agency using the number on your card or its official website.">Don’t call any number in the message. Contact the agency using the number on your card or its official website.</p></div>
           <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
