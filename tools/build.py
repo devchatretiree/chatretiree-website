@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "38"
+VERSION = "40"
 
 def ico(body, fill=False):
     if fill:
@@ -184,7 +184,7 @@ def device(img, alt, cls=""):
     return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
             f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" width="390"></div></figure>')
 
-def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt="", button="Look at it together", after="", thinking="Looking at it with you…"):
+def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt="", button="Send it", after="", thinking="Looking at it with you…"):
     first = (device(input_img, input_alt, "step-in") + f'<button class="btn btn-primary go" type="button">{button}{I["arrow"]}</button>'
              f'<p class="thinking" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span>{thinking}</p>') if input_img else ""
     ans_cls = "answer" if input_img else "answer shown"
@@ -201,13 +201,13 @@ def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt
 CHECK_NOTE = '<p>The app looks for the warning signs scammers rely on, checks links against Google’s list of known harmful websites without opening them, and tells you what to do next.</p><p style="margin-top:12px">It never calls something “safe.” When it can’t tell, it says so and helps you check another way.</p>'
 
 CHECK_EX = [
-  phone_ex("package", "A text about a package", "Someone pastes a text they got, then taps “Look at it together.”",
+  phone_ex("package", "A text about a package", "Someone pastes a text they got into the message bar, then taps send.",
     "package", "The app’s answer: This has the signs of a scam. This message has several signs that are common in scams. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust. Why we think so: It asks for a small fee. Fake delivery notices do this to collect card details. It warns that something bad will happen to your account, benefits or device. It pushes you to act right away, before you have time to check.",
     "package-input", "The app with a pasted text: PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender, with a link.", after=CHECK_NOTE),
-  phone_ex("bank", "A picture of a bank text", "Someone adds a screenshot. The app reads the words right on the phone.",
+  phone_ex("bank", "A picture of a bank text", "Someone taps + and adds a screenshot. The app reads the words right on the phone, and only the words are checked.",
     "bank", "The app’s answer: This has the signs of a scam. What we’d do next: Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement. Why we think so: It asks you to move money to a so-called safe account. Real banks never ask you to do this. It tells you to keep it secret. It warns that something bad will happen to your account.",
-    "bank-input", "The app showing a screenshot of a text from First Harbor Bank asking to move savings to a new safe account.", after=CHECK_NOTE),
-  phone_ex("call", "A worrying phone call", "Someone types what happened on a call.",
+    "bank-input", "The app’s message bar holding the words it read from a screenshot of a text from First Harbor Bank, ready to send.", after=CHECK_NOTE),
+  phone_ex("call", "A worrying phone call", "Someone types or says what happened on a call.",
     "call", "The app’s answer: This has the signs of a scam. If you’re worried someone you love is in trouble: if someone may be in danger right now, call 911. Hang up, then call your family member yourself on a number you already have. Don’t send any money, gift cards or cryptocurrency. Why we think so: it asks for payment with gift cards, it tells you to keep it secret, and it describes a family emergency that needs money fast.",
     "call-input", "The app with a description: a young man called saying he was my grandson, in jail, needing $3,000 bail paid in gift cards.", after=CHECK_NOTE),
   phone_ex("doctor", "A message from a doctor’s office", "Not everything is a scam. When we can’t tell, we say so.",
@@ -287,19 +287,18 @@ HOME = f'''
           <span class="lv-more lv-after"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>More detail and sources</span>
           <span class="lv-c lv-mic lv-spk lv-after"><svg viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg></span>
           <span class="lv-more lv-after"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>Talk to a person, and more</span>
-          <div class="lv-compose"><span class="lv-box">Ask a follow-up…</span><span class="lv-c lv-mic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span><span class="lv-c lv-send"><svg viewBox="0 0 24 24"><path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/><path d="M6 12h16"/></svg></span></div>
+          <div class="lv-compose"><span class="lv-c lv-plus"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span><span class="lv-box">Ask a follow-up…</span><span class="lv-c lv-mic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span></div>
           <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
       <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text that claims to be from Medicare about a new Medicare card. Its answer: This has the signs of a scam. What we’d do next: Don’t call any number in the message. Contact the agency using the number on your card or its official website.">
-        <div class="h-ph-screen live" aria-hidden="true">
+        <div class="h-ph-screen live has-compose" aria-hidden="true">
           <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
-          <p class="lv-label">Message or web address</p>
-          <p class="lv-msg" data-type="MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.">MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.</p>
-          <span class="lv-btn">Look at it together</span>
+          <p class="lv-msg lv-sent">MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.</p>
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
           <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t call any number in the message. Contact the agency using the number on your card or its official website.">Don’t call any number in the message. Contact the agency using the number on your card or its official website.</p></div>
+          <div class="lv-compose lv-front"><span class="lv-c lv-plus"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span><span class="lv-box"><span class="lv-in lv-ph" data-type="MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.">Paste or type it here</span></span><span class="lv-c lv-mic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span><span class="lv-c lv-send lv-btn"><svg viewBox="0 0 24 24"><path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/><path d="M6 12h16"/></svg></span></div>
           <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
@@ -351,12 +350,12 @@ HOME = f'''
         <h3>Just ask what’s on your mind</h3>
         <p>Start with one box. Type a question, paste a message that seems off, or just say it out loud. We’ll take it to the right place, whether that’s a scam check, Medicare, Social Security or help after a scam.</p>
         <ul class="h-ticks">
-          <li>{I["tick"]}Paste and check a message in one tap</li>
+          <li>{I["tick"]}One message bar everywhere: tap + to paste a message or add a picture, or tap the mic to say it</li>
           <li>{I["tick"]}Not sure where to start? Tap an example question</li>
           <li>{I["tick"]}Every answer ends with where to go next, so it all fits together</li>
         </ul>
       </div>
-      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/home.webp?v={VERSION}" width="390" alt="The app’s home screen: What’s on your mind? Ask about Medicare, Social Security or scams, or paste a message that seems off. Below it are example questions and sections for staying safe from scams and your benefits."></div></figure></div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/home.webp?v={VERSION}" width="390" alt="The app’s home screen: What’s on your mind? Ask about Medicare, Social Security or scams, or share a message that seems off. Below it is the message bar with a plus button, a box and a microphone. Below it are example questions and sections for staying safe from scams and your benefits."></div></figure></div>
     </article>
 
     <article class="h-row">

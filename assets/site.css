@@ -711,3 +711,19 @@ h1 .wm,h2 .wm{font-weight:500}h1 .wm b,h2 .wm b{font-weight:800}
 @media (max-width:380px){.h-ph-screen.live .lv-compose{display:flex!important}}
 .lv-spk{margin-left:4px}
 .lv-spk{align-self:flex-start}
+
+/* One message bar: + , box, mic that turns into send (app PR 67) */
+.lv-plus{background:#FFFFFF;border:1.5px solid #8C8578;color:#0F5F5A}
+.lv-compose .lv-send{display:none}
+.lv-compose.lv-typing .lv-mic{display:none}
+.lv-compose.lv-typing .lv-send{display:flex;background:#0F5F5A;color:#FFFFFF}
+.lv-front{align-items:flex-end}
+.lv-front .lv-box{white-space:normal;max-height:4.1em;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;word-break:break-word;color:#1F2A2E}
+.lv-front .lv-box.lv-ph,.lv-box.lv-ph{color:#6B7477}
+.lv-front .lv-box.lv-ph{white-space:nowrap;display:block;text-overflow:ellipsis}
+.lv-sent{align-self:flex-end;max-width:88%;min-height:0;background:#0F5F5A;color:#FFFFFF;border:none;border-radius:16px;border-bottom-right-radius:5px}
+.h-ph-screen.live .lv-sent.lv-hide{display:none}
+.lv-c.lv-press{transform:scale(.9)}
+.lv-front .lv-box{max-height:none;display:block;white-space:normal}
+.lv-in{display:flex;flex-direction:column;justify-content:flex-end;max-height:3.9em;overflow:hidden;line-height:1.3}
+.lv-in.lv-ph{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#6B7477}
