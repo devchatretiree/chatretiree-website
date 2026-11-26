@@ -271,7 +271,7 @@ HOME = f'''
       </div>
     </div>
     <div class="h-phones" aria-hidden="false">
-      <figure class="h-ph h-ph-back"><div class="h-ph-screen"><img src="assets/app/package-input.webp?v={VERSION}" width="390" alt="The ChatRetiree app with a pasted text about a package on hold and a $1.99 fee."></div></figure>
+      <figure class="h-ph h-ph-back"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure>
       <figure class="h-ph h-ph-front"><div class="h-ph-screen"><img src="assets/app/package.webp?v={VERSION}" width="390" alt="The app’s answer: This has the signs of a scam. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust."></div></figure>
     </div>
   </div>
