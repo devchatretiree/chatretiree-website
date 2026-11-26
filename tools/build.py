@@ -95,7 +95,7 @@ def page(path, title, description, body, current=""):
     <a href="{up}#partner">Partner with us</a>
     {nav("contact/", "Contact us", "contact")}
   </nav>
-  <small>© 2026 ChatRetiree. This website has no ads, no cookies and no tracking.</small>
+  <small>© 2026 ChatRetiree. This website uses no cookies and no tracking.</small>
 </div></footer>
 </body>
 </html>
@@ -411,7 +411,7 @@ HOME = f'''
     <div class="h-trust-grid">
       <div><span class="h-trust-ic">{I["tick"]}</span><h3>We don’t keep what you check</h3><p>Your messages, pictures, links and questions are looked at, answered, and let go.</p></div>
       <div><span class="h-trust-ic">{I["tick"]}</span><h3>Private details hidden first</h3><p>Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes.</p></div>
-      <div><span class="h-trust-ic">{I["tick"]}</span><h3>No ads. No selling your data.</h3><p>We never sell your information or use it for advertising. We’ll never ask for your passwords.</p></div>
+      <div><span class="h-trust-ic">{I["tick"]}</span><h3>Your information is never for sale</h3><p>What you share with ChatRetiree is yours. We never sell it or pass it along to anyone who wants to market to you.</p></div>
     </div>
     <a class="h-link h-link-light" href="privacy/">Read our privacy policy{I["arrow"]}</a>
   </div>
@@ -483,7 +483,7 @@ ABOUT = f'''
       <li>{I["tick"]}<div><h3>Plain words</h3><p>No jargon and no alarm bells. Just what we found and what we’d do next.</p></div></li>
       <li>{I["tick"]}<div><h3>Honest about what we don’t know</h3><p>We never call anything “safe.” When we can’t tell, or the official sources don’t cover something, we say so.</p></div></li>
       <li>{I["tick"]}<div><h3>You stay in charge</h3><p>We suggest next steps. You decide. Nothing is sent to anyone unless you press send.</p></div></li>
-      <li>{I["tick"]}<div><h3>Your information stays yours</h3><p>We don’t keep what you check, we hide private details before anything leaves your phone, and we never sell your data or show ads.</p></div></li>
+      <li>{I["tick"]}<div><h3>Your information stays yours</h3><p>We don’t keep what you check, we hide private details before anything leaves your phone, and we never sell your data.</p></div></li>
       <li>{I["tick"]}<div><h3>Your peace of mind comes first</h3><p>Everything we suggest is meant to protect you and your money. That’s why we’ll never suggest paying a scammer anything, not even a smaller amount to make them go away.</p></div></li>
     </ul>
   </div>
@@ -613,12 +613,12 @@ def privacy_body():
         sid = re.sub(r"[^a-z]+", "-", title.lower()).strip("-")
         toc.append(f'<li><a href="#{sid}">{title}</a></li>')
         secs.append(f'<section class="pv-sec" id="{sid}" aria-labelledby="{sid}-h"><h3 id="{sid}-h">{title}</h3>{body}</section>')
-    secs.append('<section class="pv-sec" id="this-website" aria-labelledby="this-website-h"><h3 id="this-website-h">About this website</h3><p>This policy is for the ChatRetiree app. This website, chatretiree.com, has no ads, cookies or tracking. It is hosted by GitHub Pages, which keeps short technical logs, such as your internet (IP) address, to keep the site running and secure.</p></section>')
+    secs.append('<section class="pv-sec" id="this-website" aria-labelledby="this-website-h"><h3 id="this-website-h">About this website</h3><p>This policy is for the ChatRetiree app. This website, chatretiree.com, has no cookies or tracking. It is hosted by GitHub Pages, which keeps short technical logs, such as your internet (IP) address, to keep the site running and secure.</p></section>')
     toc.append('<li><a href="#this-website">About this website</a></li>')
     glance = [
       ("tick", "We don’t keep what you check", "Your messages, pictures, links and questions are looked at, answered, and let go."),
       ("eyeoff", "Private details hidden first", "Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes."),
-      ("noad", "Never sold. Never used for ads.", "We never sell your information or use it for advertising."),
+      ("noad", "Never sold", "We never sell your information or use it for advertising."),
       ("link", "We never open your links", "Links are looked up with Google’s list of harmful sites. We never open them."),
       ("trusted", "Your trusted people stay with you", "Their names and email addresses stay on your phone and are never sent to us."),
       ("trash", "Leave any time", "You can delete your account in Settings whenever you like."),
