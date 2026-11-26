@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "25"
+VERSION = "26"
 
 def ico(body, fill=False):
     if fill:
@@ -315,7 +315,7 @@ HOME = f'''
 
 <section class="h-why" aria-labelledby="why-h">
   <div class="wrap">
-    <p class="h-eyebrow" id="why-h">Why We Built ChatRetiree</p>
+    <p class="h-eyebrow" id="why-h">Why We Built <span class="wm"><b>Chat</b>Retiree</span></p>
     <p class="h-statement">You’ve spent a lifetime figuring things out. <span>The trouble isn’t you.</span></p>
     <p class="h-why-sub">It’s the flood of fake texts, look-alike emails, robocalls and fine print that lands on everyone, every day. ChatRetiree cuts through it, so you spend less time wondering and worrying.</p>
     <div class="h-why-grid">
@@ -333,7 +333,7 @@ HOME = f'''
 <section class="h-features" id="help" aria-labelledby="help-h">
   <div class="wrap">
     <div class="h-sec-head">
-      <p class="h-eyebrow">What ChatRetiree Does</p>
+      <p class="h-eyebrow">What <span class="wm"><b>Chat</b>Retiree</span> Does</p>
       <h2 id="help-h">Four ways we make life simpler</h2>
     </div>
 
@@ -453,7 +453,7 @@ ABOUT = f'''
 <section class="a-hero a-hero-photo" aria-labelledby="about-h">
   <div class="a-photo-bg" role="img" aria-label="A smiling older woman looking at her phone at home."></div>
   <div class="wrap a-hero-copy">
-    <p class="h-eyebrow">About ChatRetiree</p>
+    <p class="h-eyebrow">About <span class="wm"><b>Chat</b>Retiree</span></p>
     <h1 id="about-h">Clear answers, and a calm second look, whenever you need one.</h1>
     <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare in plain words, and keep up with the scams going around. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
   </div>
