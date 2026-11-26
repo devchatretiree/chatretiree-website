@@ -51,8 +51,7 @@ def page(path, title, description, body, current=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full_title}</title>
 <meta name="description" content="{description}">
-<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121718" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAF7F2">
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="https://chatretiree.com/assets/icon.png">
