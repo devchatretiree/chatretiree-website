@@ -175,7 +175,7 @@ WHY = "Why we think so"
 
 def device(img, alt, cls=""):
     return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
-            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" loading="lazy" width="390"></div></figure>')
+            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" width="390"></div></figure>')
 
 def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt="", button="Look at it together", after="", thinking="Looking at it with you…"):
     first = (device(input_img, input_alt, "step-in") + f'<button class="btn btn-primary go" type="button">{button}{I["arrow"]}</button>'
