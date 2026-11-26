@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "32"
+VERSION = "33"
 
 def ico(body, fill=False):
     if fill:
@@ -309,11 +309,11 @@ HOME = f'''
   <div class="wrap h-sources-in">
     <p class="h-sources-label">Answers drawn from official sources</p>
     <ul class="h-sources-list">
-      <li>Official Medicare guides</li>
-      <li>Federal Trade Commission</li>
-      <li>FBI Internet Crime Complaint Center</li>
-      <li>HHS Office of Inspector General</li>
-      <li>Google Web Risk</li>
+      <li><a href="https://www.medicare.gov/" rel="noopener">Official Medicare guides</a></li>
+      <li><a href="https://consumer.ftc.gov/consumer-alerts" rel="noopener">Federal Trade Commission</a></li>
+      <li><a href="https://www.ic3.gov/" rel="noopener">FBI Internet Crime Complaint Center</a></li>
+      <li><a href="https://oig.hhs.gov/" rel="noopener">HHS Office of Inspector General</a></li>
+      <li><a href="https://cloud.google.com/web-risk" rel="noopener">Google Web Risk</a></li>
     </ul>
   </div>
 </section>

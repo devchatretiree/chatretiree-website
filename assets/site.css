@@ -690,3 +690,6 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 .lv-ask{background:#FFFFFF;border:1.5px solid #8C8578;border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.4;color:#6B7477;min-height:4.2em}
 .h-ph-screen.live .lv-after.lv-hide{display:none}
 @media (max-width:699px){.lv-more{font-size:11.5px}.lv-more svg{width:14px;height:14px}.lv-ask{font-size:11px;padding:8px 10px;min-height:3.6em}}
+/* Official sources strip: plain text links to each source (no logos) */
+.h-sources-list a{color:inherit;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;text-decoration-color:var(--accent)}
+.h-sources-list a:hover{color:var(--accent)}
