@@ -54,9 +54,12 @@ function live(ph,screen){
        .then(function(){hide(".lv-dots");show(".lv-a");return type(screen.querySelector(".lv-a p"),true,70)})
        .then(function(){return wait(350)}).then(function(){[].forEach.call(screen.querySelectorAll(".lv-after"),function(e){e.classList.remove("lv-hide")})});
     }else{
-      p=p.then(function(){return type(screen.querySelector(".lv-msg"),false,22)})
+      var cmp=screen.querySelector(".lv-front"),box=cmp.querySelector(".lv-in"),sent=screen.querySelector(".lv-sent");
+      sent.classList.add("lv-hide");box.classList.add("lv-ph");box.textContent="Paste or type it here";
+      p=p.then(function(){box.textContent="";box.classList.remove("lv-ph");cmp.classList.add("lv-typing");return type(box,false,22)})
        .then(function(){var b=screen.querySelector(".lv-btn");b.classList.add("lv-press");return wait(450)})
-       .then(function(){screen.querySelector(".lv-btn").classList.remove("lv-press");show(".lv-dots");return wait(1300)})
+       .then(function(){screen.querySelector(".lv-btn").classList.remove("lv-press");cmp.classList.remove("lv-typing");box.textContent="Paste or type it here";box.classList.add("lv-ph");sent.classList.remove("lv-hide");return wait(350)})
+       .then(function(){show(".lv-dots");return wait(1300)})
        .then(function(){hide(".lv-dots");show(".lv-verdict");return type(screen.querySelector(".lv-verdict b"),true,90)})
        .then(function(){return type(screen.querySelector(".lv-verdict p"),true,60)})
        .then(function(){show(".lv-next");return type(screen.querySelector(".lv-next p"),true,60)});
