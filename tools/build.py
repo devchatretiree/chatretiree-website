@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "5"
+VERSION = "26"
 
 def ico(body, fill=False):
     if fill:
@@ -34,6 +34,11 @@ I = {
   "warn": ico('<path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>'),
   "question": ico('<circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/>'),
   "handshake": ico('<path d="m11 17 2 2a1.4 1.4 0 0 0 2-2"/><path d="m14 14 2.5 2.5a1.4 1.4 0 0 0 2-2l-3.9-3.9a2 2 0 0 0-2.8 0l-.9.9a1.4 1.4 0 0 1-2-2l2.8-2.8a3.5 3.5 0 0 1 4.3-.5l.6.4a2 2 0 0 0 1.4.3L21 6.5"/><path d="m21 5.5 1 9-2 1"/><path d="M3 5.5l-1 9 6.5 6.5a1.4 1.4 0 0 0 2-2"/><path d="M3 6.5h7"/>'),
+  "lock": ico('<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>'),
+  "eyeoff": ico('<path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0 1 12 5c5 0 8.5 4.5 9.5 7-.4 1-1.2 2.3-2.4 3.5M6.3 6.3C4.4 7.6 3 9.6 2.5 12c1 2.5 4.5 7 9.5 7 1.7 0 3.2-.5 4.5-1.2"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>'),
+  "noad": ico('<circle cx="12" cy="12" r="9.5"/><path d="M5.3 5.3l13.4 13.4"/>'),
+  "link": ico('<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>'),
+  "trash": ico('<path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>'),
   "moon": '<svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
   "sun": '<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
 }
@@ -69,8 +74,10 @@ def page(path, title, description, body, current=""):
 <header class="top"><div class="wrap">
   <a class="brand" href="{up or './'}" aria-label="ChatRetiree home">{LOGO}<span><b>Chat</b>Retiree</span></a>
   <nav class="nav" aria-label="Main">
+    {nav("about/", "About", "about", "hide-sm")}
     {nav("privacy/", "Privacy", "privacy", "hide-sm")}
     {nav("contact/", "Contact", "contact", "hide-sm")}
+    <a class="get-app" href="{up}app/"{' aria-current="page"' if current=="app" else ""}>Get the app</a>
     <button class="theme" type="button" hidden aria-label="Switch to dark" aria-pressed="false">{I["moon"]}{I["sun"]}</button>
   </nav>
 </div></header>
@@ -83,6 +90,7 @@ def page(path, title, description, body, current=""):
     <p class="tag">Let’s look at it together.</p>
   </div>
   <nav aria-label="Footer">
+    {nav("about/", "About us", "about")}
     {nav("privacy/", "Privacy policy", "privacy")}
     <a href="{up}#partner">Partner with us</a>
     {nav("contact/", "Contact us", "contact")}
@@ -173,7 +181,7 @@ WHY = "Why we think so"
 
 def device(img, alt, cls=""):
     return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
-            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" loading="lazy" width="390"></div></figure>')
+            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" width="390"></div></figure>')
 
 def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt="", button="Look at it together", after="", thinking="Looking at it with you…"):
     first = (device(input_img, input_alt, "step-in") + f'<button class="btn btn-primary go" type="button">{button}{I["arrow"]}</button>'
@@ -257,136 +265,327 @@ PARTNER = f"""
 
 
 HOME = f'''
-<div class="hero"><div class="wrap">
-  <div>
-    <p class="pill">{I["phone"]}Coming soon to iPhone and Android</p>
-    <h1>Let’s look at it together.</h1>
-    <p class="lead">One simple place to check a message before you act, get a straight answer about Medicare, and hear about the latest scams, all in plain words and from sources you can trust. Less time wondering. Less time worrying.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#how">See how it works</a>
-      <a class="btn btn-quiet" href="contact/">{I["mail"]}Contact us</a>
+<section class="h-hero" aria-labelledby="hero-h">
+  <div class="h-hero-in">
+    <div class="h-hero-copy">
+      <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
+      <h1 id="hero-h">Let’s look at it together.</h1>
+      <p class="h-lead">One simple place to check a message before you act, get a straight answer about Medicare, and hear about the latest scams. In plain words, from sources you can trust.</p>
+      <div class="h-actions">
+        <a class="btn h-btn-light" href="#help">See it in action{I["arrow"]}</a>
+        <a class="btn h-btn-ghost" href="#partner">Partner with us</a>
+      </div>
+    </div>
+    <div class="h-phones">
+      <figure class="h-ph h-ph-back" role="img" aria-label="The ChatRetiree app answering: Does Medicare pay for hearing aids? Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">
+        <div class="h-ph-screen live" aria-hidden="true">
+          <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+          <p class="lv-q" data-type="Does Medicare pay for hearing aids?">Does Medicare pay for hearing aids?</p>
+          <span class="lv-dots"><i></i><i></i><i></i></span>
+          <div class="lv-a"><p data-type="Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p></div>
+        </div>
+      </figure>
+      <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text about a package on hold with a $1.99 fee. Its answer: This has the signs of a scam. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
+        <div class="h-ph-screen live" aria-hidden="true">
+          <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+          <p class="lv-label">Message or web address</p>
+          <p class="lv-msg" data-type="PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: https://parcel-redelivery.example/pay">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: https://parcel-redelivery.example/pay</p>
+          <span class="lv-btn">Look at it together</span>
+          <span class="lv-dots"><i></i><i></i><i></i></span>
+          <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
+          <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
+        </div>
+      </figure>
     </div>
   </div>
-  <figure class="phone-hero" style="margin:0;max-width:380px;width:100%;justify-self:center">
-    <div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">
-      <img src="assets/app/package.webp?v={VERSION}" width="390" alt="The ChatRetiree app checking a text about a package. It says: This has the signs of a scam. This message has several signs that are common in scams. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
-    </div>
-    <figcaption class="phone-cap">The ChatRetiree app, checking a text about a package</figcaption>
-  </figure>
-</div></div>
+</section>
 
-<section aria-labelledby="why-h"><div class="wrap">
-  <div class="section-head">
-    <h2 id="why-h">Why we built ChatRetiree</h2>
-    <p>You’ve spent a lifetime figuring things out. The trouble isn’t you. It’s the flood of fake texts, look-alike emails, robocalls and fine print that lands on everyone, every day.</p>
-  </div>
-  <div class="cards three">
-    <article class="card plain"><h3>There’s too much noise</h3><p>Scam texts and fake alerts are everywhere, and they look more like the real thing every year.</p></article>
-    <article class="card plain"><h3>Good answers are buried</h3><p>The right information is out there, but it’s spread across long guides and official websites that take time to dig through.</p></article>
-    <article class="card plain"><h3>Wondering takes time</h3><p>One “Is this real?” moment can eat up an afternoon. You have better things to do with your day.</p></article>
-  </div>
-  <div class="believe">
-    <h3>What we believe</h3>
-    <p>Everyone deserves easy access to clear, trustworthy information, and a quick way to check before they act. So ChatRetiree answers only from official sources, in plain words, and shows you where each answer comes from.</p>
-  </div>
-</div></section>
-
-<section class="band" aria-labelledby="help-h"><div class="wrap">
-  <div class="section-head">
-    <h2 id="help-h">How we can help</h2>
-    <p>One place to go when something feels off, or when you just want a straight answer. Tap any of these to see the app in action.</p>
-  </div>
-  <div class="cards">
-    <a class="card" href="examples/check/">
-      <div class="icon t-teal">{I["check"]}</div>
-      <h3>Check a message that feels off</h3>
-      <p>Paste a text or email, type in a web address, or add a picture of your screen. We’ll tell you what we noticed and what to do next.</p>
-      <span class="more">See it in the app{I["arrow"]}</span>
-    </a>
-    <a class="card" href="examples/medicare/">
-      <div class="icon t-blue">{I["medicare"]}</div>
-      <h3>Medicare questions</h3>
-      <p>Ask in your own words. Answers come only from official Medicare guides, and we show you where each one comes from.</p>
-      <span class="more">See it in the app{I["arrow"]}</span>
-    </a>
-    <a class="card" href="examples/scams/">
-      <div class="icon t-clay">{I["alerts"]}</div>
-      <h3>Scams going around</h3>
-      <p>Short, plain summaries of the latest scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services.</p>
-      <span class="more">See it in the app{I["arrow"]}</span>
-    </a>
-    <a class="card" href="examples/trusted/">
-      <div class="icon t-sage">{I["trusted"]}</div>
-      <h3>Ask someone you trust</h3>
-      <p>Want a second opinion? Send what we found to a family member or friend from your own email.</p>
-      <span class="more">See it in the app{I["arrow"]}</span>
-    </a>
-  </div>
-</div></section>
-
-<section id="how" aria-labelledby="how-h"><div class="wrap">
-  <div class="section-head">
-    <h2 id="how-h">How it works</h2>
-    <p>A couple of taps, and you have your answer.</p>
-  </div>
-  <ol class="steps">
-    <li><h3>Copy it</h3><p>Copy the text or email that worries you, or take a picture of your screen.</p></li>
-    <li><h3>Paste it in</h3><p>Open ChatRetiree and tap “Paste and check.” That’s it.</p></li>
-    <li><h3>Talk it over</h3><p>We’ll show you the warning signs we found, in plain words, and what you can do next.</p></li>
-  </ol>
-</div></section>
-
-<section class="band" aria-labelledby="privacy-h"><div class="wrap split">
-  <div>
-    <h2 id="privacy-h">Your privacy comes first</h2>
-    <ul class="checks">
-      <li>{I["tick"]}<span>We don’t keep your messages, pictures, links or questions.</span></li>
-      <li>{I["tick"]}<span>Before anything leaves your phone, we hide things like Social Security, Medicare and card numbers.</span></li>
-      <li>{I["tick"]}<span>We never sell your information or use it for ads.</span></li>
+<section class="h-sources" aria-label="Where our answers come from">
+  <div class="wrap h-sources-in">
+    <p class="h-sources-label">Answers drawn from official sources</p>
+    <ul class="h-sources-list">
+      <li>Official Medicare guides</li>
+      <li>Federal Trade Commission</li>
+      <li>FBI Internet Crime Complaint Center</li>
+      <li>HHS Office of Inspector General</li>
+      <li>Google Web Risk</li>
     </ul>
-    <p><a href="privacy/">Read our privacy policy</a></p>
   </div>
-  <div class="help" role="note" aria-labelledby="sent-h">
-    <h3 id="sent-h">{I["heart"]}Think you’ve been scammed?</h3>
-    <p>You’re not alone, and it’s not your fault.</p>
-    <p><strong>If someone may be in danger, call 911.</strong></p>
-    <p>If you already sent money or gift cards, call your bank or the gift card company right away.</p>
-    <p>You can also report it to the FTC at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</p>
-  </div>
-</div></section>
+</section>
 
-{PARTNER}
-<section aria-labelledby="soon-h"><div class="wrap">
-  <div class="cta">
-    <h2 id="soon-h">Coming soon</h2>
-    <p>We’re trying ChatRetiree with a small group of people first. It’s coming to iPhone and Android. Have a question in the meantime? We’d love to hear from you.</p>
-    <a class="btn" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
+<section class="h-why" aria-labelledby="why-h">
+  <div class="wrap">
+    <p class="h-eyebrow" id="why-h">Why We Built <span class="wm"><b>Chat</b>Retiree</span></p>
+    <p class="h-statement">You’ve spent a lifetime figuring things out. <span>The trouble isn’t you.</span></p>
+    <p class="h-why-sub">It’s the flood of fake texts, look-alike emails, robocalls and fine print that lands on everyone, every day. ChatRetiree cuts through it, so you spend less time wondering and worrying.</p>
+    <div class="h-why-grid">
+      <div><h3>There’s too much noise</h3><p>Scam texts and fake alerts are everywhere, and they look more like the real thing every year.</p></div>
+      <div><h3>Good answers are buried</h3><p>The right information is out there, spread across long guides and official websites that take time to dig through.</p></div>
+      <div><h3>Wondering takes time</h3><p>One “Is this real?” moment can eat up an afternoon. You have better things to do with your day.</p></div>
+    </div>
+    <div class="h-believe">
+      <p class="h-eyebrow">What We Believe</p>
+      <p>Everyone deserves easy access to clear, trustworthy information, and a quick way to check before they act. So ChatRetiree answers only from official sources, in plain words, and shows you where each answer comes from.</p>
+    </div>
   </div>
-</div></section>
+</section>
+
+<section class="h-features" id="help" aria-labelledby="help-h">
+  <div class="wrap">
+    <div class="h-sec-head">
+      <p class="h-eyebrow">What <span class="wm"><b>Chat</b>Retiree</span> Does</p>
+      <h2 id="help-h">Four ways we make life simpler</h2>
+    </div>
+
+    <article class="h-row">
+      <div class="h-row-copy">
+        <span class="icon t-teal">{I["check"]}</span>
+        <h3>Check a message before you act</h3>
+        <p>Paste a text or email, add a picture of your screen, or just tell us what happened. In a few seconds you’ll see what we noticed and exactly what to do next.</p>
+        <ul class="h-ticks">
+          <li>{I["tick"]}Looks for the warning signs scammers rely on</li>
+          <li>{I["tick"]}Checks links against Google’s list of harmful sites, without opening them</li>
+          <li>{I["tick"]}Never calls anything “safe.” When we can’t tell, we say so</li>
+        </ul>
+        <a class="h-link" href="examples/check/">See four real samples{I["arrow"]}</a>
+      </div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
+    </article>
+
+    <article class="h-row h-row-flip">
+      <div class="h-row-copy">
+        <span class="icon t-blue">{I["medicare"]}</span>
+        <h3>Straight answers about Medicare</h3>
+        <p>Ask in your own words, like you would ask a friend who knows Medicare inside out. Answers come only from the official Medicare guides, and you can see the guide’s exact words.</p>
+        <ul class="h-ticks">
+          <li>{I["tick"]}Plain-language answers, with follow-up questions</li>
+          <li>{I["tick"]}Every point checked against the official guide</li>
+          <li>{I["tick"]}For your own plan, we point you to 1‑800‑MEDICARE or your free local SHIP counselor</li>
+        </ul>
+        <a class="h-link" href="examples/medicare/">See sample questions{I["arrow"]}</a>
+      </div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure></div>
+    </article>
+
+    <article class="h-row">
+      <div class="h-row-copy">
+        <span class="icon t-clay">{I["alerts"]}</span>
+        <h3>Know what’s going around</h3>
+        <p>We follow the official scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services, and sum each one up in plain words. Ask about a scam and get an answer straight from those warnings.</p>
+        <ul class="h-ticks">
+          <li>{I["tick"]}New warnings summarized as they come out</li>
+          <li>{I["tick"]}When the warnings don’t cover something, we say so instead of guessing</li>
+          <li>{I["tick"]}We never suggest paying a scammer anything</li>
+        </ul>
+        <a class="h-link" href="examples/scams/">See sample questions{I["arrow"]}</a>
+      </div>
+      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img class="h-shift" src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" alt="Question: Why do scammers ask for gift cards? The app says: Please don’t send them anything. The short answer: Scammers prefer gift cards because it is almost impossible to get your money back."></div></figure></div>
+    </article>
+
+    <article class="h-row h-row-flip">
+      <div class="h-row-copy">
+        <span class="icon t-sage">{I["trusted"]}</span>
+        <h3>Decide together</h3>
+        <p>Add a family member or friend you trust. After any check, one tap opens your own email with a note to them, so you can talk it over before doing anything.</p>
+        <ul class="h-ticks">
+          <li>{I["tick"]}You see the note first, and nothing is sent until you press send</li>
+          <li>{I["tick"]}Links are broken on purpose so nobody taps them by accident</li>
+          <li>{I["tick"]}Your trusted people stay on your phone, never on our servers</li>
+        </ul>
+        <a class="h-link" href="examples/trusted/">See how it works{I["arrow"]}</a>
+      </div>
+      <div class="h-row-art t-sage-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/trusted.webp?v={VERSION}" width="390" alt="The app’s result screen with an Email Sarah button to ask someone you trust."></div></figure></div>
+    </article>
+  </div>
+</section>
+
+<section class="h-trust" aria-labelledby="trust-h">
+  <div class="wrap">
+    <div class="h-sec-head">
+      <p class="h-eyebrow">Private by Design</p>
+      <h2 id="trust-h">Your information stays yours</h2>
+    </div>
+    <div class="h-trust-grid">
+      <div><span class="h-trust-ic">{I["tick"]}</span><h3>We don’t keep what you check</h3><p>Your messages, pictures, links and questions are looked at, answered, and let go.</p></div>
+      <div><span class="h-trust-ic">{I["tick"]}</span><h3>Private details hidden first</h3><p>Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes.</p></div>
+      <div><span class="h-trust-ic">{I["tick"]}</span><h3>No ads. No selling your data.</h3><p>We never sell your information or use it for advertising. We’ll never ask for your passwords.</p></div>
+    </div>
+    <a class="h-link h-link-light" href="privacy/">Read our privacy policy{I["arrow"]}</a>
+  </div>
+</section>
+
+<section class="h-help" aria-labelledby="sent-h">
+  <div class="wrap">
+    <div class="h-help-card">
+      <div>
+        <h2 id="sent-h">Think you’ve been scammed?</h2>
+        <p>You’re not alone, and it’s not your fault.</p>
+      </div>
+      <ul>
+        <li><strong>If someone may be in danger, call 911.</strong></li>
+        <li>If you already sent money or gift cards, call your bank or the gift card company right away.</li>
+        <li>You can also report it to the FTC at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="h-end" aria-label="Coming soon and partners">
+  <div class="wrap h-end-grid">
+    <div class="h-end-card h-end-soon">
+      <p class="h-eyebrow">Coming Soon</p>
+      <h2>On iPhone and Android</h2>
+      <p>We’re trying ChatRetiree with a small group of people first. Have a question in the meantime? We’d love to hear from you.</p>
+      <a class="btn h-btn-light" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
+      <p class="h-mail">support@chatretiree.com</p>
+    </div>
+    <div class="h-end-card" id="partner">
+      <p class="h-eyebrow">Partner with Us</p>
+      <h2>For organizations</h2>
+      <p>School districts, retiree associations, insurers, credit unions, and community and public groups: let’s talk about helping the people you serve stay a step ahead of scams.</p>
+      <a class="btn btn-primary" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">{I["handshake"]}Email us about partnering</a>
+    </div>
+  </div>
+</section>
+'''
+
+ABOUT = f'''
+<section class="a-hero a-hero-photo" aria-labelledby="about-h">
+  <div class="a-photo-bg" role="img" aria-label="A smiling older woman looking at her phone at home."></div>
+  <div class="wrap a-hero-copy">
+    <p class="h-eyebrow">About <span class="wm"><b>Chat</b>Retiree</span></p>
+    <h1 id="about-h">Clear answers, and a calm second look, whenever you need one.</h1>
+    <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare in plain words, and keep up with the scams going around. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
+  </div>
+  <p class="a-credit">Photo by Vitaly Gariev on <a href="https://unsplash.com/photos/elderly-woman-smiling-while-looking-at-smartphone-cHbyGVOQspk" rel="noopener">Unsplash</a></p>
+</section>
+
+<section class="a-sec" aria-labelledby="story-h">
+  <div class="wrap a-split">
+    <h2 id="story-h">Why we started</h2>
+    <div class="a-prose">
+      <p>People who have spent a lifetime working, raising families and running households know how to figure things out. What’s changed is the amount of noise. Fake texts, look-alike emails, robocalls and fine print arrive every day, and they get more convincing every year.</p>
+      <p>Meanwhile, the good answers are out there, spread across long guides and official websites that take time to find and read. One “Is this real?” moment can turn into an afternoon of wondering and worrying.</p>
+      <p>We built ChatRetiree to make the trustworthy information easy to reach and quick to check, so you can get on with your day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="a-sec a-tint" aria-labelledby="promise-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Our Promises</p>
+    <h2 id="promise-h">What you can count on</h2>
+    <ul class="a-promises">
+      <li>{I["tick"]}<div><h3>Official sources only</h3><p>Medicare answers come from the official Medicare guides. Scam news comes from the FTC, the FBI and the U.S. Department of Health and Human Services.</p></div></li>
+      <li>{I["tick"]}<div><h3>Plain words</h3><p>No jargon and no alarm bells. Just what we found and what we’d do next.</p></div></li>
+      <li>{I["tick"]}<div><h3>Honest about what we don’t know</h3><p>We never call anything “safe.” When we can’t tell, or the official sources don’t cover something, we say so.</p></div></li>
+      <li>{I["tick"]}<div><h3>You stay in charge</h3><p>We suggest next steps. You decide. Nothing is sent to anyone unless you press send.</p></div></li>
+      <li>{I["tick"]}<div><h3>Your information stays yours</h3><p>We don’t keep what you check, we hide private details before anything leaves your phone, and we never sell your data or show ads.</p></div></li>
+      <li>{I["tick"]}<div><h3>Your peace of mind comes first</h3><p>Everything we suggest is meant to protect you and your money. That’s why we’ll never suggest paying a scammer anything, not even a smaller amount to make them go away.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="a-sec" aria-labelledby="src-h">
+  <div class="wrap a-split">
+    <h2 id="src-h">Where our answers come from</h2>
+    <div class="a-prose">
+      <p>We only use sources you could look up yourself:</p>
+      <ul class="a-src">
+        <li><a href="https://www.medicare.gov/" rel="noopener">Medicare.gov</a>, including the official “Medicare &amp; You” handbook and guides</li>
+        <li><a href="https://consumer.ftc.gov/consumer-alerts" rel="noopener">Federal Trade Commission consumer alerts</a></li>
+        <li><a href="https://www.ic3.gov/" rel="noopener">FBI Internet Crime Complaint Center</a></li>
+        <li><a href="https://oig.hhs.gov/" rel="noopener">HHS Office of Inspector General</a></li>
+        <li><a href="https://cloud.google.com/web-risk" rel="noopener">Google Web Risk</a>, to check links against known harmful sites without opening them</li>
+      </ul>
+      <p>For questions about your own plan or benefits, we point you to 1‑800‑MEDICARE or your free local SHIP counselor, who can look at your situation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="h-end" aria-label="Get in touch">
+  <div class="wrap h-end-grid">
+    <div class="h-end-card h-end-soon">
+      <p class="h-eyebrow">Get in Touch</p>
+      <h2>We’d love to hear from you</h2>
+      <p>Questions, ideas, or a story about a scam you spotted? Write to us any time.</p>
+      <a class="btn h-btn-light" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
+      <p class="h-mail">support@chatretiree.com</p>
+    </div>
+    <div class="h-end-card">
+      <p class="h-eyebrow">Partner with Us</p>
+      <h2>For organizations</h2>
+      <p>School districts, retiree associations, insurers, credit unions, and community and public groups: let’s talk about helping the people you serve.</p>
+      <a class="btn btn-primary" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">{I["handshake"]}Email us about partnering</a>
+    </div>
+  </div>
+</section>
+'''
+
+GETAPP = f'''
+<section class="a-hero" aria-labelledby="app-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Get the App</p>
+    <h1 id="app-h">ChatRetiree is coming to iPhone and Android.</h1>
+    <p class="a-lead">We’re trying it with a small group of people first, so we can make it as simple and helpful as possible. It’s not in the app stores yet.</p>
+  </div>
+</section>
+
+<section class="a-sec" aria-labelledby="stores-h">
+  <div class="wrap">
+    <h2 id="stores-h" class="sr-only">App stores</h2>
+    <div class="store-grid">
+      <div class="store"><span class="store-ic">{I["phone"]}</span><div><p class="store-name">App Store</p><p>For iPhone</p></div><span class="store-soon">Coming soon</span></div>
+      <div class="store"><span class="store-ic">{I["phone"]}</span><div><p class="store-name">Google Play</p><p>For Android phones</p></div><span class="store-soon">Coming soon</span></div>
+    </div>
+    <div class="h-end-card h-end-soon notify">
+      <p class="h-eyebrow">Be the First to Know</p>
+      <h2>Want us to tell you when it’s ready?</h2>
+      <p>Send us a quick email and we’ll write back when ChatRetiree is in the app stores. We’ll only use your address for that.</p>
+      <a class="btn h-btn-light" href="mailto:support@chatretiree.com?subject=Tell%20me%20when%20the%20ChatRetiree%20app%20is%20ready">{I["mail"]}Email us</a>
+      <p class="h-mail">support@chatretiree.com</p>
+    </div>
+    <p class="app-more">Until then, you can <a href="../#help">see what the app does</a> with real screens from the app.</p>
+  </div>
+</section>
 '''
 
 CONTACT = f'''
-<div class="page">
-  <h1>Contact us</h1>
-  <p class="lead">Questions, ideas, or something not working? We’d love to hear from you.</p>
-  <div class="contact-card">
-    <p>Email us at</p>
-    <p class="email"><a href="mailto:support@chatretiree.com">support@chatretiree.com</a></p>
-    <a class="btn btn-primary" href="mailto:support@chatretiree.com">{I["mail"]}Write an email</a>
+<section class="a-hero" aria-labelledby="contact-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Contact Us</p>
+    <h1 id="contact-h">We’d love to hear from you.</h1>
+    <p class="a-lead">Questions, ideas, or something not working? Write to us any time. A real person reads every email.</p>
   </div>
-  <div class="note">
-    <h2>Partnering with us</h2>
-    <p>If your organization looks after retirees or older adults and you’d like to work with us, <a href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">email us about partnering</a>.</p>
+</section>
+
+<section class="a-sec c-sec" aria-label="Ways to reach us">
+  <div class="wrap c-grid">
+    <div class="c-card c-main">
+      <span class="store-ic">{I["mail"]}</span>
+      <h2>Email us</h2>
+      <p class="c-addr">support@chatretiree.com</p>
+      <a class="btn btn-primary" href="mailto:support@chatretiree.com">{I["mail"]}Write an email</a>
+    </div>
+    <div class="c-card">
+      <span class="store-ic">{I["handshake"]}</span>
+      <h2>Partnering with us</h2>
+      <p>If your organization looks after retirees or older adults and you’d like to work with us, we’d be glad to talk.</p>
+      <a class="h-link" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">Email us about partnering{I["arrow"]}</a>
+    </div>
+    <div class="c-card">
+      <span class="store-ic">{I["info"]}</span>
+      <h2>Please don’t send private details</h2>
+      <p>There’s no need to include passwords, account numbers, or your Social Security or Medicare number. We’ll never ask you for them.</p>
+    </div>
+    <div class="c-card c-urgent">
+      <span class="store-ic">{I["warn"]}</span>
+      <h2>Need help right now?</h2>
+      <p><strong>If someone may be in danger, call 911.</strong></p>
+      <p>If you already sent money or gift cards, call your bank or the gift card company right away. You can also report it at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</p>
+    </div>
   </div>
-  <div class="note">
-    <h2>Please don’t send us private details</h2>
-    <p>There’s no need to include passwords, account numbers, or your Social Security or Medicare number. We’ll never ask you for them.</p>
-  </div>
-  <div class="note">
-    <h2>Need help right now?</h2>
-    <p><strong>If someone may be in danger, call 911.</strong> If you already sent money or gift cards, call your bank or the gift card company right away.</p>
-  </div>
-</div>
+</section>
 '''
 
 NOT_FOUND = '''
@@ -401,12 +600,51 @@ NOT_FOUND = '''
 def privacy_body():
     src = (ROOT / "tools" / "privacy-source.html").read_text(encoding="utf-8")
     inner = re.search(r"<main>(.*)</main>", src, re.S).group(1).strip()
-    note = '''
-<div class="note">
-  <h2>About this website</h2>
-  <p>This policy is for the ChatRetiree app. This website, chatretiree.com, has no ads, cookies or tracking. It is hosted by GitHub Pages, which keeps short technical logs, such as your internet (IP) address, to keep the site running and secure.</p>
-</div>'''
-    return f'<div class="page">\n{inner}\n{note}\n</div>'
+    m = re.match(r"<h1>(.*?)</h1>\s*<p class=\"date\">(.*?)</p>", inner, re.S)
+    date = m.group(2)
+    inner = inner[m.end():].strip()
+    parts = re.split(r"<h2>(.*?)</h2>", inner)[1:]
+    secs, toc = [], []
+    for i in range(0, len(parts), 2):
+        title, body = parts[i], parts[i+1].strip()
+        sid = re.sub(r"[^a-z]+", "-", title.lower()).strip("-")
+        toc.append(f'<li><a href="#{sid}">{title}</a></li>')
+        secs.append(f'<section class="pv-sec" id="{sid}" aria-labelledby="{sid}-h"><h3 id="{sid}-h">{title}</h3>{body}</section>')
+    secs.append('<section class="pv-sec" id="this-website" aria-labelledby="this-website-h"><h3 id="this-website-h">About this website</h3><p>This policy is for the ChatRetiree app. This website, chatretiree.com, has no ads, cookies or tracking. It is hosted by GitHub Pages, which keeps short technical logs, such as your internet (IP) address, to keep the site running and secure.</p></section>')
+    toc.append('<li><a href="#this-website">About this website</a></li>')
+    glance = [
+      ("tick", "We don’t keep what you check", "Your messages, pictures, links and questions are looked at, answered, and let go."),
+      ("eyeoff", "Private details hidden first", "Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes."),
+      ("noad", "Never sold. Never used for ads.", "We never sell your information or use it for advertising."),
+      ("link", "We never open your links", "Links are looked up with Google’s list of harmful sites. We never open them."),
+      ("trusted", "Your trusted people stay with you", "Their names and email addresses stay on your phone and are never sent to us."),
+      ("trash", "Leave any time", "You can delete your account in Settings whenever you like."),
+    ]
+    cards = "".join(f'<div class="pv-card"><span class="pv-ic">{I[ic]}</span><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in glance)
+    return f'''
+<section class="a-hero" aria-labelledby="privacy-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Privacy</p>
+    <h1 id="privacy-h">Your information stays yours.</h1>
+    <p class="a-lead">We built ChatRetiree to protect you, and that includes your privacy. Here’s what that means, in plain words.</p>
+  </div>
+</section>
+<section class="a-sec pv-glance" aria-labelledby="glance-h">
+  <div class="wrap">
+    <p class="h-eyebrow" id="glance-h">At a Glance</p>
+    <div class="pv-grid">{cards}</div>
+  </div>
+</section>
+<section class="a-sec a-tint" aria-labelledby="full-h">
+  <div class="wrap pv-full">
+    <aside class="pv-toc">
+      <h2 id="full-h">The full policy</h2>
+      <p class="pv-date">{date}</p>
+      <nav aria-label="Privacy policy sections"><ol>{"".join(toc)}</ol></nav>
+    </aside>
+    <div class="pv-body">{"".join(secs)}</div>
+  </div>
+</section>'''
 
 page("examples/check", "Example: check a message", "Tap through samples of ChatRetiree checking a message.",
      ex_page("check", "Check a message that feels off", "Paste a text or email, add a picture of your screen, or just tell us what happened. Here’s what ChatRetiree says back.", "Pick an example to try", CHECK_EX, "check"))
@@ -419,6 +657,8 @@ page("examples/trusted", "Example: ask someone you trust", "See how ChatRetiree 
 page("", "ChatRetiree: let’s look at it together",
      "ChatRetiree is like a friend you can ask when a text, email or call doesn’t feel right. Coming soon to iPhone and Android.", HOME)
 page("privacy", "Privacy policy", "How the ChatRetiree app handles your information.", privacy_body(), "privacy")
+page("about", "About us", "Why we built ChatRetiree, what we believe, and where our answers come from.", ABOUT, "about")
+page("app", "Get the app", "ChatRetiree is coming soon to iPhone and Android.", GETAPP, "app")
 page("contact", "Contact us", "Questions or ideas? Email support@chatretiree.com.", CONTACT, "contact")
 page("404", "Page not found", "We couldn’t find that page.", NOT_FOUND)
 print("built")
