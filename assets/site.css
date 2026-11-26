@@ -550,7 +550,7 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 .pv-sec p{color:var(--ink)}
 /* About hero: full photo with text over a teal fade */
 .a-hero-photo{position:relative;overflow:hidden;padding:0;background:var(--deep)}
-.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-wide.webp?v=23) 78% 20%/cover no-repeat}
+.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-right.webp?v=27) 78% 20%/cover no-repeat}
 .a-photo-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,68,64,.05) 0%,rgba(10,68,64,.35) 30%,var(--deep) 52%)}
 .a-hero-photo .a-hero-copy{position:relative;z-index:1;padding-top:300px;padding-bottom:64px}
 .a-hero-photo h1{max-width:13em}
@@ -658,3 +658,11 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 .h-eyebrow{text-transform:none;letter-spacing:0;font-size:18px}
 /* ChatRetiree in small headings: bold "Chat", lighter "Retiree", like the logo */
 .h-eyebrow .wm{font-weight:500}.h-eyebrow .wm b{font-weight:800}
+/* About hero v27: photo on the RIGHT (her facing left toward the text), text on the left */
+@media (min-width:700px){
+  .a-hero-photo .a-photo-bg{left:auto;right:0;width:54%;background-position:0% 60%}
+  .a-hero-photo .a-photo-bg::after{background:linear-gradient(90deg,var(--deep) 0%,rgba(10,68,64,.8) 7%,rgba(10,68,64,.45) 15%,rgba(10,68,64,.15) 23%,rgba(10,68,64,0) 30%)}
+  .a-hero-photo .a-hero-copy > *{max-width:50%;margin-left:0;margin-right:auto}
+  .a-hero-photo .a-credit{left:auto;right:max(16px,env(safe-area-inset-right,0px))}
+}
+@media (min-width:700px) and (max-width:899px){.a-hero-photo .a-photo-bg{background-position:28% 60%}}
