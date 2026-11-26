@@ -654,3 +654,5 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 @media (min-width:700px) and (max-width:899px){.a-hero-photo .a-photo-bg{background-position:30% 60%}}
 @media (min-width:700px){.a-hero-photo .a-photo-bg{background-position:100% 60%}}
 @media (min-width:700px) and (max-width:899px){.a-hero-photo .a-photo-bg{background-position:72% 60%}}
+/* Small headings above titles: normal capitals, not all caps (Kevin) */
+.h-eyebrow{text-transform:none;letter-spacing:0;font-size:18px}

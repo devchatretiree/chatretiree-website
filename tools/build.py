@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "23"
+VERSION = "25"
 
 def ico(body, fill=False):
     if fill:
@@ -315,7 +315,7 @@ HOME = f'''
 
 <section class="h-why" aria-labelledby="why-h">
   <div class="wrap">
-    <p class="h-eyebrow" id="why-h">Why we built ChatRetiree</p>
+    <p class="h-eyebrow" id="why-h">Why We Built ChatRetiree</p>
     <p class="h-statement">You’ve spent a lifetime figuring things out. <span>The trouble isn’t you.</span></p>
     <p class="h-why-sub">It’s the flood of fake texts, look-alike emails, robocalls and fine print that lands on everyone, every day. ChatRetiree cuts through it, so you spend less time wondering and worrying.</p>
     <div class="h-why-grid">
@@ -324,7 +324,7 @@ HOME = f'''
       <div><h3>Wondering takes time</h3><p>One “Is this real?” moment can eat up an afternoon. You have better things to do with your day.</p></div>
     </div>
     <div class="h-believe">
-      <p class="h-eyebrow">What we believe</p>
+      <p class="h-eyebrow">What We Believe</p>
       <p>Everyone deserves easy access to clear, trustworthy information, and a quick way to check before they act. So ChatRetiree answers only from official sources, in plain words, and shows you where each answer comes from.</p>
     </div>
   </div>
@@ -333,7 +333,7 @@ HOME = f'''
 <section class="h-features" id="help" aria-labelledby="help-h">
   <div class="wrap">
     <div class="h-sec-head">
-      <p class="h-eyebrow">What ChatRetiree does</p>
+      <p class="h-eyebrow">What ChatRetiree Does</p>
       <h2 id="help-h">Four ways we make life simpler</h2>
     </div>
 
@@ -402,7 +402,7 @@ HOME = f'''
 <section class="h-trust" aria-labelledby="trust-h">
   <div class="wrap">
     <div class="h-sec-head">
-      <p class="h-eyebrow">Private by design</p>
+      <p class="h-eyebrow">Private by Design</p>
       <h2 id="trust-h">Your information stays yours</h2>
     </div>
     <div class="h-trust-grid">
@@ -433,14 +433,14 @@ HOME = f'''
 <section class="h-end" aria-label="Coming soon and partners">
   <div class="wrap h-end-grid">
     <div class="h-end-card h-end-soon">
-      <p class="h-eyebrow">Coming soon</p>
+      <p class="h-eyebrow">Coming Soon</p>
       <h2>On iPhone and Android</h2>
       <p>We’re trying ChatRetiree with a small group of people first. Have a question in the meantime? We’d love to hear from you.</p>
       <a class="btn h-btn-light" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
       <p class="h-mail">support@chatretiree.com</p>
     </div>
     <div class="h-end-card" id="partner">
-      <p class="h-eyebrow">Partner with us</p>
+      <p class="h-eyebrow">Partner with Us</p>
       <h2>For organizations</h2>
       <p>School districts, retiree associations, insurers, credit unions, and community and public groups: let’s talk about helping the people you serve stay a step ahead of scams.</p>
       <a class="btn btn-primary" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">{I["handshake"]}Email us about partnering</a>
@@ -473,7 +473,7 @@ ABOUT = f'''
 
 <section class="a-sec a-tint" aria-labelledby="promise-h">
   <div class="wrap">
-    <p class="h-eyebrow">Our promises</p>
+    <p class="h-eyebrow">Our Promises</p>
     <h2 id="promise-h">What you can count on</h2>
     <ul class="a-promises">
       <li>{I["tick"]}<div><h3>Official sources only</h3><p>Medicare answers come from the official Medicare guides. Scam news comes from the FTC, the FBI and the U.S. Department of Health and Human Services.</p></div></li>
@@ -506,14 +506,14 @@ ABOUT = f'''
 <section class="h-end" aria-label="Get in touch">
   <div class="wrap h-end-grid">
     <div class="h-end-card h-end-soon">
-      <p class="h-eyebrow">Get in touch</p>
+      <p class="h-eyebrow">Get in Touch</p>
       <h2>We’d love to hear from you</h2>
       <p>Questions, ideas, or a story about a scam you spotted? Write to us any time.</p>
       <a class="btn h-btn-light" href="mailto:support@chatretiree.com">{I["mail"]}Email us</a>
       <p class="h-mail">support@chatretiree.com</p>
     </div>
     <div class="h-end-card">
-      <p class="h-eyebrow">Partner with us</p>
+      <p class="h-eyebrow">Partner with Us</p>
       <h2>For organizations</h2>
       <p>School districts, retiree associations, insurers, credit unions, and community and public groups: let’s talk about helping the people you serve.</p>
       <a class="btn btn-primary" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">{I["handshake"]}Email us about partnering</a>
@@ -525,7 +525,7 @@ ABOUT = f'''
 GETAPP = f'''
 <section class="a-hero" aria-labelledby="app-h">
   <div class="wrap">
-    <p class="h-eyebrow">Get the app</p>
+    <p class="h-eyebrow">Get the App</p>
     <h1 id="app-h">ChatRetiree is coming to iPhone and Android.</h1>
     <p class="a-lead">We’re trying it with a small group of people first, so we can make it as simple and helpful as possible. It’s not in the app stores yet.</p>
   </div>
@@ -539,7 +539,7 @@ GETAPP = f'''
       <div class="store"><span class="store-ic">{I["phone"]}</span><div><p class="store-name">Google Play</p><p>For Android phones</p></div><span class="store-soon">Coming soon</span></div>
     </div>
     <div class="h-end-card h-end-soon notify">
-      <p class="h-eyebrow">Be the first to know</p>
+      <p class="h-eyebrow">Be the First to Know</p>
       <h2>Want us to tell you when it’s ready?</h2>
       <p>Send us a quick email and we’ll write back when ChatRetiree is in the app stores. We’ll only use your address for that.</p>
       <a class="btn h-btn-light" href="mailto:support@chatretiree.com?subject=Tell%20me%20when%20the%20ChatRetiree%20app%20is%20ready">{I["mail"]}Email us</a>
@@ -553,7 +553,7 @@ GETAPP = f'''
 CONTACT = f'''
 <section class="a-hero" aria-labelledby="contact-h">
   <div class="wrap">
-    <p class="h-eyebrow">Contact us</p>
+    <p class="h-eyebrow">Contact Us</p>
     <h1 id="contact-h">We’d love to hear from you.</h1>
     <p class="a-lead">Questions, ideas, or something not working? Write to us any time. A real person reads every email.</p>
   </div>
@@ -631,7 +631,7 @@ def privacy_body():
 </section>
 <section class="a-sec pv-glance" aria-labelledby="glance-h">
   <div class="wrap">
-    <p class="h-eyebrow" id="glance-h">At a glance</p>
+    <p class="h-eyebrow" id="glance-h">At a Glance</p>
     <div class="pv-grid">{cards}</div>
   </div>
 </section>
