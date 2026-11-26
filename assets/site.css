@@ -550,7 +550,7 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
 .pv-sec p{color:var(--ink)}
 /* About hero: full photo with text over a teal fade */
 .a-hero-photo{position:relative;overflow:hidden;padding:0;background:var(--deep)}
-.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-wide.webp?v=16) 78% 20%/cover no-repeat}
+.a-photo-bg{position:absolute;inset:0;background:url(photos/woman-phone-wide.webp?v=19) 78% 20%/cover no-repeat}
 .a-photo-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,68,64,.05) 0%,rgba(10,68,64,.35) 30%,var(--deep) 52%)}
 .a-hero-photo .a-hero-copy{position:relative;z-index:1;padding-top:300px;padding-bottom:64px}
 .a-hero-photo h1{max-width:13em}
@@ -635,3 +635,9 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
   .a-photo-bg::after{background:linear-gradient(180deg,rgba(10,68,64,0) 40%,rgba(10,68,64,.35) 62%,rgba(10,68,64,.75) 82%,var(--deep) 100%)}
   .a-hero-photo .a-hero-copy{padding-top:calc(clamp(300px,78vw,520px) + 8px)}
 }
+/* About hero v19: keep her face clear; soft fade only at the photo's inner edge */
+@media (min-width:700px){
+  .a-hero-photo .a-photo-bg{background-position:58% 72%}
+  .a-hero-photo .a-photo-bg::after{background:linear-gradient(270deg,var(--deep) 0%,rgba(10,68,64,.8) 6%,rgba(10,68,64,.5) 13%,rgba(10,68,64,.24) 20%,rgba(10,68,64,.08) 26%,rgba(10,68,64,0) 32%)}
+}
+@media (min-width:700px){.a-hero-photo .a-credit{top:auto;bottom:16px}}
