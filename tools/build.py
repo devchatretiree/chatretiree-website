@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "6"
+VERSION = "9"
 
 def ico(body, fill=False):
     if fill:
@@ -72,6 +72,7 @@ def page(path, title, description, body, current=""):
     {nav("about/", "About", "about", "hide-sm")}
     {nav("privacy/", "Privacy", "privacy", "hide-sm")}
     {nav("contact/", "Contact", "contact", "hide-sm")}
+    <a class="get-app" href="{up}app/"{' aria-current="page"' if current=="app" else ""}>Get the app</a>
     <button class="theme" type="button" hidden aria-label="Switch to dark" aria-pressed="false">{I["moon"]}{I["sun"]}</button>
   </nav>
 </div></header>
@@ -262,7 +263,7 @@ HOME = f'''
 <section class="h-hero" aria-labelledby="hero-h">
   <div class="h-hero-in">
     <div class="h-hero-copy">
-      <p class="h-pill">{I["phone"]}Coming soon to iPhone and Android</p>
+      <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
       <h1 id="hero-h">Let’s look at it together.</h1>
       <p class="h-lead">One simple place to check a message before you act, get a straight answer about Medicare, and hear about the latest scams. In plain words, from sources you can trust.</p>
       <div class="h-actions">
@@ -270,9 +271,26 @@ HOME = f'''
         <a class="btn h-btn-ghost" href="#partner">Partner with us</a>
       </div>
     </div>
-    <div class="h-phones" aria-hidden="false">
-      <figure class="h-ph h-ph-back"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure>
-      <figure class="h-ph h-ph-front"><div class="h-ph-screen"><img src="assets/app/package.webp?v={VERSION}" width="390" alt="The app’s answer: This has the signs of a scam. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust."></div></figure>
+    <div class="h-phones">
+      <figure class="h-ph h-ph-back" role="img" aria-label="The ChatRetiree app answering: Does Medicare pay for hearing aids? Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">
+        <div class="h-ph-screen live" aria-hidden="true">
+          <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+          <p class="lv-q" data-type="Does Medicare pay for hearing aids?">Does Medicare pay for hearing aids?</p>
+          <span class="lv-dots"><i></i><i></i><i></i></span>
+          <div class="lv-a"><p data-type="Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p></div>
+        </div>
+      </figure>
+      <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text about a package on hold with a $1.99 fee. Its answer: This has the signs of a scam. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
+        <div class="h-ph-screen live" aria-hidden="true">
+          <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+          <p class="lv-label">Message or web address</p>
+          <p class="lv-msg" data-type="PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: https://parcel-redelivery.example/pay">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: https://parcel-redelivery.example/pay</p>
+          <span class="lv-btn">Look at it together</span>
+          <span class="lv-dots"><i></i><i></i><i></i></span>
+          <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
+          <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
+        </div>
+      </figure>
     </div>
   </div>
 </section>
@@ -456,7 +474,7 @@ ABOUT = f'''
       <li>{I["tick"]}<div><h3>Honest about what we don’t know</h3><p>We never call anything “safe.” When we can’t tell, or the official sources don’t cover something, we say so.</p></div></li>
       <li>{I["tick"]}<div><h3>You stay in charge</h3><p>We suggest next steps. You decide. Nothing is sent to anyone unless you press send.</p></div></li>
       <li>{I["tick"]}<div><h3>Your information stays yours</h3><p>We don’t keep what you check, we hide private details before anything leaves your phone, and we never sell your data or show ads.</p></div></li>
-      <li>{I["tick"]}<div><h3>Never pay a scammer</h3><p>We will never suggest paying, or paying less, to make a scammer go away.</p></div></li>
+      <li>{I["tick"]}<div><h3>Your peace of mind comes first</h3><p>Everything we suggest is meant to protect you and your money. That’s why we’ll never suggest paying a scammer anything, not even a smaller amount to make them go away.</p></div></li>
     </ul>
   </div>
 </section>
@@ -493,6 +511,34 @@ ABOUT = f'''
       <p>School districts, retiree associations, insurers, credit unions, and community and public groups: let’s talk about helping the people you serve.</p>
       <a class="btn btn-primary" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">{I["handshake"]}Email us about partnering</a>
     </div>
+  </div>
+</section>
+'''
+
+GETAPP = f'''
+<section class="a-hero" aria-labelledby="app-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Get the app</p>
+    <h1 id="app-h">ChatRetiree is coming to iPhone and Android.</h1>
+    <p class="a-lead">We’re trying it with a small group of people first, so we can make it as simple and helpful as possible. It’s not in the app stores yet.</p>
+  </div>
+</section>
+
+<section class="a-sec" aria-labelledby="stores-h">
+  <div class="wrap">
+    <h2 id="stores-h" class="sr-only">App stores</h2>
+    <div class="store-grid">
+      <div class="store"><span class="store-ic">{I["phone"]}</span><div><p class="store-name">App Store</p><p>For iPhone</p></div><span class="store-soon">Coming soon</span></div>
+      <div class="store"><span class="store-ic">{I["phone"]}</span><div><p class="store-name">Google Play</p><p>For Android phones</p></div><span class="store-soon">Coming soon</span></div>
+    </div>
+    <div class="h-end-card h-end-soon notify">
+      <p class="h-eyebrow">Be the first to know</p>
+      <h2>Want us to tell you when it’s ready?</h2>
+      <p>Send us a quick email and we’ll write back when ChatRetiree is in the app stores. We’ll only use your address for that.</p>
+      <a class="btn h-btn-light" href="mailto:support@chatretiree.com?subject=Tell%20me%20when%20the%20ChatRetiree%20app%20is%20ready">{I["mail"]}Email us</a>
+      <p class="h-mail">support@chatretiree.com</p>
+    </div>
+    <p class="app-more">Until then, you can <a href="../#help">see what the app does</a> with real screens from the app.</p>
   </div>
 </section>
 '''
@@ -552,6 +598,7 @@ page("", "ChatRetiree: let’s look at it together",
      "ChatRetiree is like a friend you can ask when a text, email or call doesn’t feel right. Coming soon to iPhone and Android.", HOME)
 page("privacy", "Privacy policy", "How the ChatRetiree app handles your information.", privacy_body(), "privacy")
 page("about", "About us", "Why we built ChatRetiree, what we believe, and where our answers come from.", ABOUT, "about")
+page("app", "Get the app", "ChatRetiree is coming soon to iPhone and Android.", GETAPP, "app")
 page("contact", "Contact us", "Questions or ideas? Email support@chatretiree.com.", CONTACT, "contact")
 page("404", "Page not found", "We couldn’t find that page.", NOT_FOUND)
 print("built")
