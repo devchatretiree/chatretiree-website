@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "27"
+VERSION = "30"
 
 def ico(body, fill=False):
     if fill:
@@ -283,6 +283,7 @@ HOME = f'''
           <p class="lv-q" data-type="Does Medicare pay for hearing aids?">Does Medicare pay for hearing aids?</p>
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a"><p data-type="Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p></div>
+          <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
       <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text about a package on hold with a $1.99 fee. Its answer: This has the signs of a scam. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
@@ -294,6 +295,7 @@ HOME = f'''
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
           <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
+          <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
     </div>
