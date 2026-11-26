@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "37"
+VERSION = "38"
 
 def ico(body, fill=False):
     if fill:
@@ -230,7 +230,7 @@ SCAM_EX = [
   phone_ex("giftcards", "Why gift cards?", "Someone asks about a scam.", "scam-giftcards",
     "Question: Why do scammers ask for gift cards? The app first says: Please don’t send them anything. Then the short answer: Scammers prefer gift cards because it is almost impossible to get your money back once they have collected it. Scammers want you to panic and send money quickly, before you have time to think or talk to someone you trust.", after=SCAM_NOTE),
   phone_ex("bail", "A grandchild needs bail", "Someone asks about a scam.", "scam-bail",
-    "Question: Someone says my grandson is in jail and needs bail money. What do I do? The short answer: If you get a call from someone claiming to be a family member in trouble, slow down and hang up the phone. Then call another family member or friend to check whether the story is true.", after=SCAM_NOTE),
+    "Question: Someone says my grandson is in jail and needs bail money. What do I do? The app first says: Please don’t send them anything. Then: If you get a call from someone claiming to be a family member in trouble, slow down and hang up the phone. Then call another family member or friend to check whether the story is true.", after=SCAM_NOTE),
   phone_ex("haggle", "Paying them a little less", "Someone asks about a scam.", "scam-haggle",
     "Question: Should I offer the scammer a smaller amount so they leave me alone? The app says: Please don’t send them anything. Please don’t send them any money or gift cards, and don’t offer a smaller amount. If you already sent money or gift cards, call your bank or the gift card company right away.", after=SCAM_NOTE),
 ]
@@ -279,14 +279,15 @@ HOME = f'''
     </div>
     <div class="h-phones">
       <figure class="h-ph h-ph-back" role="img" aria-label="The ChatRetiree app answering: Does Medicare pay for hearing aids? Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">
-        <div class="h-ph-screen live" aria-hidden="true">
+        <div class="h-ph-screen live has-compose" aria-hidden="true">
           <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
           <p class="lv-q" data-type="Does Medicare pay for hearing aids?">Does Medicare pay for hearing aids?</p>
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a"><p data-type="Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p></div>
           <span class="lv-more lv-after"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>More detail and sources</span>
-          <p class="lv-label lv-after">Ask a follow-up</p>
-          <p class="lv-ask lv-after">For example: What about dental care?</p>
+          <span class="lv-c lv-mic lv-spk lv-after"><svg viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg></span>
+          <span class="lv-more lv-after"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>Talk to a person, and more</span>
+          <div class="lv-compose"><span class="lv-box">Ask a follow-up…</span><span class="lv-c lv-mic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span><span class="lv-c lv-send"><svg viewBox="0 0 24 24"><path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/><path d="M6 12h16"/></svg></span></div>
           <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
         </div>
       </figure>
@@ -380,13 +381,13 @@ HOME = f'''
         <h3>Straight answers about your benefits</h3>
         <p>Ask about Medicare or Social Security in your own words, like you would ask a friend who knows them inside out. Answers come only from the official Medicare guides and Social Security publications, and you can see the exact words they’re based on.</p>
         <ul class="h-ticks">
-          <li>{I["tick"]}Plain-language answers, with follow-up questions</li>
+          <li>{I["tick"]}Plain-language answers in a simple back-and-forth, like texting a friend. Type it or just say it</li>
           <li>{I["tick"]}Every point checked against the official guide</li>
           <li>{I["tick"]}For your own plan or benefits, we point you to the free official help: 1‑800‑MEDICARE, your local SHIP counselor, or Social Security</li>
         </ul>
         <a class="h-link" href="examples/medicare/">See sample Medicare questions{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure></div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services. A box at the bottom lets you ask a follow-up by typing or speaking."></div></figure></div>
     </article>
 
     <article class="h-row">
@@ -401,7 +402,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/scams/">See sample questions{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img class="h-shift" src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" alt="Question: Why do scammers ask for gift cards? The app says: Please don’t send them anything. The short answer: Scammers prefer gift cards because it is almost impossible to get your money back."></div></figure></div>
+      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" alt="Question: Why do scammers ask for gift cards? The app replies like a text conversation: Please don’t send them any money or gift cards, and don’t offer a smaller amount. If you already sent money or gift cards, call your bank or the gift card company right away. A box at the bottom lets you ask another question."></div></figure></div>
     </article>
 
     <article class="h-row h-row-flip">
