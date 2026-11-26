@@ -21,10 +21,8 @@ document.addEventListener("DOMContentLoaded",function(){
     var cover=document.createElement("span");cover.className="h-cover";cover.setAttribute("aria-hidden","true");
     cover.innerHTML='<span class="h-dots"><i></i><i></i><i></i></span>';
     function place(){var w=screen.clientWidth;cover.style.top=(img.classList.contains("h-shift")?30:Math.round(30+w*0.165))+"px"}
-    place();window.addEventListener("resize",place);
-    screen.appendChild(cover);
-    if(ph.classList.contains("h-ph-front"))cover.style.setProperty("--d","1.6s");
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ph.classList.add("play");io.disconnect()}})},{threshold:.3});
+    window.addEventListener("resize",place);
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();screen.appendChild(cover);place();cover.offsetWidth;ph.classList.add("play")}})},{threshold:.3});
     io.observe(ph);
   });
 });
@@ -34,9 +32,7 @@ function live(ph,screen){
   var front=ph.classList.contains("h-ph-front");
   var els=[].slice.call(screen.querySelectorAll("[data-type]"));
   var parts=[].slice.call(screen.querySelectorAll(".lv-a,.lv-dots"));
-  els.forEach(function(e){e.textContent=""});
-  parts.forEach(function(e){e.classList.add("lv-hide")});
-  screen.classList.add("lv-run");
+
   function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
   function type(el,byWord,speed){
     var full=el.getAttribute("data-type"),bits=byWord?full.split(/(\s+)/):full.split(""),i=0;
@@ -48,6 +44,9 @@ function live(ph,screen){
   function show(sel){var e=screen.querySelector(sel);if(e)e.classList.remove("lv-hide");return e}
   function hide(sel){var e=screen.querySelector(sel);if(e)e.classList.add("lv-hide")}
   function run(){
+    els.forEach(function(e){e.textContent=""});
+    parts.forEach(function(e){e.classList.add("lv-hide")});
+    screen.classList.add("lv-run");
     var p=wait(front?2600:500);
     if(!front){
       p=p.then(function(){return type(screen.querySelector(".lv-q"),false,55)})

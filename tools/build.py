@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "9"
+VERSION = "12"
 
 def ico(body, fill=False):
     if fill:
@@ -34,6 +34,11 @@ I = {
   "warn": ico('<path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>'),
   "question": ico('<circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/>'),
   "handshake": ico('<path d="m11 17 2 2a1.4 1.4 0 0 0 2-2"/><path d="m14 14 2.5 2.5a1.4 1.4 0 0 0 2-2l-3.9-3.9a2 2 0 0 0-2.8 0l-.9.9a1.4 1.4 0 0 1-2-2l2.8-2.8a3.5 3.5 0 0 1 4.3-.5l.6.4a2 2 0 0 0 1.4.3L21 6.5"/><path d="m21 5.5 1 9-2 1"/><path d="M3 5.5l-1 9 6.5 6.5a1.4 1.4 0 0 0 2-2"/><path d="M3 6.5h7"/>'),
+  "lock": ico('<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>'),
+  "eyeoff": ico('<path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0 1 12 5c5 0 8.5 4.5 9.5 7-.4 1-1.2 2.3-2.4 3.5M6.3 6.3C4.4 7.6 3 9.6 2.5 12c1 2.5 4.5 7 9.5 7 1.7 0 3.2-.5 4.5-1.2"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>'),
+  "noad": ico('<circle cx="12" cy="12" r="9.5"/><path d="M5.3 5.3l13.4 13.4"/>'),
+  "link": ico('<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>'),
+  "trash": ico('<path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>'),
   "moon": '<svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
   "sun": '<svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
 }
@@ -544,27 +549,41 @@ GETAPP = f'''
 '''
 
 CONTACT = f'''
-<div class="page">
-  <h1>Contact us</h1>
-  <p class="lead">Questions, ideas, or something not working? We’d love to hear from you.</p>
-  <div class="contact-card">
-    <p>Email us at</p>
-    <p class="email"><a href="mailto:support@chatretiree.com">support@chatretiree.com</a></p>
-    <a class="btn btn-primary" href="mailto:support@chatretiree.com">{I["mail"]}Write an email</a>
+<section class="a-hero" aria-labelledby="contact-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Contact us</p>
+    <h1 id="contact-h">We’d love to hear from you.</h1>
+    <p class="a-lead">Questions, ideas, or something not working? Write to us any time. A real person reads every email.</p>
   </div>
-  <div class="note">
-    <h2>Partnering with us</h2>
-    <p>If your organization looks after retirees or older adults and you’d like to work with us, <a href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">email us about partnering</a>.</p>
+</section>
+
+<section class="a-sec c-sec" aria-label="Ways to reach us">
+  <div class="wrap c-grid">
+    <div class="c-card c-main">
+      <span class="store-ic">{I["mail"]}</span>
+      <h2>Email us</h2>
+      <p class="c-addr">support@chatretiree.com</p>
+      <a class="btn btn-primary" href="mailto:support@chatretiree.com">{I["mail"]}Write an email</a>
+    </div>
+    <div class="c-card">
+      <span class="store-ic">{I["handshake"]}</span>
+      <h2>Partnering with us</h2>
+      <p>If your organization looks after retirees or older adults and you’d like to work with us, we’d be glad to talk.</p>
+      <a class="h-link" href="mailto:support@chatretiree.com?subject=Partnering%20with%20ChatRetiree">Email us about partnering{I["arrow"]}</a>
+    </div>
+    <div class="c-card">
+      <span class="store-ic">{I["info"]}</span>
+      <h2>Please don’t send private details</h2>
+      <p>There’s no need to include passwords, account numbers, or your Social Security or Medicare number. We’ll never ask you for them.</p>
+    </div>
+    <div class="c-card c-urgent">
+      <span class="store-ic">{I["warn"]}</span>
+      <h2>Need help right now?</h2>
+      <p><strong>If someone may be in danger, call 911.</strong></p>
+      <p>If you already sent money or gift cards, call your bank or the gift card company right away. You can also report it at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</p>
+    </div>
   </div>
-  <div class="note">
-    <h2>Please don’t send us private details</h2>
-    <p>There’s no need to include passwords, account numbers, or your Social Security or Medicare number. We’ll never ask you for them.</p>
-  </div>
-  <div class="note">
-    <h2>Need help right now?</h2>
-    <p><strong>If someone may be in danger, call 911.</strong> If you already sent money or gift cards, call your bank or the gift card company right away.</p>
-  </div>
-</div>
+</section>
 '''
 
 NOT_FOUND = '''
@@ -579,12 +598,51 @@ NOT_FOUND = '''
 def privacy_body():
     src = (ROOT / "tools" / "privacy-source.html").read_text(encoding="utf-8")
     inner = re.search(r"<main>(.*)</main>", src, re.S).group(1).strip()
-    note = '''
-<div class="note">
-  <h2>About this website</h2>
-  <p>This policy is for the ChatRetiree app. This website, chatretiree.com, has no ads, cookies or tracking. It is hosted by GitHub Pages, which keeps short technical logs, such as your internet (IP) address, to keep the site running and secure.</p>
-</div>'''
-    return f'<div class="page">\n{inner}\n{note}\n</div>'
+    m = re.match(r"<h1>(.*?)</h1>\s*<p class=\"date\">(.*?)</p>", inner, re.S)
+    date = m.group(2)
+    inner = inner[m.end():].strip()
+    parts = re.split(r"<h2>(.*?)</h2>", inner)[1:]
+    secs, toc = [], []
+    for i in range(0, len(parts), 2):
+        title, body = parts[i], parts[i+1].strip()
+        sid = re.sub(r"[^a-z]+", "-", title.lower()).strip("-")
+        toc.append(f'<li><a href="#{sid}">{title}</a></li>')
+        secs.append(f'<section class="pv-sec" id="{sid}" aria-labelledby="{sid}-h"><h3 id="{sid}-h">{title}</h3>{body}</section>')
+    secs.append('<section class="pv-sec" id="this-website" aria-labelledby="this-website-h"><h3 id="this-website-h">About this website</h3><p>This policy is for the ChatRetiree app. This website, chatretiree.com, has no ads, cookies or tracking. It is hosted by GitHub Pages, which keeps short technical logs, such as your internet (IP) address, to keep the site running and secure.</p></section>')
+    toc.append('<li><a href="#this-website">About this website</a></li>')
+    glance = [
+      ("tick", "We don’t keep what you check", "Your messages, pictures, links and questions are looked at, answered, and let go."),
+      ("eyeoff", "Private details hidden first", "Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes."),
+      ("noad", "Never sold. Never used for ads.", "We never sell your information or use it for advertising."),
+      ("link", "We never open your links", "Links are looked up with Google’s list of harmful sites. We never open them."),
+      ("trusted", "Your trusted people stay with you", "Their names and email addresses stay on your phone and are never sent to us."),
+      ("trash", "Leave any time", "You can delete your account in Settings whenever you like."),
+    ]
+    cards = "".join(f'<div class="pv-card"><span class="pv-ic">{I[ic]}</span><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in glance)
+    return f'''
+<section class="a-hero" aria-labelledby="privacy-h">
+  <div class="wrap">
+    <p class="h-eyebrow">Privacy</p>
+    <h1 id="privacy-h">Your information stays yours.</h1>
+    <p class="a-lead">We built ChatRetiree to protect you, and that includes your privacy. Here’s what that means, in plain words.</p>
+  </div>
+</section>
+<section class="a-sec pv-glance" aria-labelledby="glance-h">
+  <div class="wrap">
+    <p class="h-eyebrow" id="glance-h">At a glance</p>
+    <div class="pv-grid">{cards}</div>
+  </div>
+</section>
+<section class="a-sec a-tint" aria-labelledby="full-h">
+  <div class="wrap pv-full">
+    <aside class="pv-toc">
+      <h2 id="full-h">The full policy</h2>
+      <p class="pv-date">{date}</p>
+      <nav aria-label="Privacy policy sections"><ol>{"".join(toc)}</ol></nav>
+    </aside>
+    <div class="pv-body">{"".join(secs)}</div>
+  </div>
+</section>'''
 
 page("examples/check", "Example: check a message", "Tap through samples of ChatRetiree checking a message.",
      ex_page("check", "Check a message that feels off", "Paste a text or email, add a picture of your screen, or just tell us what happened. Here’s what ChatRetiree says back.", "Pick an example to try", CHECK_EX, "check"))
