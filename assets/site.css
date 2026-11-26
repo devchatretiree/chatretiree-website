@@ -261,3 +261,24 @@ a.card h3{color:var(--ink)}
 .mini-next{background:var(--surface);border-radius:20px;padding:14px;margin-top:10px;box-shadow:var(--shadow)}
 .mini-next b{font-family:"Jakarta",sans-serif;font-size:17px}
 .phone-cap{text-align:center;color:var(--ink2);font-size:17px;margin-top:12px}
+
+/* Real app screens in a phone */
+.ex-row{display:grid;gap:28px;align-items:start;margin-top:8px}
+@media (min-width:860px){.ex-row{grid-template-columns:minmax(0,380px) 1fr;gap:48px}}
+.ex-phone{width:100%;max-width:380px;margin:0 auto}
+.device{margin:0}
+.device-screen{border:10px solid #1F2A2E;border-radius:40px;overflow-y:auto;overflow-x:hidden;height:min(640px,72vh);background:#FAF7F2;box-shadow:0 18px 48px rgba(31,42,46,.18);scrollbar-width:thin}
+.device-screen img{display:block;width:100%;height:auto}
+.device-screen:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.ex-phone .go{margin-top:20px;width:100%}
+.scroll-hint{text-align:center;color:var(--ink2);font-size:17px;margin-top:10px}
+.js .step-in.done{display:none}
+.ex-side p{color:var(--ink2)}
+.ex-side{background:var(--surface);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.ex-page{max-width:980px}
+.phone-hero .device-screen{height:min(600px,70vh)}
+@media (min-width:900px){.cards.three{grid-template-columns:repeat(3,1fr)}}
+.card.plain{box-shadow:none;border:2px solid var(--line)}
+.believe{margin-top:28px;background:var(--accent);color:var(--accent-ink);border-radius:24px;padding:28px}
+.believe h3{color:var(--accent-ink)}
+.believe p{margin-top:10px;font-size:21px;color:var(--accent-ink)}

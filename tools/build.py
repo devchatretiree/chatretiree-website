@@ -4,6 +4,8 @@ Run: python3 tools/build.py  (from the repository folder)"""
 import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+# Bump when site.css or a script changes, so browsers fetch the new copy.
+VERSION = "5"
 
 def ico(body, fill=False):
     if fill:
@@ -43,7 +45,7 @@ def page(path, title, description, body, current=""):
         cur = ' aria-current="page"' if key == current else ""
         c = f' class="{cls}"' if cls else ""
         return f'<a href="{up}{href}"{cur}{c}>{label}</a>'
-    extra_head = f'<script src="{up}assets/examples.js"></script>' if path.startswith("examples/") else ""
+    extra_head = f'<script src="{up}assets/examples.js?v={VERSION}"></script>' if path.startswith("examples/") else ""
     full_title = title if title.startswith("ChatRetiree") else f"{title} · ChatRetiree"
     html = f'''<!doctype html>
 <html lang="en">
@@ -55,11 +57,11 @@ def page(path, title, description, body, current=""):
 <meta name="theme-color" content="#FAF7F2">
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
-<meta property="og:image" content="https://chatretiree.com/assets/icon.png">
-<link rel="icon" href="{up}assets/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="{up}assets/icon.png">
-<link rel="stylesheet" href="{up}assets/site.css">
-<script src="{up}assets/site.js"></script>
+<meta property="og:image" content="https://chatretiree.com/assets/icon.png?v={VERSION}">
+<link rel="icon" href="{up}assets/favicon.png?v={VERSION}" type="image/png">
+<link rel="apple-touch-icon" href="{up}assets/icon.png?v={VERSION}">
+<link rel="stylesheet" href="{up}assets/site.css?v={VERSION}">
+<script src="{up}assets/site.js?v={VERSION}"></script>
 {extra_head}
 </head>
 <body>
@@ -135,7 +137,7 @@ def example(eid, chip, label, shown, button, answer, thinking="Looking at it wit
   </div>
 </article>"""
 
-NOTE = f'<p class="ex-note">{I["info"]}<span>These are samples you can tap through, with the answers ChatRetiree gives. To check your own messages, you’ll use the app.</span></p>'
+NOTE = f'<p class="ex-note">{I["info"]}<span>These are real screens from the ChatRetiree app, using sample messages and questions.</span></p>'
 
 def ex_page(slug, title, lead, chips_title, examples, current):
     others = [x for x in EX_LINKS if x[0] != current]
@@ -169,92 +171,59 @@ EX_LINKS = [
 WHATS_NEXT = "What we’d do next"
 WHY = "Why we think so"
 
+def device(img, alt, cls=""):
+    return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
+            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" loading="lazy" width="390"></div></figure>')
+
+def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt="", button="Look at it together", after="", thinking="Looking at it with you…"):
+    first = (device(input_img, input_alt, "step-in") + f'<button class="btn btn-primary go" type="button">{button}{I["arrow"]}</button>'
+             f'<p class="thinking" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span>{thinking}</p>') if input_img else ""
+    ans_cls = "answer" if input_img else "answer shown"
+    return f"""
+<article class="ex" id="{eid}" data-chip="{chip}">
+  <h2 class="ex-h">{chip}</h2>
+  <p class="who-label">{label}</p>
+  <div class="ex-row">
+    <div class="ex-phone">{first}<div class="{ans_cls}" tabindex="-1">{device(result_img, result_alt)}<p class="scroll-hint">Scroll inside the phone to see more.</p></div></div>
+    {f'<div class="ex-side">{after}</div>' if after else ''}
+  </div>
+</article>"""
+
+CHECK_NOTE = '<p>The app looks for the warning signs scammers rely on, checks links against Google’s list of known harmful websites without opening them, and tells you what to do next.</p><p style="margin-top:12px">It never calls something “safe.” When it can’t tell, it says so and helps you check another way.</p>'
+
 CHECK_EX = [
-  example("package", "A text about a package", "You paste a text you got",
-    '<p class="in-bubble">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: parcel-redelivery.example/pay?id=88213</p>',
-    "Check it",
-    verdict("strong", "This message has several signs that are common in scams.")
-    + panel(WHATS_NEXT, ul(["Don’t reply, click links or pay. Contact the company using a phone number or website you already trust."], "ol"))
-    + panel(WHY, ul(["It asks for a small fee. Fake delivery notices do this to collect card details.",
-                     "It warns that something bad will happen to your account, benefits or device.",
-                     "It pushes you to act right away, before you have time to check."]))),
-  example("bank", "A picture of a bank text", "You add a picture of your screen",
-    '<div class="shot" role="img" aria-label="A picture of a phone screen showing a text from First Harbor Bank">'
-    '<div class="shot-screen"><p class="shot-from"><b>First Harbor Bank</b>Text Message · Today 9:14 AM</p>'
-    '<p class="shot-msg">FIRST HARBOR BANK ALERT: Your account has been compromised. To protect your savings you must move your funds TODAY to a new safe account. A specialist will call you shortly. Do not tell branch staff, they may be involved. Reply YES to begin.</p></div></div>'
-    '<p class="read-note">ChatRetiree reads the words in your picture right on your phone. You see them first, then we look.</p>',
-    "Check it",
-    verdict("strong", "This message has several signs that are common in scams.")
-    + panel(WHATS_NEXT, ul(["Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement."], "ol"))
-    + panel(WHY, ul(["It asks you to move money to a so-called “safe account.” Real banks never ask you to do this.",
-                     "It tells you to keep it secret. Scammers do this so no one can warn you.",
-                     "It warns that something bad will happen to your account, benefits or device."]))),
-  example("call", "A worrying phone call", "You tell us what happened",
-    '<p class="in-bubble">A young man called crying and said he was my grandson. He said he was in jail after a car accident and needed $3,000 for bail. A lawyer then got on and said to pay with gift cards from the drugstore and not to tell his parents.</p>',
-    "Check it",
-    verdict("strong", "This situation has several signs that are common in scams.")
-    + panel("If you’re worried someone you love is in trouble", ul([
-        "If someone may be in danger right now, call 911.",
-        "Hang up or stop replying. Then call your family member yourself, using a number you already have. If you can’t reach them, call another relative or a friend who would know.",
-        "Don’t send any money, gift cards or cryptocurrency, not even part of what they ask for.",
-        "To report it, contact your local police."], "ol"), "urgent")
-    + '<p class="call911">If someone may be in danger, call 911.</p>'
-    + panel(WHATS_NEXT, ul(["Don’t send money. Hang up and call your family member, or another relative, on a number you already have."], "ol"))
-    + panel(WHY, ul(["It asks for payment with gift cards. Only scammers ask to be paid this way.",
-                     "It tells you to keep it secret. Scammers do this so no one can warn you.",
-                     "It describes a family emergency that needs money fast. This is a common way to cause panic."]))),
-  example("doctor", "A message from a doctor’s office", "You paste a text you got",
-    '<p class="in-bubble">Hi, this is Dr. Patel’s office calling about your recent test results. Please call us back when you get a chance.</p>',
-    "Check it",
-    verdict("verify", "Nothing proves this message is a scam, but some things need checking before you respond.")
-    + panel(WHATS_NEXT, ul(["Before you respond, contact them yourself using a phone number or website you already have, not one from the message."], "ol"))
-    + panel(WHY, ul(["It asks you to respond, but doesn’t say anything we can check. Scammers sometimes start this way too."]))
-    + '<p class="cite">We never call something “safe.” When we can’t tell, we say so and help you check.</p>'),
+  phone_ex("package", "A text about a package", "Someone pastes a text they got, then taps “Look at it together.”",
+    "package", "The app’s answer: This has the signs of a scam. This message has several signs that are common in scams. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust. Why we think so: It asks for a small fee. Fake delivery notices do this to collect card details. It warns that something bad will happen to your account, benefits or device. It pushes you to act right away, before you have time to check.",
+    "package-input", "The app with a pasted text: PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender, with a link.", after=CHECK_NOTE),
+  phone_ex("bank", "A picture of a bank text", "Someone adds a screenshot. The app reads the words right on the phone.",
+    "bank", "The app’s answer: This has the signs of a scam. What we’d do next: Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement. Why we think so: It asks you to move money to a so-called safe account. Real banks never ask you to do this. It tells you to keep it secret. It warns that something bad will happen to your account.",
+    "bank-input", "The app showing a screenshot of a text from First Harbor Bank asking to move savings to a new safe account.", after=CHECK_NOTE),
+  phone_ex("call", "A worrying phone call", "Someone types what happened on a call.",
+    "call", "The app’s answer: This has the signs of a scam. If you’re worried someone you love is in trouble: if someone may be in danger right now, call 911. Hang up, then call your family member yourself on a number you already have. Don’t send any money, gift cards or cryptocurrency. Why we think so: it asks for payment with gift cards, it tells you to keep it secret, and it describes a family emergency that needs money fast.",
+    "call-input", "The app with a description: a young man called saying he was my grandson, in jail, needing $3,000 bail paid in gift cards.", after=CHECK_NOTE),
+  phone_ex("doctor", "A message from a doctor’s office", "Not everything is a scam. When we can’t tell, we say so.",
+    "doctor", "The app’s answer: Check with them before you do anything. Nothing proves this message is a scam, but some things need checking before you respond. What we’d do next: contact them yourself using a phone number or website you already have, not one from the message.",
+    "doctor-input", "The app with a pasted text: Hi, this is Dr. Patel’s office calling about your recent test results. Please call us back.", after=CHECK_NOTE),
 ]
 
+MED_NOTE = '<p>Answers come only from the official Medicare guides. Tap “More detail and sources” in the app to see the guide’s exact words and page.</p><p style="margin-top:12px">For questions about your own plan, the app points you to 1-800-MEDICARE or your free local SHIP counselor.</p>'
 MEDICARE_EX = [
-  example("dental", "Does Medicare cover dental?", "You ask",
-    '<p class="in-bubble question">Does Original Medicare cover dental care?</p>', "Ask",
-    reply(ul(["In most cases, Original Medicare does not cover routine dental services like cleanings, fillings, tooth extractions, or dentures.",
-              "Original Medicare may pay for dental services if they are closely related to certain covered medical procedures, such as cancer treatments, organ transplants, heart valve repairs, or dialysis for End-Stage Renal Disease."]))
-    + '<p class="cite">From the official Medicare guides. In the app, “More detail and sources” shows the guide’s exact words.</p>',
-    "Looking in the official guides…"),
-  example("hearing", "Hearing aids", "You ask",
-    '<p class="in-bubble question">Does Medicare pay for hearing aids?</p>', "Ask",
-    reply('<p><strong>Short answer:</strong> Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p>'
-          + ul(["Original Medicare does not cover hearing aids or exams for fitting them, and you must pay all costs for these services.",
-                "Medicare Advantage Plans are private plans that may offer extra benefits, such as some hearing services, that Original Medicare does not cover."]))
-    + '<p class="cite">From the official Medicare guides. In the app, “More detail and sources” shows the guide’s exact words.</p>',
-    "Looking in the official guides…"),
-  example("signup", "When to sign up", "You ask",
-    '<p class="in-bubble question">When can I sign up for Medicare?</p>', "Ask",
-    reply(ul(["Your Initial Enrollment Period is a 7-month window that starts 3 months before the month you turn 65, includes your birthday month, and ends 3 months after.",
-              "A Special Enrollment Period may be available if you did not sign up when first eligible because you had group health plan coverage based on current employment."]))
-    + '<p class="cite">From the official Medicare guides. For questions about your own situation, we point you to 1-800-MEDICARE or your free local SHIP counselor.</p>',
-    "Looking in the official guides…"),
+  phone_ex("dental", "Does Medicare cover dental?", "Someone asks in their own words.", "medicare-dental",
+    "Question: Does Original Medicare cover dental care? The app’s answer: In most cases, Original Medicare does not cover routine dental services like cleanings, fillings, tooth extractions, or dentures.", after=MED_NOTE),
+  phone_ex("hearing", "Hearing aids", "Someone asks in their own words.", "medicare-hearing",
+    "Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.", after=MED_NOTE),
+  phone_ex("signup", "When to sign up", "Someone asks in their own words.", "medicare-signup",
+    "Question: When can I sign up for Medicare? The app’s answer: Your Initial Enrollment Period is a 7-month window that starts 3 months before the month you turn 65, includes your birthday month, and ends 3 months after.", after=MED_NOTE),
 ]
 
+SCAM_NOTE = '<p>Answers come only from official warnings by the FTC, the FBI and the U.S. Department of Health and Human Services. The app shows which alert each answer comes from.</p><p style="margin-top:12px">When the official warnings don’t cover something, we say so instead of guessing. And we never suggest paying a scammer anything.</p>'
 SCAM_EX = [
-  example("giftcards", "Why gift cards?", "You ask",
-    '<p class="in-bubble question">Why do scammers ask for gift cards?</p>', "Ask",
-    reply('<p>Scammers prefer gift cards because it is almost impossible to get your money back once they have collected it. Scammers want you to panic and send money quickly, before you have time to think or talk to someone you trust.</p>')
-    + '<p class="cite">From official alerts by the FTC (November 2026). In the app, you can see the alert’s exact words and open the alert.</p>',
-    "Looking through official alerts…"),
-  example("bail", "A grandchild needs bail", "You ask",
-    '<p class="in-bubble question">Someone says my grandson is in jail and needs bail money. What do I do?</p>', "Ask",
-    reply('<p>If you get a call from someone claiming to be a family member in trouble, slow down and hang up the phone. Then call another family member or friend to check whether the story is true.</p>')
-    + '<p class="cite">From an official FTC alert (November 2026).</p>',
-    "Looking through official alerts…"),
-  example("medicarescam", "Medicare scams", "You ask",
-    '<p class="in-bubble question">What are scammers doing with Medicare?</p>', "Ask",
-    reply('<p>Scammers target people on Medicare by enrolling them in hospice care they don’t need, or by billing for services that were never provided.</p>')
-    + '<p class="cite">From an official FBI alert.</p>',
-    "Looking through official alerts…"),
-  example("haggle", "Paying them a little less", "You ask",
-    '<p class="in-bubble question">Should I offer the scammer a smaller amount so they leave me alone?</p>', "Ask",
-    reply('<p>The official alerts don’t cover this yet.</p>')
-    + '<p class="cite">When the official alerts don’t answer a question, we say so instead of guessing. And we’ll never suggest paying a scammer anything.</p>',
-    "Looking through official alerts…"),
+  phone_ex("giftcards", "Why gift cards?", "Someone asks about a scam.", "scam-giftcards",
+    "Question: Why do scammers ask for gift cards? The app first says: Please don’t send them anything. Then the short answer: Scammers prefer gift cards because it is almost impossible to get your money back once they have collected it. Scammers want you to panic and send money quickly, before you have time to think or talk to someone you trust.", after=SCAM_NOTE),
+  phone_ex("bail", "A grandchild needs bail", "Someone asks about a scam.", "scam-bail",
+    "Question: Someone says my grandson is in jail and needs bail money. What do I do? The short answer: If you get a call from someone claiming to be a family member in trouble, slow down and hang up the phone. Then call another family member or friend to check whether the story is true.", after=SCAM_NOTE),
+  phone_ex("haggle", "Paying them a little less", "Someone asks about a scam.", "scam-haggle",
+    "Question: Should I offer the scammer a smaller amount so they leave me alone? The app says: Please don’t send them anything. Please don’t send them any money or gift cards, and don’t offer a smaller amount. If you already sent money or gift cards, call your bank or the gift card company right away.", after=SCAM_NOTE),
 ]
 
 TRUSTED_EMAIL = ("Hi Sarah, can you look at this with me before I do anything?\n\n"
@@ -263,15 +232,12 @@ TRUSTED_EMAIL = ("Hi Sarah, can you look at this with me before I do anything?\n
   "(Links are broken on purpose so nobody taps them by accident.)")
 
 TRUSTED_EX = [
-  example("sarah", "Ask Sarah about a text", "After a check, you tap",
-    '<p class="in-bubble">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee…</p>'
-    + '<div style="margin-top:16px">' + verdict("strong", "This message has several signs that are common in scams.") + '</div>',
-    f'{I["mail"]}Email Sarah',
-    f'<p>Your own email app opens with this note. You can read it and change it. Nothing is sent until you press send.</p>'
-    f'<div class="email"><div class="hdr"><div><strong>To:</strong> Sarah</div><div><strong>Subject:</strong> Can you look at this with me?</div></div>'
-    f'<div class="body">{TRUSTED_EMAIL}</div></div>'
-    '<p class="cite">The people you trust are kept only on your phone. Their names and email addresses are never sent to us.</p>',
-    "Opening your email app…"),
+  phone_ex("sarah", "Ask Sarah about a text", "After a check, someone taps “Email Sarah.”", "trusted",
+    "The app’s result screen with an Ask someone you trust card and an Email Sarah button.",
+    after=('<p>Their own email app opens with this note. They can read it and change it. Nothing is sent until they press send.</p>'
+           f'<div class="email" style="margin-top:16px"><div class="hdr"><div><strong>To:</strong> Sarah</div><div><strong>Subject:</strong> Can you look at this with me?</div></div>'
+           f'<div class="body">{TRUSTED_EMAIL}</div></div>'
+           '<p class="cite" style="margin-top:16px">The people you trust are kept only on your phone. Their names and email addresses are never sent to us.</p>')),
 ]
 
 PARTNER = f"""
@@ -295,55 +261,65 @@ HOME = f'''
   <div>
     <p class="pill">{I["phone"]}Coming soon to iPhone and Android</p>
     <h1>Let’s look at it together.</h1>
-    <p class="lead">Got a text, email or call that doesn’t feel right? ChatRetiree is like a friend you can ask. Show us what you got, and we’ll talk it over with you in plain words, with clear next steps.</p>
+    <p class="lead">One simple place to check a message before you act, get a straight answer about Medicare, and hear about the latest scams, all in plain words and from sources you can trust. Less time wondering. Less time worrying.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#how">See how it works</a>
       <a class="btn btn-quiet" href="contact/">{I["mail"]}Contact us</a>
     </div>
   </div>
-  <figure class="phone" aria-label="A sample: a text about a package, and what ChatRetiree says about it">
-    <div class="phone-screen" aria-hidden="true">
-      <div class="app-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
-      <p class="step-label">The text you got</p>
-      <p class="sms">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: parcel-redelivery.example/pay</p>
-      <div class="fake-action">{I["paste"]}Paste and check</div>
-      <div class="mini-verdict"><div class="top"><span class="badge">{I["warn"]}</span><b>This has the signs of a scam</b></div>
-        <p>This message has several signs that are common in scams.</p></div>
-      <div class="mini-next"><b>What we’d do next</b><p>Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
+  <figure class="phone-hero" style="margin:0;max-width:380px;width:100%;justify-self:center">
+    <div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">
+      <img src="assets/app/package.webp?v={VERSION}" width="390" alt="The ChatRetiree app checking a text about a package. It says: This has the signs of a scam. This message has several signs that are common in scams. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
     </div>
-    <figcaption class="phone-cap">A sample of what you’ll see in the app</figcaption>
+    <figcaption class="phone-cap">The ChatRetiree app, checking a text about a package</figcaption>
   </figure>
 </div></div>
+
+<section aria-labelledby="why-h"><div class="wrap">
+  <div class="section-head">
+    <h2 id="why-h">Why we built ChatRetiree</h2>
+    <p>You’ve spent a lifetime figuring things out. The trouble isn’t you. It’s the flood of fake texts, look-alike emails, robocalls and fine print that lands on everyone, every day.</p>
+  </div>
+  <div class="cards three">
+    <article class="card plain"><h3>There’s too much noise</h3><p>Scam texts and fake alerts are everywhere, and they look more like the real thing every year.</p></article>
+    <article class="card plain"><h3>Good answers are buried</h3><p>The right information is out there, but it’s spread across long guides and official websites that take time to dig through.</p></article>
+    <article class="card plain"><h3>Wondering takes time</h3><p>One “Is this real?” moment can eat up an afternoon. You have better things to do with your day.</p></article>
+  </div>
+  <div class="believe">
+    <h3>What we believe</h3>
+    <p>Everyone deserves easy access to clear, trustworthy information, and a quick way to check before they act. So ChatRetiree answers only from official sources, in plain words, and shows you where each answer comes from.</p>
+  </div>
+</div></section>
 
 <section class="band" aria-labelledby="help-h"><div class="wrap">
   <div class="section-head">
     <h2 id="help-h">How we can help</h2>
-    <p>One place to go when something feels off, or when you just have a question.</p>
+    <p>One place to go when something feels off, or when you just want a straight answer. Tap any of these to see the app in action.</p>
   </div>
   <div class="cards">
     <a class="card" href="examples/check/">
       <div class="icon t-teal">{I["check"]}</div>
       <h3>Check a message that feels off</h3>
       <p>Paste a text or email, type in a web address, or add a picture of your screen. We’ll tell you what we noticed and what to do next.</p>
-      <span class="more">See an example{I["arrow"]}</span>
+      <span class="more">See it in the app{I["arrow"]}</span>
     </a>
     <a class="card" href="examples/medicare/">
       <div class="icon t-blue">{I["medicare"]}</div>
       <h3>Medicare questions</h3>
       <p>Ask in your own words. Answers come only from official Medicare guides, and we show you where each one comes from.</p>
-      <span class="more">See an example{I["arrow"]}</span>
+      <span class="more">See it in the app{I["arrow"]}</span>
     </a>
     <a class="card" href="examples/scams/">
       <div class="icon t-clay">{I["alerts"]}</div>
       <h3>Scams going around</h3>
       <p>Short, plain summaries of the latest scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services.</p>
-      <span class="more">See an example{I["arrow"]}</span>
+      <span class="more">See it in the app{I["arrow"]}</span>
     </a>
     <a class="card" href="examples/trusted/">
       <div class="icon t-sage">{I["trusted"]}</div>
       <h3>Ask someone you trust</h3>
       <p>Want a second opinion? Send what we found to a family member or friend from your own email.</p>
-      <span class="more">See an example{I["arrow"]}</span>
+      <span class="more">See it in the app{I["arrow"]}</span>
     </a>
   </div>
 </div></section>
@@ -351,7 +327,7 @@ HOME = f'''
 <section id="how" aria-labelledby="how-h"><div class="wrap">
   <div class="section-head">
     <h2 id="how-h">How it works</h2>
-    <p>No forms and no jargon. Just a few taps.</p>
+    <p>A couple of taps, and you have your answer.</p>
   </div>
   <ol class="steps">
     <li><h3>Copy it</h3><p>Copy the text or email that worries you, or take a picture of your screen.</p></li>

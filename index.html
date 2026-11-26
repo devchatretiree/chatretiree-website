@@ -8,11 +8,11 @@
 <meta name="theme-color" content="#FAF7F2">
 <meta property="og:title" content="ChatRetiree: let’s look at it together">
 <meta property="og:description" content="ChatRetiree is like a friend you can ask when a text, email or call doesn’t feel right. Coming soon to iPhone and Android.">
-<meta property="og:image" content="https://chatretiree.com/assets/icon.png">
-<link rel="icon" href="assets/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/site.css">
-<script src="assets/site.js"></script>
+<meta property="og:image" content="https://chatretiree.com/assets/icon.png?v=5">
+<link rel="icon" href="assets/favicon.png?v=5" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=5">
+<link rel="stylesheet" href="assets/site.css?v=5">
+<script src="assets/site.js?v=5"></script>
 
 </head>
 <body>
@@ -31,55 +31,65 @@
   <div>
     <p class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg>Coming soon to iPhone and Android</p>
     <h1>Let’s look at it together.</h1>
-    <p class="lead">Got a text, email or call that doesn’t feel right? ChatRetiree is like a friend you can ask. Show us what you got, and we’ll talk it over with you in plain words, with clear next steps.</p>
+    <p class="lead">One simple place to check a message before you act, get a straight answer about Medicare, and hear about the latest scams, all in plain words and from sources you can trust. Less time wondering. Less time worrying.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#how">See how it works</a>
       <a class="btn btn-quiet" href="contact/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>Contact us</a>
     </div>
   </div>
-  <figure class="phone" aria-label="A sample: a text about a package, and what ChatRetiree says about it">
-    <div class="phone-screen" aria-hidden="true">
-      <div class="app-bar"><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="24" fill="#0F5F5A"/><path d="M40 18a23 23 0 1 1-10.6 43.4L18 66l3.4-11.2A23 23 0 0 1 40 18z" fill="#FFFFFF"/><path d="M63 41a19 19 0 1 0 8.8 35.8L81 80.5l-2.8-9.3A19 19 0 0 0 63 41z" fill="#0F5F5A" stroke="#0F5F5A" stroke-width="11" stroke-linejoin="round"/><path d="M63 41a19 19 0 1 0 8.8 35.8L81 80.5l-2.8-9.3A19 19 0 0 0 63 41z" fill="#0F5F5A" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/></svg><span><b>Chat</b>Retiree</span></div>
-      <p class="step-label">The text you got</p>
-      <p class="sms">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: parcel-redelivery.example/pay</p>
-      <div class="fake-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M9 11h6M9 15h4"/></svg>Paste and check</div>
-      <div class="mini-verdict"><div class="top"><span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><b>This has the signs of a scam</b></div>
-        <p>This message has several signs that are common in scams.</p></div>
-      <div class="mini-next"><b>What we’d do next</b><p>Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
+  <figure class="phone-hero" style="margin:0;max-width:380px;width:100%;justify-self:center">
+    <div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">
+      <img src="assets/app/package.webp?v=5" width="390" alt="The ChatRetiree app checking a text about a package. It says: This has the signs of a scam. This message has several signs that are common in scams. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.">
     </div>
-    <figcaption class="phone-cap">A sample of what you’ll see in the app</figcaption>
+    <figcaption class="phone-cap">The ChatRetiree app, checking a text about a package</figcaption>
   </figure>
 </div></div>
+
+<section aria-labelledby="why-h"><div class="wrap">
+  <div class="section-head">
+    <h2 id="why-h">Why we built ChatRetiree</h2>
+    <p>You’ve spent a lifetime figuring things out. The trouble isn’t you. It’s the flood of fake texts, look-alike emails, robocalls and fine print that lands on everyone, every day.</p>
+  </div>
+  <div class="cards three">
+    <article class="card plain"><h3>There’s too much noise</h3><p>Scam texts and fake alerts are everywhere, and they look more like the real thing every year.</p></article>
+    <article class="card plain"><h3>Good answers are buried</h3><p>The right information is out there, but it’s spread across long guides and official websites that take time to dig through.</p></article>
+    <article class="card plain"><h3>Wondering takes time</h3><p>One “Is this real?” moment can eat up an afternoon. You have better things to do with your day.</p></article>
+  </div>
+  <div class="believe">
+    <h3>What we believe</h3>
+    <p>Everyone deserves easy access to clear, trustworthy information, and a quick way to check before they act. So ChatRetiree answers only from official sources, in plain words, and shows you where each answer comes from.</p>
+  </div>
+</div></section>
 
 <section class="band" aria-labelledby="help-h"><div class="wrap">
   <div class="section-head">
     <h2 id="help-h">How we can help</h2>
-    <p>One place to go when something feels off, or when you just have a question.</p>
+    <p>One place to go when something feels off, or when you just want a straight answer. Tap any of these to see the app in action.</p>
   </div>
   <div class="cards">
     <a class="card" href="examples/check/">
       <div class="icon t-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a8.5 8.5 0 1 1-4.2 15.9L3.5 20.5l1.4-4.1A8.5 8.5 0 0 1 12 3z"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .8-1 1.5v.3"/><path d="M12 16.3h.01"/></svg></div>
       <h3>Check a message that feels off</h3>
       <p>Paste a text or email, type in a web address, or add a picture of your screen. We’ll tell you what we noticed and what to do next.</p>
-      <span class="more">See an example<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <span class="more">See it in the app<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
     <a class="card" href="examples/medicare/">
       <div class="icon t-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a8.5 8.5 0 1 1-4.2 15.9L3.5 20.5l1.4-4.1A8.5 8.5 0 0 1 12 3z"/><path d="M12 15.2s-3.6-2.1-3.6-4.6a1.9 1.9 0 0 1 3.6-.9 1.9 1.9 0 0 1 3.6.9c0 2.5-3.6 4.6-3.6 4.6z"/></svg></div>
       <h3>Medicare questions</h3>
       <p>Ask in your own words. Answers come only from official Medicare guides, and we show you where each one comes from.</p>
-      <span class="more">See an example<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <span class="more">See it in the app<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
     <a class="card" href="examples/scams/">
       <div class="icon t-clay"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M12 2.6c4.5 0 7.8 3.3 7.8 8v3.8c0 4-3.5 6.9-7.8 6.9s-7.8-2.9-7.8-6.9v-3.8c0-4.7 3.3-8 7.8-8z M7.4 8.4h9.2a2.1 2.1 0 0 1 0 4.2H7.4a2.1 2.1 0 0 1 0-4.2z M12 14.8c1.6 0 2.7.8 2.7 1.8s-1.1 1.8-2.7 1.8-2.7-.8-2.7-1.8 1.1-1.8 2.7-1.8z"/><circle cx="9" cy="10.5" r="1.2"/><circle cx="15" cy="10.5" r="1.2"/></svg></div>
       <h3>Scams going around</h3>
       <p>Short, plain summaries of the latest scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services.</p>
-      <span class="more">See an example<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <span class="more">See it in the app<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
     <a class="card" href="examples/trusted/">
       <div class="icon t-sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="16.5" cy="9" r="2.5"/><path d="M15.5 14.2a4.5 4.5 0 0 1 5.5 4.3"/></svg></div>
       <h3>Ask someone you trust</h3>
       <p>Want a second opinion? Send what we found to a family member or friend from your own email.</p>
-      <span class="more">See an example<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <span class="more">See it in the app<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
   </div>
 </div></section>
@@ -87,7 +97,7 @@
 <section id="how" aria-labelledby="how-h"><div class="wrap">
   <div class="section-head">
     <h2 id="how-h">How it works</h2>
-    <p>No forms and no jargon. Just a few taps.</p>
+    <p>A couple of taps, and you have your answer.</p>
   </div>
   <ol class="steps">
     <li><h3>Copy it</h3><p>Copy the text or email that worries you, or take a picture of your screen.</p></li>
