@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "34"
+VERSION = "37"
 
 def ico(body, fill=False):
     if fill:
@@ -23,6 +23,7 @@ I = {
   "medicare": ico('<path d="M12 3a8.5 8.5 0 1 1-4.2 15.9L3.5 20.5l1.4-4.1A8.5 8.5 0 0 1 12 3z"/><path d="M12 15.2s-3.6-2.1-3.6-4.6a1.9 1.9 0 0 1 3.6-.9 1.9 1.9 0 0 1 3.6.9c0 2.5-3.6 4.6-3.6 4.6z"/>'),
   "alerts": ico('<path fill-rule="evenodd" d="M12 2.6c4.5 0 7.8 3.3 7.8 8v3.8c0 4-3.5 6.9-7.8 6.9s-7.8-2.9-7.8-6.9v-3.8c0-4.7 3.3-8 7.8-8z M7.4 8.4h9.2a2.1 2.1 0 0 1 0 4.2H7.4a2.1 2.1 0 0 1 0-4.2z M12 14.8c1.6 0 2.7.8 2.7 1.8s-1.1 1.8-2.7 1.8-2.7-.8-2.7-1.8 1.1-1.8 2.7-1.8z"/><circle cx="9" cy="10.5" r="1.2"/><circle cx="15" cy="10.5" r="1.2"/>', fill=True),
   "trusted": ico('<circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="16.5" cy="9" r="2.5"/><path d="M15.5 14.2a4.5 4.5 0 0 1 5.5 4.3"/>'),
+  "lifering": ico('<circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="m4.9 4.9 4.3 4.3M14.8 14.8l4.3 4.3M14.8 9.2l4.3-4.3M4.9 19.1l4.3-4.3"/>'),
   "tick": ico('<circle cx="12" cy="12" r="9.5"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/>'),
   "mail": ico('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>'),
   "phone": ico('<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18.5h2"/>'),
@@ -270,7 +271,7 @@ HOME = f'''
     <div class="h-hero-copy">
       <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
       <h1 id="hero-h">Let’s look at it together.</h1>
-      <p class="h-lead">One simple place to check a message before you act, get a straight answer about Medicare, and hear about the latest scams. In plain words, from sources you can trust.</p>
+      <p class="h-lead">One simple place for what’s on your mind: check a message before you act, get straight answers about Medicare and Social Security, and get help if a scam already happened. In plain words, from sources you can trust.</p>
       <div class="h-actions">
         <a class="btn h-btn-light" href="#help">See it in action{I["arrow"]}</a>
         <a class="btn h-btn-ghost" href="#partner">Partner with us</a>
@@ -310,6 +311,7 @@ HOME = f'''
     <p class="h-sources-label">Answers drawn from official sources</p>
     <ul class="h-sources-list">
       <li><a href="https://www.medicare.gov/" rel="noopener">Official Medicare guides</a></li>
+      <li><a href="https://www.ssa.gov/pubs/" rel="noopener">Social Security publications</a></li>
       <li><a href="https://consumer.ftc.gov/consumer-alerts" rel="noopener">Federal Trade Commission</a></li>
       <li><a href="https://www.ic3.gov/" rel="noopener">FBI Internet Crime Complaint Center</a></li>
       <li><a href="https://oig.hhs.gov/" rel="noopener">HHS Office of Inspector General</a></li>
@@ -339,8 +341,22 @@ HOME = f'''
   <div class="wrap">
     <div class="h-sec-head">
       <p class="h-eyebrow">What <span class="wm"><b>Chat</b>Retiree</span> Does</p>
-      <h2 id="help-h">Four ways we make life simpler</h2>
+      <h2 id="help-h">One friendly place for it all</h2>
     </div>
+
+    <article class="h-row h-row-flip">
+      <div class="h-row-copy">
+        <span class="icon t-teal">{I["question"]}</span>
+        <h3>Just ask what’s on your mind</h3>
+        <p>Start with one box. Type a question, paste a message that seems off, or just say it out loud. We’ll take it to the right place, whether that’s a scam check, Medicare, Social Security or help after a scam.</p>
+        <ul class="h-ticks">
+          <li>{I["tick"]}Paste and check a message in one tap</li>
+          <li>{I["tick"]}Not sure where to start? Tap an example question</li>
+          <li>{I["tick"]}Every answer ends with where to go next, so it all fits together</li>
+        </ul>
+      </div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/home.webp?v={VERSION}" width="390" alt="The app’s home screen: What’s on your mind? Ask about Medicare, Social Security or scams, or paste a message that seems off. Below it are example questions and sections for staying safe from scams and your benefits."></div></figure></div>
+    </article>
 
     <article class="h-row">
       <div class="h-row-copy">
@@ -361,14 +377,14 @@ HOME = f'''
     <article class="h-row h-row-flip">
       <div class="h-row-copy">
         <span class="icon t-blue">{I["medicare"]}</span>
-        <h3>Straight answers about Medicare</h3>
-        <p>Ask in your own words, like you would ask a friend who knows Medicare inside out. Answers come only from the official Medicare guides, and you can see the guide’s exact words.</p>
+        <h3>Straight answers about your benefits</h3>
+        <p>Ask about Medicare or Social Security in your own words, like you would ask a friend who knows them inside out. Answers come only from the official Medicare guides and Social Security publications, and you can see the exact words they’re based on.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}Plain-language answers, with follow-up questions</li>
           <li>{I["tick"]}Every point checked against the official guide</li>
-          <li>{I["tick"]}For your own plan, we point you to 1‑800‑MEDICARE or your free local SHIP counselor</li>
+          <li>{I["tick"]}For your own plan or benefits, we point you to the free official help: 1‑800‑MEDICARE, your local SHIP counselor, or Social Security</li>
         </ul>
-        <a class="h-link" href="examples/medicare/">See sample questions{I["arrow"]}</a>
+        <a class="h-link" href="examples/medicare/">See sample Medicare questions{I["arrow"]}</a>
       </div>
       <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure></div>
     </article>
@@ -389,6 +405,20 @@ HOME = f'''
     </article>
 
     <article class="h-row h-row-flip">
+      <div class="h-row-copy">
+        <span class="icon t-blue">{I["lifering"]}</span>
+        <h3>Help after a scam</h3>
+        <p>It happens to careful, smart people every day, and it’s not your fault. Pick what happened, like sending money or sharing your Social Security number, and we’ll go through the next steps together, one at a time.</p>
+        <ul class="h-ticks">
+          <li>{I["tick"]}Steps from official sources like the FTC and IdentityTheft.gov, with links to their own websites</li>
+          <li>{I["tick"]}Reach Social Security, Medicare, the IRS or the Postal Service yourself, using their official contacts</li>
+          <li>{I["tick"]}What you type there is matched to the steps on your phone. It isn’t sent or saved</li>
+        </ul>
+      </div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/protect.webp?v={VERSION}" width="390" alt="The app’s Get help after a scam screen: Let’s work out the next steps. Choices include I paid or sent money, I gave my Social Security number, I gave a password or account number, I let someone into my computer or phone, and I clicked a link."></div></figure></div>
+    </article>
+
+    <article class="h-row">
       <div class="h-row-copy">
         <span class="icon t-sage">{I["trusted"]}</span>
         <h3>Decide together</h3>
@@ -431,6 +461,7 @@ HOME = f'''
         <li><strong>If someone may be in danger, call 911.</strong></li>
         <li>If you already sent money or gift cards, call your bank or the gift card company right away.</li>
         <li>You can also report it to the FTC at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</li>
+        <li>In the app, “Get help after a scam” walks you through the next steps, one at a time.</li>
       </ul>
     </div>
   </div>
@@ -460,7 +491,7 @@ ABOUT = f'''
   <div class="wrap a-hero-copy">
     <p class="h-eyebrow">About <span class="wm"><b>Chat</b>Retiree</span></p>
     <h1 id="about-h">Clear answers, and a calm second look, whenever you need one.</h1>
-    <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare in plain words, and keep up with the scams going around. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
+    <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare and Social Security in plain words, keep up with the scams going around, and know what to do if a scam already happened. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
   </div>
   <p class="a-credit">Photo by Vitaly Gariev on <a href="https://unsplash.com/photos/elderly-woman-smiling-while-looking-at-smartphone-cHbyGVOQspk" rel="noopener">Unsplash</a></p>
 </section>
@@ -481,7 +512,7 @@ ABOUT = f'''
     <p class="h-eyebrow">Our Promises</p>
     <h2 id="promise-h">What you can count on</h2>
     <ul class="a-promises">
-      <li>{I["tick"]}<div><h3>Official sources only</h3><p>Medicare answers come from the official Medicare guides. Scam news comes from the FTC, the FBI and the U.S. Department of Health and Human Services.</p></div></li>
+      <li>{I["tick"]}<div><h3>Official sources only</h3><p>Medicare answers come from the official Medicare guides, and Social Security answers from Social Security’s own publications. Scam news comes from the FTC, the FBI and the U.S. Department of Health and Human Services, and help after a scam follows the FTC and IdentityTheft.gov.</p></div></li>
       <li>{I["tick"]}<div><h3>Plain words</h3><p>No jargon and no alarm bells. Just what we found and what we’d do next.</p></div></li>
       <li>{I["tick"]}<div><h3>Honest about what we don’t know</h3><p>We never call anything “safe.” When we can’t tell, or the official sources don’t cover something, we say so.</p></div></li>
       <li>{I["tick"]}<div><h3>You stay in charge</h3><p>We suggest next steps. You decide. Nothing is sent to anyone unless you press send.</p></div></li>
@@ -498,12 +529,14 @@ ABOUT = f'''
       <p>We only use sources you could look up yourself:</p>
       <ul class="a-src">
         <li><a href="https://www.medicare.gov/" rel="noopener">Medicare.gov</a>, including the official “Medicare &amp; You” handbook and guides</li>
+        <li><a href="https://www.ssa.gov/pubs/" rel="noopener">Social Security publications</a> from SSA.gov</li>
         <li><a href="https://consumer.ftc.gov/consumer-alerts" rel="noopener">Federal Trade Commission consumer alerts</a></li>
         <li><a href="https://www.ic3.gov/" rel="noopener">FBI Internet Crime Complaint Center</a></li>
         <li><a href="https://oig.hhs.gov/" rel="noopener">HHS Office of Inspector General</a></li>
+        <li><a href="https://www.identitytheft.gov/" rel="noopener">IdentityTheft.gov</a>, for the official steps after your information is stolen</li>
         <li><a href="https://cloud.google.com/web-risk" rel="noopener">Google Web Risk</a>, to check links against known harmful sites without opening them</li>
       </ul>
-      <p>For questions about your own plan or benefits, we point you to 1‑800‑MEDICARE or your free local SHIP counselor, who can look at your situation.</p>
+      <p>For questions about your own plan or benefits, we point you to the free official help that can look at your situation: 1‑800‑MEDICARE, your local SHIP counselor, or Social Security.</p>
     </div>
   </div>
 </section>
@@ -579,7 +612,7 @@ CONTACT = f'''
     <div class="c-card">
       <span class="store-ic">{I["info"]}</span>
       <h2>Please don’t send private details</h2>
-      <p>There’s no need to include passwords, account numbers, or your Social Security or Medicare number. We’ll never ask you for them.</p>
+      <p>There’s no need to include passwords, account numbers, or your Social Security or Medicare number.</p>
     </div>
     <div class="c-card c-urgent">
       <span class="store-ic">{I["warn"]}</span>
@@ -619,7 +652,7 @@ def privacy_body():
       ("tick", "We don’t keep what you check", "Your messages, pictures, links and questions are looked at, answered, and let go."),
       ("eyeoff", "Private details hidden first", "Before anything leaves your phone, we hide Social Security, Medicare and card numbers, passwords and codes."),
       ("noad", "Never sold", "We never sell your information or use it for advertising."),
-      ("link", "We never open your links", "Links are looked up with Google’s list of harmful sites. We never open them."),
+      ("link", "We never open your links", "Links are looked up on Google’s list of known dangerous websites. We never open them."),
       ("trusted", "Your trusted people stay with you", "Their names and email addresses stay on your phone and are never sent to us."),
       ("trash", "Leave any time", "You can delete your account in Settings whenever you like."),
     ]
