@@ -242,3 +242,22 @@ a.card h3{color:var(--ink)}
 .next-list .icon{width:44px;height:44px;border-radius:14px;margin:0;flex-shrink:0}
 .next-list .icon svg{width:24px;height:24px}
 .js .go[hidden]{display:none}
+
+/* Hero: a sample of the app */
+.phone{margin:0 auto;width:100%;max-width:400px}
+.phone-screen{background:var(--bg);border:10px solid #1F2A2E;border-radius:40px;padding:18px 16px 20px;box-shadow:0 18px 48px rgba(31,42,46,.18)}
+.app-bar{display:flex;align-items:center;gap:8px;font-family:"Jakarta",sans-serif;font-size:19px;font-weight:500;color:var(--ink);margin-bottom:14px}
+.app-bar svg{width:30px;height:30px}
+.app-bar b{font-weight:800}
+.step-label{font-size:15px;font-weight:700;color:var(--ink2);margin-bottom:6px}
+.sms{background:#E9E9EB;color:#1C1C1E;border-radius:18px;border-bottom-left-radius:4px;padding:10px 14px;font:16px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;margin-right:12%}
+.fake-action{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0;min-height:48px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-family:"Jakarta",sans-serif;font-weight:700;font-size:17px}
+.fake-action svg{width:20px;height:20px}
+.mini-verdict{background:var(--warn-soft);border-radius:20px;padding:14px}
+.mini-verdict .top{display:flex;align-items:center;gap:10px;color:var(--warn);font-family:"Jakarta",sans-serif;font-size:18px;line-height:1.25}
+.mini-verdict .badge{width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mini-verdict .badge svg{width:22px;height:22px}
+.mini-verdict p,.mini-next p{font-size:16px;line-height:1.45;margin-top:8px}
+.mini-next{background:var(--surface);border-radius:20px;padding:14px;margin-top:10px;box-shadow:var(--shadow)}
+.mini-next b{font-family:"Jakarta",sans-serif;font-size:17px}
+.phone-cap{text-align:center;color:var(--ink2);font-size:17px;margin-top:12px}

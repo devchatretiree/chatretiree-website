@@ -25,6 +25,7 @@ I = {
   "mail": ico('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>'),
   "phone": ico('<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18.5h2"/>'),
   "heart": ico('<path d="M12 20s-7.5-4.4-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/>'),
+  "paste": ico('<rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M9 11h6M9 15h4"/>'),
   "arrow": ico('<path d="M5 12h14M13 6l6 6-6 6"/>'),
   "back": ico('<path d="M19 12H5M11 6l-6 6 6 6"/>'),
   "info": ico('<circle cx="12" cy="12" r="9.5"/><path d="M12 11v5M12 7.5h.01"/>'),
@@ -300,17 +301,17 @@ HOME = f'''
       <a class="btn btn-quiet" href="contact/">{I["mail"]}Contact us</a>
     </div>
   </div>
-  <figure class="talk" aria-label="An example of talking it over with ChatRetiree">
-    <figcaption class="talk-label">For example</figcaption>
-    <p class="bubble me">I got a text saying my package is on hold and I owe $1.99. Is this real?</p>
-    <div class="bubble us">
-      <p class="who">{LOGO}ChatRetiree</p>
-      <p>Let’s look at it together. This looks a lot like a common package scam. Here’s what I’d do:</p>
-      <ol>
-        <li>Don’t tap the link or reply.</li>
-        <li>If you’re expecting a delivery, open the shipper’s own app or website yourself.</li>
-      </ol>
+  <figure class="phone" aria-label="A sample: a text about a package, and what ChatRetiree says about it">
+    <div class="phone-screen" aria-hidden="true">
+      <div class="app-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+      <p class="step-label">The text you got</p>
+      <p class="sms">PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender: parcel-redelivery.example/pay</p>
+      <div class="fake-action">{I["paste"]}Paste and check</div>
+      <div class="mini-verdict"><div class="top"><span class="badge">{I["warn"]}</span><b>This has the signs of a scam</b></div>
+        <p>This message has several signs that are common in scams.</p></div>
+      <div class="mini-next"><b>What we’d do next</b><p>Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.</p></div>
     </div>
+    <figcaption class="phone-cap">A sample of what you’ll see in the app</figcaption>
   </figure>
 </div></div>
 
