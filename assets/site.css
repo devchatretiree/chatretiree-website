@@ -666,3 +666,21 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
   .a-hero-photo .a-credit{left:auto;right:max(16px,env(safe-area-inset-right,0px))}
 }
 @media (min-width:700px) and (max-width:899px){.a-hero-photo .a-photo-bg{background-position:28% 60%}}
+/* Hero phones: the app's bottom bar (Home, Help, Me) fills the bottom like the real app */
+.h-ph-screen.live{position:relative;padding-bottom:64px}
+.lv-tabs{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;align-items:flex-start;padding:7px 6px 16px;background:#FFFFFF;border-top:1px solid #EDE6DA;font:700 11.5px/1.2 "Atkinson",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#465155}
+.lv-tabs span{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.lv-tabs i{display:flex;align-items:center;justify-content:center;width:42px;height:24px;border-radius:12px}
+.lv-tabs svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lv-tabs .on{color:#0F5F5A}.lv-tabs .on i{background:#E4F0EE}.lv-tabs .on svg{stroke-width:2.4}
+@media (max-width:699px){.h-ph-screen.live{padding-bottom:54px}.lv-tabs{font-size:10px;padding:5px 4px 12px}.lv-tabs i{width:34px;height:20px}.lv-tabs svg{width:16px;height:16px}}
+/* Show the whole phone (with its bottom bar) instead of cutting it off at the bottom of the hero */
+@media (min-width:700px){.h-phones{height:740px}}
+@media (min-width:980px){.h-phones{height:770px}}
+@media (max-width:699px){.h-phones{height:calc(min(62vw,300px)*2.17 + 95px)}}
+@media (max-width:699px){
+  .h-phones{height:calc(min(62vw,300px)*2.17 + 70px)}
+  .h-ph-screen.live{font-size:11.5px;gap:6px;padding-left:10px;padding-right:10px}
+  .lv-q,.lv-btn{font-size:11.5px}.lv-msg{font-size:11px}.lv-verdict b{font-size:13px}
+}
+@media (max-width:699px){.lv-next b{font-size:12.5px}.lv-a{padding:8px 10px}.lv-label{font-size:11px}.lv-btn{min-height:0;padding:7px 10px}}
