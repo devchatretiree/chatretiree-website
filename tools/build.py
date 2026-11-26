@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "16"
+VERSION = "17"
 
 def ico(body, fill=False):
     if fill:
