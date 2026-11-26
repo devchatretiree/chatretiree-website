@@ -326,7 +326,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/check/">See four real samples{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" loading="lazy" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
     </article>
 
     <article class="h-row h-row-flip">
@@ -341,7 +341,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/medicare/">See sample questions{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" loading="lazy" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure></div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services."></div></figure></div>
     </article>
 
     <article class="h-row">
@@ -356,7 +356,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/scams/">See sample questions{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img class="h-shift" src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" loading="lazy" alt="Question: Why do scammers ask for gift cards? The app says: Please don’t send them anything. The short answer: Scammers prefer gift cards because it is almost impossible to get your money back."></div></figure></div>
+      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img class="h-shift" src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" alt="Question: Why do scammers ask for gift cards? The app says: Please don’t send them anything. The short answer: Scammers prefer gift cards because it is almost impossible to get your money back."></div></figure></div>
     </article>
 
     <article class="h-row h-row-flip">
@@ -371,7 +371,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/trusted/">See how it works{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-sage-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/trusted.webp?v={VERSION}" width="390" loading="lazy" alt="The app’s result screen with an Email Sarah button to ask someone you trust."></div></figure></div>
+      <div class="h-row-art t-sage-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/trusted.webp?v={VERSION}" width="390" alt="The app’s result screen with an Email Sarah button to ask someone you trust."></div></figure></div>
     </article>
   </div>
 </section>
