@@ -343,10 +343,11 @@ HOME = f'''
       <div class="h-row-copy">
         <span class="icon t-teal">{I["check"]}</span>
         <h3>Check a message before you act</h3>
-        <p>Paste a text or email, add a picture of your screen, or just tell us what happened. In a few seconds you’ll see what we noticed and exactly what to do next.</p>
+        <p>Paste a text or email, add a picture of your screen, or just tell us what happened. In a few seconds you’ll see what we found and exactly what to do next. It’s more than an opinion: every message goes through real checks.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}Looks for the warning signs scammers rely on</li>
-          <li>{I["tick"]}Checks links against Google’s list of harmful sites, without opening them</li>
+          <li>{I["tick"]}Checks links against Google’s list of known dangerous websites, without opening them</li>
+          <li>{I["tick"]}Compares it with the latest scam alerts from the FTC, FBI and HHS</li>
           <li>{I["tick"]}Never calls anything “safe.” When we can’t tell, we say so</li>
         </ul>
         <a class="h-link" href="examples/check/">See four real samples{I["arrow"]}</a>
