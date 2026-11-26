@@ -135,7 +135,7 @@ def example(eid, chip, label, shown, button, answer, thinking="Looking at it wit
   </div>
 </article>"""
 
-NOTE = f'<p class="ex-note">{I["info"]}<span>These are made-up examples you can tap through. The answers are what ChatRetiree really says. To check your own messages, you’ll use the app.</span></p>'
+NOTE = f'<p class="ex-note">{I["info"]}<span>These are samples you can tap through, with the answers ChatRetiree gives. To check your own messages, you’ll use the app.</span></p>'
 
 def ex_page(slug, title, lead, chips_title, examples, current):
     others = [x for x in EX_LINKS if x[0] != current]
@@ -432,9 +432,9 @@ def privacy_body():
 </div>'''
     return f'<div class="page">\n{inner}\n{note}\n</div>'
 
-page("examples/check", "Example: check a message", "Tap through made-up examples of ChatRetiree checking a message.",
+page("examples/check", "Example: check a message", "Tap through samples of ChatRetiree checking a message.",
      ex_page("check", "Check a message that feels off", "Paste a text or email, add a picture of your screen, or just tell us what happened. Here’s what ChatRetiree says back.", "Pick an example to try", CHECK_EX, "check"))
-page("examples/medicare", "Example: Medicare questions", "Tap through made-up Medicare questions and ChatRetiree’s answers from the official guides.",
+page("examples/medicare", "Example: Medicare questions", "Tap through sample Medicare questions and ChatRetiree’s answers from the official guides.",
      ex_page("medicare", "Medicare questions", "Ask in your own words. Answers come only from official Medicare guides, explained in plain language.", "Pick a question to try", MEDICARE_EX, "medicare"))
 page("examples/scams", "Example: scams going around", "Tap through questions about scams, answered from official FTC, FBI and HHS alerts.",
      ex_page("scams", "Scams going around", "We keep up with official scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services, and put them in plain words. You can also ask about a scam.", "Pick a question to try", SCAM_EX, "scams"))
