@@ -37,7 +37,7 @@ I = {
 
 def page(path, title, description, body, current=""):
     depth = 0 if path in ("", "404") else path.count("/") + 1
-    up = "../" * depth
+    up = "/" if path == "404" else "../" * depth
     def nav(href, label, key, cls=""):
         cur = ' aria-current="page"' if key == current else ""
         c = f' class="{cls}"' if cls else ""
@@ -82,7 +82,7 @@ def page(path, title, description, body, current=""):
   </div>
   <nav aria-label="Footer">
     {nav("privacy/", "Privacy policy", "privacy")}
-    <a href="{up or '/'}#partner">Partner with us</a>
+    <a href="{up}#partner">Partner with us</a>
     {nav("contact/", "Contact us", "contact")}
   </nav>
   <small>© 2026 ChatRetiree. This website has no ads, no cookies and no tracking.</small>
@@ -93,7 +93,6 @@ def page(path, title, description, body, current=""):
     out = ROOT / path / "index.html" if path else ROOT / "index.html"
     if path == "404":
         out = ROOT / "404.html"
-        html = html.replace(f'href="{up}', 'href="/').replace('href="./"', 'href="/"').replace(f'src="{up}', 'src="/')
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
 
