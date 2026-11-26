@@ -630,3 +630,8 @@ a.h-pill:hover{background:rgba(255,255,255,.2);color:var(--deep-ink)}
   .a-hero-photo .a-photo-bg{width:min(56%,760px)}
   .a-hero-photo .a-photo-bg::after{background:linear-gradient(270deg,var(--deep) 0%,rgba(10,68,64,.9) 8%,rgba(10,68,64,.7) 18%,rgba(10,68,64,.45) 30%,rgba(10,68,64,.22) 42%,rgba(10,68,64,.08) 54%,rgba(10,68,64,0) 64%)}
 }
+@media (max-width:699px){
+  .a-credit{top:calc(clamp(300px,78vw,520px) - 34px);right:auto;left:max(16px,env(safe-area-inset-left,0px))}
+  .a-photo-bg::after{background:linear-gradient(180deg,rgba(10,68,64,0) 40%,rgba(10,68,64,.35) 62%,rgba(10,68,64,.75) 82%,var(--deep) 100%)}
+  .a-hero-photo .a-hero-copy{padding-top:calc(clamp(300px,78vw,520px) + 8px)}
+}
