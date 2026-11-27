@@ -868,3 +868,7 @@ html[data-sky="dusk"] .h-ph-home .h-ph-screen,html[data-sky="night"] .h-ph-home 
 .next-list .icon.gl svg{width:30px;height:30px}
 .icon-pair{display:flex;gap:12px}
 :root[data-mode="dark"] .icon.gl{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,214,150,.06));border-color:rgba(255,214,150,.22);box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}
+/* Mid-size windows: keep the top bar on one line (About, Privacy and Contact are in the footer too). */
+@media (max-width:860px){.nav .hide-sm{display:none}}
+/* Jump links land below the sticky top bar, not under it. */
+html{scroll-padding-top:96px}

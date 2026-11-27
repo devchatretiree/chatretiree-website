@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "45"
+VERSION = "46"
 
 def ico(body, fill=False):
     if fill:
@@ -47,11 +47,11 @@ SKY = ('<div class="sky" aria-hidden="true"><div class="sky-stars"></div><div cl
 # Scams, Medicare and Social Security are the app's own drawings; the others are drawn the same way.
 def glyph(body, fit="", label=""):
     return (f'<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="{fit}">{body}</g></svg>')
-_F='fill="url(#crTopic)"'; _D='#A8581C'
+_F='fill="url(#crGlow)"'; _D='#A8581C'
 G = {
   "scams": glyph(f'<path d="M30 28h46a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H48l-12 10v-10h-6a10 10 0 0 1-10-10V38a10 10 0 0 1 10-10z" {_F}/>'
                  f'<rect x="32" y="40" width="30" height="5" rx="2.5" fill="{_D}" fill-opacity=".45"/><rect x="32" y="51" width="20" height="5" rx="2.5" fill="{_D}" fill-opacity=".45"/>'
-                 '<circle cx="78" cy="72" r="16" fill="#FFF6DF" fill-opacity=".25" stroke="url(#crTopic)" stroke-width="7"/><path d="M90 84l11 11" stroke="#F4B060" stroke-width="9" stroke-linecap="round"/>',
+                 '<circle cx="78" cy="72" r="16" fill="#FFF6DF" fill-opacity=".25" stroke="url(#crGlow)" stroke-width="7"/><path d="M90 84l11 11" stroke="#F4B060" stroke-width="9" stroke-linecap="round"/>',
                  "translate(60 60) scale(1.04) translate(-61 -63)"),
   "medicare": glyph(f'<path d="M60 96C31 77 21 61 21 46.5A19 19 0 0 1 60 38a19 19 0 0 1 39 8.5C99 61 89 77 60 96z" {_F}/>'
                  f'<rect x="54.5" y="47" width="11" height="30" rx="4" fill="{_D}" fill-opacity=".7"/><rect x="45" y="56.5" width="30" height="11" rx="4" fill="{_D}" fill-opacity=".7"/>',
@@ -60,14 +60,16 @@ G = {
                  f'<rect x="30" y="47" width="30" height="5.5" rx="2.75" fill="{_D}" fill-opacity=".5"/><rect x="30" y="60" width="20" height="5.5" rx="2.75" fill="{_D}" fill-opacity=".5"/><rect x="30" y="72" width="36" height="5.5" rx="2.75" fill="{_D}" fill-opacity=".3"/>'
                  f'<circle cx="80" cy="59" r="10" fill="{_D}" fill-opacity=".75"/><path d="M75.5 59l3 3 5.5-6" stroke="#FFF6DF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
                  "translate(60 60) scale(1.04) translate(-60 -60)"),
-  "light": glyph('<path d="M60 26a30 30 0 1 1-13.8 56.6L29.5 86.5l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crTopic)"/><path d="M48 70V54a12 12 0 0 1 24 0v16z" fill="#FFF8EA" stroke="#D29B66" stroke-width="2.6" stroke-linejoin="round"/><path d="M60 42v28M48 57h24" stroke="#D29B66" stroke-width="2.6"/>',
+  "light": glyph('<path d="M60 26a30 30 0 1 1-13.8 56.6L29.5 86.5l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/><path d="M48 70V54a12 12 0 0 1 24 0v16z" fill="#FFF8EA" stroke="#D29B66" stroke-width="2.6" stroke-linejoin="round"/><path d="M60 42v28M48 57h24" stroke="#D29B66" stroke-width="2.6"/>',
                  "translate(60 60) scale(1.35) translate(-58 -57)"),
   "alerts": glyph(f'<path d="M60 20a6 6 0 0 1 6 6v3.5A26 26 0 0 1 86 55v15l9 11a3 3 0 0 1-2.3 5H27.3a3 3 0 0 1-2.3-5l9-11V55a26 26 0 0 1 20-25.5V26a6 6 0 0 1 6-6z" {_F}/>'
                  f'<path d="M50 92a10 10 0 0 0 20 0z" fill="{_D}" fill-opacity=".7"/><rect x="56" y="44" width="8" height="20" rx="4" fill="{_D}" fill-opacity=".6"/><circle cx="60" cy="73" r="4.5" fill="{_D}" fill-opacity=".6"/>',
                  "translate(60 60) scale(1.0) translate(-60 -58)"),
-  "help": glyph('<circle cx="60" cy="60" r="31" fill="none" stroke="url(#crTopic)" stroke-width="17"/>'
-                 f'<g stroke="{_D}" stroke-opacity=".55" stroke-width="7"><path d="M38 38l9 9M82 38l-9 9M38 82l9-9M82 82l-9-9"/></g>',
-                 "translate(60 60) scale(1.0) translate(-60 -60)"),
+  "help": glyph('<circle cx="60" cy="60" r="44" fill="none" stroke="#C97A3A" stroke-width="2.5" stroke-dasharray="20 14" stroke-dashoffset="-3" stroke-linecap="round" opacity=".8"/>'
+                 '<circle cx="60" cy="60" r="29" fill="none" stroke="url(#crGlow)" stroke-width="20"/>'
+                 '<circle cx="60" cy="60" r="29" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-dasharray="17.8 27.75" stroke-dashoffset="8.9" transform="rotate(45 60 60)"/>'
+                 '<circle cx="60" cy="60" r="39" fill="none" stroke="#A8581C" stroke-opacity=".45" stroke-width="2"/><circle cx="60" cy="60" r="19" fill="none" stroke="#A8581C" stroke-opacity=".45" stroke-width="2"/>',
+                 "translate(60 60) scale(1.08) translate(-60 -60)"),
   "trusted": glyph(f'<circle cx="45" cy="42" r="14" {_F}/><path d="M19 88a26 26 0 0 1 52 0v2a4 4 0 0 1-4 4H23a4 4 0 0 1-4-4z" {_F}/>'
                  f'<circle cx="80" cy="47" r="11" {_F} fill-opacity=".85"/><path d="M76 94h22a4 4 0 0 0 4-4v-1a22 22 0 0 0-30-20.5A31 31 0 0 1 77 88z" {_F} fill-opacity=".85"/>',
                  "translate(60 60) scale(1.0) translate(-60 -64)"),
@@ -239,7 +241,7 @@ EX_LINKS = [
 WHATS_NEXT = "What we’d do next"
 WHY = "Why we think so"
 
-APP_H = {'bank': 1963, 'bank-input': 844, 'call': 2697, 'call-input': 844, 'doctor': 1746, 'doctor-input': 844, 'home': 844, 'home-night': 844, 'medicare-dental': 844, 'medicare-hearing': 844, 'medicare-signup': 844, 'package': 1905, 'package-input': 844, 'protect': 844, 'scam-bail': 844, 'scam-giftcards': 844, 'scam-haggle': 844, 'ss': 844, 'trusted': 844}
+APP_H = {'ask': 844, 'bank': 1597, 'bank-input': 844, 'call': 1438, 'call-input': 844, 'doctor': 1116, 'doctor-input': 844, 'help': 844, 'home': 844, 'home-night': 844, 'medicare-dental': 844, 'medicare-hearing': 844, 'medicare-signup': 844, 'package': 1371, 'package-input': 844, 'scam-bail': 844, 'scam-giftcards': 844, 'scam-haggle': 844, 'ss': 844, 'trusted': 844}
 
 def device(img, alt, cls=""):
     return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
@@ -263,20 +265,20 @@ CHECK_NOTE = '<p>The app looks for the warning signs scammers rely on, checks li
 
 CHECK_EX = [
   phone_ex("package", "A text about a package", "Someone pastes a text they got into the message bar, then taps send.",
-    "package", "The app’s answer: This has the signs of a scam. This message has several signs that are common in scams. What we’d do next: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust. Why we think so: It asks for a small fee. Fake delivery notices do this to collect card details. It warns that something bad will happen to your account, benefits or device. It pushes you to act right away, before you have time to check.",
-    "package-input", "The app with a pasted text: PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender, with a link.", after=CHECK_NOTE),
+    "package", "In the Scams chat, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks for a small fee. Fake delivery notices do this to collect card details. It warns that something bad will happen. It pushes you to act right away. What I’d do: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.",
+    "package-input", "The Scams chat with a pasted text in the message bar: PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender, with a link.", after=CHECK_NOTE),
   phone_ex("bank", "A picture of a bank text", "Someone taps + and adds a screenshot. The app reads the words right on the phone, and only the words are checked.",
-    "bank", "The app’s answer: This has the signs of a scam. What we’d do next: Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement. Why we think so: It asks you to move money to a so-called safe account. Real banks never ask you to do this. It tells you to keep it secret. It warns that something bad will happen to your account.",
+    "bank", "In the Scams chat, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks you to move money to a so-called safe account. Real banks never ask you to do this. It tells you to keep it secret. It warns that something bad will happen to your account. What I’d do: Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement.",
     "bank-input", "The app’s message bar holding the words it read from a screenshot of a text from First Harbor Bank, ready to send.", after=CHECK_NOTE),
   phone_ex("call", "A worrying phone call", "Someone types or says what happened on a call.",
-    "call", "The app’s answer: This has the signs of a scam. If you’re worried someone you love is in trouble: if someone may be in danger right now, call 911. Hang up, then call your family member yourself on a number you already have. Don’t send any money, gift cards or cryptocurrency. Why we think so: it asks for payment with gift cards, it tells you to keep it secret, and it describes a family emergency that needs money fast.",
-    "call-input", "The app with a description: a young man called saying he was my grandson, in jail, needing $3,000 bail paid in gift cards.", after=CHECK_NOTE),
+    "call", "In the Scams chat, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks for payment with gift cards. Only scammers ask to be paid this way. It tells you to keep it secret. It describes a family emergency that needs money fast. What I’d do: Don’t send money. Hang up and call your family member, or another relative, on a number you already have.",
+    "call-input", "The Scams chat with a description in the message bar: a young man called saying he was my grandson, in jail, needing $3,000 bail paid in gift cards.", after=CHECK_NOTE),
   phone_ex("doctor", "A message from a doctor’s office", "Not everything is a scam. When we can’t tell, we say so.",
-    "doctor", "The app’s answer: Check with them before you do anything. Nothing proves this message is a scam, but some things need checking before you respond. What we’d do next: contact them yourself using a phone number or website you already have, not one from the message.",
-    "doctor-input", "The app with a pasted text: Hi, this is Dr. Patel’s office calling about your recent test results. Please call us back.", after=CHECK_NOTE),
+    "doctor", "In the Scams chat, the app answers: Check with them before you do anything. We can’t tell either way. Contact them yourself, using a number you already trust. What I’d do: Before you respond, contact them yourself using a phone number or website you already have, not one from the message.",
+    "doctor-input", "The Scams chat with a pasted text in the message bar: Hi, this is Dr. Patel’s office calling about your recent test results. Please call us back.", after=CHECK_NOTE),
 ]
 
-MED_NOTE = '<p>Answers come only from the official Medicare guides. Tap “More detail and sources” in the app to see the guide’s exact words and page.</p><p style="margin-top:12px">For questions about your own plan, the app points you to 1-800-MEDICARE or your free local SHIP counselor.</p>'
+MED_NOTE = '<p>Answers come only from the official Medicare guides. Tap “Tell me more” in the app to see the guide’s exact words and page.</p><p style="margin-top:12px">For questions about your own plan, the app points you to 1-800-MEDICARE or your free local SHIP counselor.</p>'
 MEDICARE_EX = [
   phone_ex("dental", "Does Medicare cover dental?", "Someone asks in their own words.", "medicare-dental",
     "Question: Does Original Medicare cover dental care? The app’s answer: In most cases, Original Medicare does not cover routine dental services like cleanings, fillings, tooth extractions, or dentures.", after=MED_NOTE),
@@ -401,7 +403,7 @@ HOME = f'''
           <li>{I["tick"]}Every answer ends with where to go next, so it all fits together</li>
         </ul>
       </div>
-      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/ss.webp?v={VERSION}" width="390" height="844" alt="The app’s Social Security questions screen: Ask in your own words, like you would a friend. Answers come only from official Social Security publications. Below are sample questions to tap, like What is full retirement age?, and a box to type your own question with a microphone button."></div></figure></div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/ask.webp?v={VERSION}" width="390" height="844" alt="Someone typed on Home: Does Original Medicare cover dental care? The app answers in the Medicare chat: In most cases, Original Medicare does not cover routine dental services like cleanings, fillings, tooth extractions, or dentures. Below are Tell me more and From Medicare &amp; You."></div></figure></div>
     </article>
 
     <article class="h-row">
@@ -417,7 +419,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/check/">See four real samples{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" height="1963" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" height="1597" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
     </article>
 
     <article class="h-row h-row-flip">
@@ -454,14 +456,14 @@ HOME = f'''
       <div class="h-row-copy">
         <span class="icon gl">{G["help"]}</span>
         <h3>Help after a scam</h3>
-        <p>It happens to careful, smart people every day, and it’s not your fault. Pick what happened, like sending money or sharing your Social Security number, and we’ll go through the next steps together, one at a time.</p>
+        <p>It happens to careful, smart people every day, and it’s not your fault. Just tell the Scams chat what happened, like sending money or sharing your Social Security number, and we’ll work out the next steps together, one at a time.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}Steps from official sources like the FTC and IdentityTheft.gov, with links to their own websites</li>
           <li>{I["tick"]}Reach Social Security, Medicare, the IRS or the Postal Service yourself, using their official contacts</li>
-          <li>{I["tick"]}What you type there is matched to the steps on your phone. It isn’t sent or saved</li>
+          <li>{I["tick"]}If you paid, the steps fit how you paid, like a gift card, bank transfer or app</li>
         </ul>
       </div>
-      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/protect.webp?v={VERSION}" width="390" height="844" alt="The app’s Get help after a scam screen: Let’s work out the next steps. Choices include I paid or sent money, I gave my Social Security number, I gave a password or account number, I let someone into my computer or phone, and I clicked a link."></div></figure></div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/help.webp?v={VERSION}" width="390" height="844" alt="The Scams chat. Someone writes: A man called saying he was from Medicare and told me to buy gift cards to keep my coverage. I bought $500 of them and read him the numbers. The app replies: I’m sorry that happened. It happens to careful, smart people every day, and it’s not your fault. Tell me what happened, and we’ll work out the next steps together. Below are choices like I paid or sent money and I gave my Social Security number."></div></figure></div>
     </article>
 
     <article class="h-row">
