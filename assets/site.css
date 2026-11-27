@@ -862,3 +862,9 @@ html[data-sky="dusk"] .h-ph-home .h-ph-screen,html[data-sky="night"] .h-ph-home 
 .h-row-art .h-ph-demo .h-ph-screen.live{aspect-ratio:auto;height:392px}
 .h-ph-demo .lv-tabs{display:none}
 @media (min-width:700px){.h-row-art .h-ph-demo .h-ph-screen.live{height:476px}}
+/* The app's own topic icons: warm glow on soft frosted glass (no blur, which iPhone Safari can blank). */
+.icon.gl{background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,246,230,.8));border:1px solid rgba(240,154,62,.22);box-shadow:0 6px 18px -8px rgba(217,113,31,.35),inset 0 1px 0 rgba(255,255,255,.9);color:inherit}
+.icon.gl svg{width:40px;height:40px}
+.next-list .icon.gl svg{width:30px;height:30px}
+.icon-pair{display:flex;gap:12px}
+:root[data-mode="dark"] .icon.gl{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,214,150,.06));border-color:rgba(255,214,150,.22);box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}
