@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "41"
+VERSION = "42"
 
 def ico(body, fill=False):
     if fill:
@@ -16,13 +16,13 @@ def ico(body, fill=False):
 # The porch light mark (app, 2026-11-27): a speech bubble made of warm light on a sky split between day and night.
 # Gradients live once per page in SPRITE, so every copy of the mark can share them.
 LOGO = ('<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><clipPath id="crClip"><rect width="120" height="120" rx="28"/></clipPath>'
-        '<g clip-path="url(#crClip)"><rect width="120" height="120" fill="url(#crDusk)"/><path d="M0 0H120L0 120z" fill="url(#crDay)"/>'
-        '<circle cx="61" cy="57" r="46" fill="url(#crHalo)"/></g>'
-        '<path d="M60 26a30 30 0 1 1-13.8 56.6L30 89l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/>'
-        '<ellipse cx="52" cy="44" rx="11" ry="7" fill="#fff" fill-opacity=".6"/></svg>')
-# The light on its own: the logo's bubble without the sky, for the hero and the app mockups.
-GLOW = ('<svg viewBox="16 20 90 76" aria-hidden="true" focusable="false"><path d="M60 26a30 30 0 1 1-13.8 56.6L30 89l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/>'
-        '<ellipse cx="52" cy="44" rx="11" ry="7" fill="#fff" fill-opacity=".6"/></svg>')
+        '<g clip-path="url(#crClip)"><rect width="120" height="120" fill="url(#crDusk)"/><path d="M0 0H120L0 120z" fill="url(#crDay)"/></g>'
+        '<g transform="translate(-10.29 -6.31) scale(1.1778)"><path d="M60 26a30 30 0 1 1-13.8 56.6L29.5 86.5l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/><path d="M48 70V54a12 12 0 0 1 24 0v16z" fill="#FFF8EA" stroke="#D29B66" stroke-width="2.6" stroke-linejoin="round"/><path d="M60 42v28M48 57h24" stroke="#D29B66" stroke-width="2.6"/></g></svg>')
+# The light on its own, with its arched window (app PR 86: "we are always home for them"), for the hero.
+GLOW = ('<svg viewBox="16 20 90 76" aria-hidden="true" focusable="false">'
+        '<path d="M60 26a30 30 0 1 1-13.8 56.6L29.5 86.5l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/>'
+        '<path d="M48 70V54a12 12 0 0 1 24 0v16z" fill="#FFF8EA" stroke="#D29B66" stroke-width="2.6" stroke-linejoin="round"/>'
+        '<path d="M60 42v28M48 57h24" stroke="#D29B66" stroke-width="2.6"/></svg>')
 SPRITE = ('<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>'
           '<radialGradient id="crGlow" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#FFF6DF"/><stop offset=".45" stop-color="#FFD58A"/><stop offset="1" stop-color="#F09A3E"/></radialGradient>'
           '<linearGradient id="crDusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B2147"/><stop offset=".55" stop-color="#3A3566"/><stop offset=".85" stop-color="#7A4F72"/><stop offset="1" stop-color="#B9746C"/></linearGradient>'
@@ -113,7 +113,7 @@ def page(path, title, description, body, current=""):
 <footer><div class="wrap">
   <div>
     <a class="brand" href="{up or './'}" aria-label="ChatRetiree home">{LOGO}<span><b>Chat</b>Retiree</span></a>
-    <p class="tag">Let’s look at it together.</p>
+    <p class="tag">Always home. Always here to help.</p>
   </div>
   <nav aria-label="Footer">
     {nav("about/", "About us", "about")}
@@ -297,7 +297,7 @@ HOME = f'''
     <div class="h-hero-copy">
       <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
       <div class="porch" aria-hidden="true"><span class="porch-halo"></span>{GLOW}</div>
-      <h1 id="hero-h">Let’s look at it together.</h1>
+      <h1 id="hero-h"><span>Always home.</span> <span>Always here to help.</span></h1>
       <p class="h-lead">One simple place for what’s on your mind: check a message before you act, get straight answers about Medicare and Social Security, and get help if a scam already happened. In plain words, from sources you can trust.</p>
       <div class="h-actions">
         <a class="btn h-btn-light" href="#help">See it in action{I["arrow"]}</a>
@@ -307,7 +307,7 @@ HOME = f'''
     <div class="h-phones">
       <figure class="h-ph h-ph-back" role="img" aria-label="The ChatRetiree app answering: Does Medicare pay for hearing aids? Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">
         <div class="h-ph-screen live has-compose" aria-hidden="true">
-          <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+          <div class="lv-bar lv-slim"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i><span>Medicare</span><i class="lv-me"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i></div>
           <p class="lv-q" data-type="Does Medicare pay for hearing aids?">Does Medicare pay for hearing aids?</p>
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a"><p data-type="Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p></div>
@@ -320,7 +320,7 @@ HOME = f'''
       </figure>
       <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text that claims to be from Medicare about a new Medicare card. Its answer: This has the signs of a scam. What we’d do next: Don’t call any number in the message. Contact the agency using the number on your card or its official website.">
         <div class="h-ph-screen live has-compose" aria-hidden="true">
-          <div class="lv-bar">{LOGO}<span><b>Chat</b>Retiree</span></div>
+          <div class="lv-bar lv-slim"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i><span>Check for a scam</span><i class="lv-me"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i></div>
           <p class="lv-msg lv-sent">MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.</p>
           <span class="lv-dots"><i></i><i></i><i></i></span>
           <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
@@ -718,7 +718,7 @@ page("examples/scams", "Example: scams going around", "Tap through questions abo
      ex_page("scams", "Scams going around", "We keep up with official scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services, and put them in plain words. You can also ask about a scam.", "Pick a question to try", SCAM_EX, "scams"))
 page("examples/trusted", "Example: ask someone you trust", "See how ChatRetiree helps you send what you found to someone you trust.",
      ex_page("trusted", "Ask someone you trust", "Add a family member or friend in the app. After any check, one tap opens your own email with a note to them, so you can decide together.", "Try it", TRUSTED_EX, "trusted"))
-page("", "ChatRetiree: let’s look at it together",
+page("", "ChatRetiree: always home, always here to help",
      "ChatRetiree is like a friend you can ask when a text, email or call doesn’t feel right. Coming soon to iPhone and Android.", HOME)
 page("privacy", "Privacy policy", "How the ChatRetiree app handles your information.", privacy_body(), "privacy")
 page("about", "About us", "Why we built ChatRetiree, what we believe, and where our answers come from.", ABOUT, "about")
