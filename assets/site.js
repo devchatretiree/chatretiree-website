@@ -11,25 +11,18 @@
     b.addEventListener("click",function(){var n=mode()==="dark"?"light":"dark";root.setAttribute("data-site",n);paint()});
   });
 })();
-// Home page: each phone shows the app "thinking", then its answer appears line by line, once it scrolls into view.
+// Home page: the hero phones play their little conversation once they scroll into view.
+// The app screenshots further down are shown straight away, with no reveal.
 document.addEventListener("DOMContentLoaded",function(){
-  var phones=document.querySelectorAll(".h-ph");
-  if(!phones.length||!("IntersectionObserver" in window))return;
+  if(!("IntersectionObserver" in window))return;
   try{if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}
-  phones.forEach(function(ph,i){
-    var screen=ph.querySelector(".h-ph-screen"),img=screen&&screen.querySelector("img");if(!img){if(screen&&screen.classList.contains("live"))live(ph,screen);return}
-    var cover=document.createElement("span");cover.className="h-cover";cover.setAttribute("aria-hidden","true");
-    cover.innerHTML='<span class="h-dots"><i></i><i></i><i></i></span>';
-    function place(){var w=screen.clientWidth;cover.style.top=(img.classList.contains("h-shift")?30:Math.round(30+w*0.165))+"px"}
-    window.addEventListener("resize",place);
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();screen.appendChild(cover);place();cover.offsetWidth;ph.classList.add("play")}})},{threshold:.3});
-    io.observe(ph);
-  });
+  // Only the scam-check demo plays; the phones at the top are simply there, like the app.
+  [].forEach.call(document.querySelectorAll(".h-ph-demo .h-ph-screen.live"),function(screen){live(screen.parentNode,screen)});
 });
 
 // Hero phones: the question is typed in, the app thinks, then the answer types out.
 function live(ph,screen){
-  var front=ph.classList.contains("h-ph-front");
+  var front=!!screen.querySelector(".lv-front");
   var els=[].slice.call(screen.querySelectorAll("[data-type]"));
   var parts=[].slice.call(screen.querySelectorAll(".lv-a,.lv-dots,.lv-after"));
 
@@ -69,22 +62,20 @@ function live(ph,screen){
   io.observe(ph);
 }
 // The sky follows the visitor's own clock, like the app: dawn, day, golden hour, dusk and night.
+// It is worked out here, before the page is drawn, so the right sky is there from the first moment.
 // The sun (or moon, in its real phase) sits on a low arc near the top. Nothing about the visitor is sent anywhere.
-document.addEventListener("DOMContentLoaded",function(){
-  var heroes=document.querySelectorAll(".h-hero");if(!heroes.length)return;
+(function(){
   var now=new Date(),h=now.getHours()+now.getMinutes()/60;
   var sky=h>=6&&h<9?"dawn":h>=9&&h<16?"day":h>=16&&h<18?"golden":h>=18&&h<20.5?"dusk":"night";
   var dark=sky==="dusk"||sky==="night";
+  document.documentElement.setAttribute("data-sky",sky);
   var t=dark?((((h-18)%24)+24)%24)/12:(h-6)/13;t=Math.min(1,Math.max(0,t));
   var x=.12+.76*t,y=.075-.045*Math.sin(Math.PI*t);
   // Moon phase: days since a known new moon, over the 29.53-day cycle.
   var f=((now.getTime()-Date.UTC(2000,0,6,18,14))/864e5/29.530588853)%1;if(f<0)f+=1;
   var r=16,k=Math.cos(2*Math.PI*f),wax=f<.5,rx=Math.max(.01,Math.abs(k)*r);
   var d=f<.02||f>.98?"":"M20 4A16 16 0 0 "+(wax?1:0)+" 20 36A"+rx.toFixed(2)+" 16 0 0 "+(wax?(k>0?0:1):(k>0?1:0))+" 20 4z";
-  // The Home screen picture follows the same clock: the app's evening sky after dark.
-  if(dark)[].forEach.call(document.querySelectorAll('img[src*="app/home.webp"]'),function(im){im.src=im.src.replace("app/home.webp","app/home-night.webp")});
-  heroes.forEach(function(hero){
-    hero.setAttribute("data-sky",sky);
+  function fill(hero){
     var body=hero.querySelector(".sky-body");if(body){body.style.setProperty("--x",x.toFixed(3));body.style.setProperty("--y",y.toFixed(3))}
     var lit=hero.querySelector(".moon-lit");if(lit){if(d)lit.setAttribute("d",d);else lit.remove()}
     var stars=hero.querySelector(".sky-stars");
@@ -93,5 +84,6 @@ document.addEventListener("DOMContentLoaded",function(){
       for(var i=0;i<46;i++){var s=document.createElement("i");s.style.left=(rnd()*100).toFixed(1)+"%";s.style.top=(rnd()*100).toFixed(1)+"%";
         var z=rnd()<.15?3:2;s.style.width=s.style.height=z+"px";s.style.animationDelay=(-rnd()*4).toFixed(2)+"s";s.style.animationDuration=(3+rnd()*4).toFixed(2)+"s";stars.appendChild(s)}
     }
-  });
-});
+  }
+  window.crSky=function(){[].forEach.call(document.querySelectorAll(".h-hero"),fill)};
+})();

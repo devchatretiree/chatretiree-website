@@ -759,11 +759,11 @@ h3{font-family:"Inter",-apple-system,sans-serif;font-weight:700;letter-spacing:-
 .h-hero{position:relative;isolation:isolate;--sky-ink:#14202A;--sky-ink2:#2F3B44;--pill-bg:rgba(255,255,255,.55);--pill-edge:rgba(255,255,255,.9);
   background:linear-gradient(180deg,#9FC4E4 0%,#C3DAEC 24%,#E9E4E0 52%,#F7E4D2 76%,var(--bg) 100%);color:var(--sky-ink)}
 .sky{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.h-hero[data-sky="dawn"]{background:linear-gradient(180deg,#A9C3E2 0%,#D6D4E6 22%,#F4D9CB 50%,#F8E6D6 74%,var(--bg) 100%)}
-.h-hero[data-sky="golden"]{background:linear-gradient(180deg,#8FB2D6 0%,#C9C6D8 22%,#F2CDA8 50%,#F7DDC2 74%,var(--bg) 100%)}
-.h-hero[data-sky="dusk"]{--sky-ink:#FFFFFF;--sky-ink2:#E6E3F2;--pill-bg:rgba(255,255,255,.12);--pill-edge:rgba(255,255,255,.24);
+html[data-sky="dawn"] .h-hero{background:linear-gradient(180deg,#A9C3E2 0%,#D6D4E6 22%,#F4D9CB 50%,#F8E6D6 74%,var(--bg) 100%)}
+html[data-sky="golden"] .h-hero{background:linear-gradient(180deg,#8FB2D6 0%,#C9C6D8 22%,#F2CDA8 50%,#F7DDC2 74%,var(--bg) 100%)}
+html[data-sky="dusk"] .h-hero{--sky-ink:#FFFFFF;--sky-ink2:#E6E3F2;--pill-bg:rgba(255,255,255,.12);--pill-edge:rgba(255,255,255,.24);
   background:linear-gradient(180deg,#1B2147 0%,#2E2F5E 34%,#4A3D6E 60%,#7A4F72 82%,#9C6070 93%,#3A2E4A 100%)}
-.h-hero[data-sky="night"]{--sky-ink:#FFFFFF;--sky-ink2:#DCDEF0;--pill-bg:rgba(255,255,255,.10);--pill-edge:rgba(255,255,255,.22);
+html[data-sky="night"] .h-hero{--sky-ink:#FFFFFF;--sky-ink2:#DCDEF0;--pill-bg:rgba(255,255,255,.10);--pill-edge:rgba(255,255,255,.22);
   background:linear-gradient(180deg,#0E1430 0%,#1A2048 26%,#252B5C 52%,#2A3166 72%,#1A1F42 90%,#121634 100%)}
 .h-hero h1,.h-hero .h-pill,.h-hero a.h-pill:hover{color:var(--sky-ink)}
 .h-lead{color:var(--sky-ink2)}
@@ -773,16 +773,16 @@ a.h-pill:hover{background:var(--pill-bg);filter:brightness(1.05)}
 .h-btn-light:hover{background:#1E2250;color:#FFFFFF}
 .h-btn-ghost{color:var(--sky-ink);border-color:color-mix(in srgb,var(--sky-ink) 45%,transparent);background:var(--pill-bg)}
 .h-btn-ghost:hover{color:var(--sky-ink);background:var(--pill-bg);border-color:var(--sky-ink)}
-.h-hero[data-sky="dusk"] .h-btn-light,.h-hero[data-sky="night"] .h-btn-light{background:#FFFFFF;color:#1B2147;border-color:#FFFFFF}
-.h-hero[data-sky="dusk"] .h-btn-light:hover,.h-hero[data-sky="night"] .h-btn-light:hover{background:#FFF6DF;color:#1B2147}
+html[data-sky="dusk"] .h-hero .h-btn-light,html[data-sky="night"] .h-hero .h-btn-light{background:#FFFFFF;color:#1B2147;border-color:#FFFFFF}
+html[data-sky="dusk"] .h-hero .h-btn-light:hover,html[data-sky="night"] .h-hero .h-btn-light:hover{background:#FFF6DF;color:#1B2147}
 
 /* Sun and moon on a low arc near the top, never behind words. --x and --y come from site.js. */
 .sky-body{position:absolute;left:calc(var(--x,.78) * 100%);top:calc(var(--y,.1) * 100%);width:64px;height:64px;margin-left:-32px}
 .sky-sun{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#FFFDF4 0 34%,#FFF1CF 46%,rgba(255,232,180,.55) 60%,rgba(255,226,170,0) 72%);transform:scale(1.9);opacity:.95}
 .sky-moon{position:absolute;inset:6px;width:52px;height:52px;display:none;filter:drop-shadow(0 0 14px rgba(243,230,208,.55))}
 .moon-dark{fill:#2E3570;opacity:.55}.moon-lit{fill:#F3E6D0}
-.h-hero[data-sky="dusk"] .sky-sun,.h-hero[data-sky="night"] .sky-sun{display:none}
-.h-hero[data-sky="dusk"] .sky-moon,.h-hero[data-sky="night"] .sky-moon{display:block}
+html[data-sky="dusk"] .h-hero .sky-sun,html[data-sky="night"] .h-hero .sky-sun{display:none}
+html[data-sky="dusk"] .h-hero .sky-moon,html[data-sky="night"] .h-hero .sky-moon{display:block}
 /* Clouds drift slowly across the sky band, once in a while. Faint at dusk, gone at night. */
 .cloud{position:absolute;left:0;display:block;will-change:transform;animation:drift linear infinite}
 .cloud svg{display:block;width:100%;height:auto}
@@ -790,10 +790,10 @@ a.h-pill:hover{background:var(--pill-bg);filter:brightness(1.05)}
 .c2{top:15%;width:112px;animation-duration:190s;animation-delay:-120s;opacity:.85}
 .c3{top:4%;width:92px;animation-duration:230s;animation-delay:-80s;opacity:.75}
 @keyframes drift{from{transform:translateX(-180px)}to{transform:translateX(calc(100vw + 40px))}}
-.h-hero[data-sky="dusk"] .cloud{opacity:.18}.h-hero[data-sky="night"] .cloud{display:none}
+html[data-sky="dusk"] .h-hero .cloud{opacity:.18}html[data-sky="night"] .h-hero .cloud{display:none}
 .sky-stars{position:absolute;inset:0 0 40% 0;display:none}
-.h-hero[data-sky="night"] .sky-stars,.h-hero[data-sky="dusk"] .sky-stars{display:block}
-.h-hero[data-sky="dusk"] .sky-stars{opacity:.5}
+html[data-sky="night"] .h-hero .sky-stars,html[data-sky="dusk"] .h-hero .sky-stars{display:block}
+html[data-sky="dusk"] .h-hero .sky-stars{opacity:.5}
 .sky-stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#FFFFFF;opacity:.7;animation:twinkle 4s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.75}50%{opacity:.2}}
 
@@ -850,3 +850,21 @@ a.h-pill:hover{background:var(--pill-bg);filter:brightness(1.05)}
 @media (max-width:699px){.lv-bar.lv-slim{font-size:12px}.lv-slim i{width:22px;height:22px}.lv-slim svg{width:14px;height:14px}}
 .porch{width:84px;height:72px}
 .h-hero h1{font-size:clamp(38px,5.4vw,72px);text-wrap:wrap}.h-hero h1 span{display:block}
+
+/* Home screen picture follows the clock without swapping files: both are in the page, the right one shows. */
+.h-ph-screen img.day-only{display:block}.h-ph-screen img.night-only{display:none}
+html[data-sky="dusk"] .h-ph-screen img.day-only,html[data-sky="night"] .h-ph-screen img.day-only{display:none}
+html[data-sky="dusk"] .h-ph-screen img.night-only,html[data-sky="night"] .h-ph-screen img.night-only{display:block}
+/* Hero front phone is the app's Home screen: the friendly welcome. */
+.h-ph-home .h-ph-screen{background:#A1C5E4}
+html[data-sky="dusk"] .h-ph-home .h-ph-screen,html[data-sky="night"] .h-ph-home .h-ph-screen{background:#0D142F}
+/* The scam-check demo phone now sits in the first feature row, upright like the other screens. */
+.h-row-art .h-ph-demo .h-ph-screen.live{aspect-ratio:auto;height:392px}
+.h-ph-demo .lv-tabs{display:none}
+@media (min-width:700px){.h-row-art .h-ph-demo .h-ph-screen.live{height:476px}}
+/* The app's own topic icons: warm glow on soft frosted glass (no blur, which iPhone Safari can blank). */
+.icon.gl{background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,246,230,.8));border:1px solid rgba(240,154,62,.22);box-shadow:0 6px 18px -8px rgba(217,113,31,.35),inset 0 1px 0 rgba(255,255,255,.9);color:inherit}
+.icon.gl svg{width:40px;height:40px}
+.next-list .icon.gl svg{width:30px;height:30px}
+.icon-pair{display:flex;gap:12px}
+:root[data-mode="dark"] .icon.gl{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,214,150,.06));border-color:rgba(255,214,150,.22);box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}

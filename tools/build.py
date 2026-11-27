@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "42"
+VERSION = "45"
 
 def ico(body, fill=False):
     if fill:
@@ -25,6 +25,7 @@ GLOW = ('<svg viewBox="16 20 90 76" aria-hidden="true" focusable="false">'
         '<path d="M60 42v28M48 57h24" stroke="#D29B66" stroke-width="2.6"/></svg>')
 SPRITE = ('<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>'
           '<radialGradient id="crGlow" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#FFF6DF"/><stop offset=".45" stop-color="#FFD58A"/><stop offset="1" stop-color="#F09A3E"/></radialGradient>'
+          '<radialGradient id="crTopic" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#FFD27E"/><stop offset=".45" stop-color="#F5A23F"/><stop offset="1" stop-color="#D9711F"/></radialGradient>'
           '<linearGradient id="crDusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B2147"/><stop offset=".55" stop-color="#3A3566"/><stop offset=".85" stop-color="#7A4F72"/><stop offset="1" stop-color="#B9746C"/></linearGradient>'
           '<linearGradient id="crDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8DB8E2"/><stop offset=".6" stop-color="#C3DAEC"/><stop offset="1" stop-color="#F7DCC4"/></linearGradient>'
           '<radialGradient id="crHalo" cx="50%" cy="50%" r="50%"><stop offset=".3" stop-color="#FFC56E" stop-opacity=".55"/><stop offset="1" stop-color="#FFC56E" stop-opacity="0"/></radialGradient>'
@@ -41,6 +42,36 @@ def cloud(shape):
 SKY = ('<div class="sky" aria-hidden="true"><div class="sky-stars"></div><div class="sky-body"><span class="sky-sun"></span>'
        '<svg class="sky-moon" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" class="moon-dark"/><path class="moon-lit" d="M20 4a16 16 0 1 1 0 32a16 16 0 1 1 0-32z"/></svg></div>'
        f'<span class="cloud c1">{cloud(0)}</span><span class="cloud c2">{cloud(1)}</span><span class="cloud c3">{cloud(2)}</span></div>')
+
+# The app's topic icons (src/ui/sky.tsx TopicGlyph): warm glow on soft glass, one family with the porch light.
+# Scams, Medicare and Social Security are the app's own drawings; the others are drawn the same way.
+def glyph(body, fit="", label=""):
+    return (f'<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><g transform="{fit}">{body}</g></svg>')
+_F='fill="url(#crTopic)"'; _D='#A8581C'
+G = {
+  "scams": glyph(f'<path d="M30 28h46a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H48l-12 10v-10h-6a10 10 0 0 1-10-10V38a10 10 0 0 1 10-10z" {_F}/>'
+                 f'<rect x="32" y="40" width="30" height="5" rx="2.5" fill="{_D}" fill-opacity=".45"/><rect x="32" y="51" width="20" height="5" rx="2.5" fill="{_D}" fill-opacity=".45"/>'
+                 '<circle cx="78" cy="72" r="16" fill="#FFF6DF" fill-opacity=".25" stroke="url(#crTopic)" stroke-width="7"/><path d="M90 84l11 11" stroke="#F4B060" stroke-width="9" stroke-linecap="round"/>',
+                 "translate(60 60) scale(1.04) translate(-61 -63)"),
+  "medicare": glyph(f'<path d="M60 96C31 77 21 61 21 46.5A19 19 0 0 1 60 38a19 19 0 0 1 39 8.5C99 61 89 77 60 96z" {_F}/>'
+                 f'<rect x="54.5" y="47" width="11" height="30" rx="4" fill="{_D}" fill-opacity=".7"/><rect x="45" y="56.5" width="30" height="11" rx="4" fill="{_D}" fill-opacity=".7"/>',
+                 "translate(60 60) scale(1.0) translate(-60 -61.5)"),
+  "ss": glyph(f'<rect x="20" y="32" width="80" height="56" rx="12" {_F}/>'
+                 f'<rect x="30" y="47" width="30" height="5.5" rx="2.75" fill="{_D}" fill-opacity=".5"/><rect x="30" y="60" width="20" height="5.5" rx="2.75" fill="{_D}" fill-opacity=".5"/><rect x="30" y="72" width="36" height="5.5" rx="2.75" fill="{_D}" fill-opacity=".3"/>'
+                 f'<circle cx="80" cy="59" r="10" fill="{_D}" fill-opacity=".75"/><path d="M75.5 59l3 3 5.5-6" stroke="#FFF6DF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+                 "translate(60 60) scale(1.04) translate(-60 -60)"),
+  "light": glyph('<path d="M60 26a30 30 0 1 1-13.8 56.6L29.5 86.5l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crTopic)"/><path d="M48 70V54a12 12 0 0 1 24 0v16z" fill="#FFF8EA" stroke="#D29B66" stroke-width="2.6" stroke-linejoin="round"/><path d="M60 42v28M48 57h24" stroke="#D29B66" stroke-width="2.6"/>',
+                 "translate(60 60) scale(1.35) translate(-58 -57)"),
+  "alerts": glyph(f'<path d="M60 20a6 6 0 0 1 6 6v3.5A26 26 0 0 1 86 55v15l9 11a3 3 0 0 1-2.3 5H27.3a3 3 0 0 1-2.3-5l9-11V55a26 26 0 0 1 20-25.5V26a6 6 0 0 1 6-6z" {_F}/>'
+                 f'<path d="M50 92a10 10 0 0 0 20 0z" fill="{_D}" fill-opacity=".7"/><rect x="56" y="44" width="8" height="20" rx="4" fill="{_D}" fill-opacity=".6"/><circle cx="60" cy="73" r="4.5" fill="{_D}" fill-opacity=".6"/>',
+                 "translate(60 60) scale(1.0) translate(-60 -58)"),
+  "help": glyph('<circle cx="60" cy="60" r="31" fill="none" stroke="url(#crTopic)" stroke-width="17"/>'
+                 f'<g stroke="{_D}" stroke-opacity=".55" stroke-width="7"><path d="M38 38l9 9M82 38l-9 9M38 82l9-9M82 82l-9-9"/></g>',
+                 "translate(60 60) scale(1.0) translate(-60 -60)"),
+  "trusted": glyph(f'<circle cx="45" cy="42" r="14" {_F}/><path d="M19 88a26 26 0 0 1 52 0v2a4 4 0 0 1-4 4H23a4 4 0 0 1-4-4z" {_F}/>'
+                 f'<circle cx="80" cy="47" r="11" {_F} fill-opacity=".85"/><path d="M76 94h22a4 4 0 0 0 4-4v-1a22 22 0 0 0-30-20.5A31 31 0 0 1 77 88z" {_F} fill-opacity=".85"/>',
+                 "translate(60 60) scale(1.0) translate(-60 -64)"),
+}
 
 I = {
   "check": ico('<path d="M12 3a8.5 8.5 0 1 1-4.2 15.9L3.5 20.5l1.4-4.1A8.5 8.5 0 0 1 12 3z"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .8-1 1.5v.3"/><path d="M12 16.3h.01"/>'),
@@ -90,6 +121,9 @@ def page(path, title, description, body, current=""):
 <meta property="og:image" content="https://chatretiree.com/assets/icon.png?v={VERSION}">
 <link rel="icon" href="{up}assets/favicon.png?v={VERSION}" type="image/png">
 <link rel="apple-touch-icon" href="{up}assets/icon.png?v={VERSION}">
+<link rel="preload" href="{up}assets/fonts/Inter_400Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{up}assets/fonts/Inter_700Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{up}assets/fonts/Newsreader_400Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{up}assets/site.css?v={VERSION}">
 <script src="{up}assets/site.js?v={VERSION}"></script>
 {extra_head}
@@ -175,7 +209,7 @@ NOTE = f'<p class="ex-note">{I["info"]}<span>These are real screens from the Cha
 
 def ex_page(slug, title, lead, chips_title, examples, current):
     others = [x for x in EX_LINKS if x[0] != current]
-    nxt = "".join(f'<a href="../{s}/">{f"<span class=\"icon {t}\">{I[i]}</span>"}{n}</a>' for s, n, i, t in others)
+    nxt = "".join(f'<a href="../{s}/">{f"<span class=\"icon gl\">{G[{'check':'scams','alerts':'alerts','medicare':'medicare','trusted':'trusted'}[i]]}</span>"}{n}</a>' for s, n, i, t in others)
     return f"""
 <div class="ex-page">
   <a class="back" href="../../#help">{I["back"]}All the ways we help</a>
@@ -205,9 +239,11 @@ EX_LINKS = [
 WHATS_NEXT = "What we’d do next"
 WHY = "Why we think so"
 
+APP_H = {'bank': 1963, 'bank-input': 844, 'call': 2697, 'call-input': 844, 'doctor': 1746, 'doctor-input': 844, 'home': 844, 'home-night': 844, 'medicare-dental': 844, 'medicare-hearing': 844, 'medicare-signup': 844, 'package': 1905, 'package-input': 844, 'protect': 844, 'scam-bail': 844, 'scam-giftcards': 844, 'scam-haggle': 844, 'ss': 844, 'trusted': 844}
+
 def device(img, alt, cls=""):
     return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
-            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" width="390"></div></figure>')
+            f'<img src="../../assets/app/{img}.webp?v={VERSION}" alt="{alt}" width="390" height="{APP_H[img]}"></div></figure>')
 
 def phone_ex(eid, chip, label, result_img, result_alt, input_img=None, input_alt="", button="Send it", after="", thinking="Looking at it with you…"):
     first = (device(input_img, input_alt, "step-in") + f'<button class="btn btn-primary go" type="button">{button}{I["arrow"]}</button>'
@@ -293,6 +329,7 @@ PARTNER = f"""
 HOME = f'''
 <section class="h-hero" aria-labelledby="hero-h">
   {SKY}
+  <script>window.crSky&&crSky()</script>
   <div class="h-hero-in">
     <div class="h-hero-copy">
       <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
@@ -305,29 +342,11 @@ HOME = f'''
       </div>
     </div>
     <div class="h-phones">
-      <figure class="h-ph h-ph-back" role="img" aria-label="The ChatRetiree app answering: Does Medicare pay for hearing aids? Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">
-        <div class="h-ph-screen live has-compose" aria-hidden="true">
-          <div class="lv-bar lv-slim"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i><span>Medicare</span><i class="lv-me"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i></div>
-          <p class="lv-q" data-type="Does Medicare pay for hearing aids?">Does Medicare pay for hearing aids?</p>
-          <span class="lv-dots"><i></i><i></i><i></i></span>
-          <div class="lv-a"><p data-type="Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.">Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.</p></div>
-          <span class="lv-more lv-after"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>More detail and sources</span>
-          <span class="lv-c lv-mic lv-spk lv-after"><svg viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg></span>
-          <span class="lv-more lv-after"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>Talk to a person, and more</span>
-          <div class="lv-compose"><span class="lv-c lv-plus"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span><span class="lv-box">Ask a follow-up…</span><span class="lv-c lv-mic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span></div>
-          <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
-        </div>
+      <figure class="h-ph h-ph-back">
+        <div class="h-ph-screen"><img src="assets/app/medicare-signup.webp?v={VERSION}" width="390" height="844" fetchpriority="high" alt="The app answering a Medicare question: When can I sign up for Medicare? Your Initial Enrollment Period is a 7-month window that starts 3 months before the month you turn 65, includes your birthday month, and ends 3 months after."></div>
       </figure>
-      <figure class="h-ph h-ph-front" role="img" aria-label="The ChatRetiree app checking a pasted text that claims to be from Medicare about a new Medicare card. Its answer: This has the signs of a scam. What we’d do next: Don’t call any number in the message. Contact the agency using the number on your card or its official website.">
-        <div class="h-ph-screen live has-compose" aria-hidden="true">
-          <div class="lv-bar lv-slim"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i><span>Check for a scam</span><i class="lv-me"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i></div>
-          <p class="lv-msg lv-sent">MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.</p>
-          <span class="lv-dots"><i></i><i></i><i></i></span>
-          <div class="lv-a lv-verdict"><b data-type="This has the signs of a scam">This has the signs of a scam</b><p data-type="This message has several signs that are common in scams.">This message has several signs that are common in scams.</p></div>
-          <div class="lv-a lv-next"><b>What we’d do next</b><p data-type="Don’t call any number in the message. Contact the agency using the number on your card or its official website.">Don’t call any number in the message. Contact the agency using the number on your card or its official website.</p></div>
-          <div class="lv-compose lv-front"><span class="lv-c lv-plus"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span><span class="lv-box"><span class="lv-in lv-ph" data-type="MEDICARE ALERT: Your new Medicare card is ready, but your benefits will be suspended today unless you confirm your Medicare number. Call 1-888-555-0147 now to keep your coverage.">Paste or type it here</span></span><span class="lv-c lv-mic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></svg></span><span class="lv-c lv-send lv-btn"><svg viewBox="0 0 24 24"><path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/><path d="M6 12h16"/></svg></span></div>
-          <div class="lv-tabs"><span class="on"><i><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></i>Home</span><span><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1.1.9-1.1 1.6v.3"/><path d="M12 16.8h.01"/></svg></i>Help</span><span><i><svg viewBox="0 0 24 24"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg></i>Me</span></div>
-        </div>
+      <figure class="h-ph h-ph-front h-ph-home">
+        <div class="h-ph-screen"><img class="day-only" src="assets/app/home.webp?v={VERSION}" width="390" height="844" alt="The app’s home screen: What’s on your mind? Ask about Medicare, Social Security or scams, or share a message that seems off. Below it is the message bar with a plus button, a box and a microphone. Below it are example questions and sections for staying safe from scams and your benefits." fetchpriority="high"><img class="night-only" src="assets/app/home-night.webp?v={VERSION}" width="390" height="844" alt=""></div>
       </figure>
     </div>
   </div>
@@ -373,7 +392,7 @@ HOME = f'''
 
     <article class="h-row h-row-flip">
       <div class="h-row-copy">
-        <span class="icon t-teal">{I["question"]}</span>
+        <span class="icon gl">{G["light"]}</span>
         <h3>Just ask what’s on your mind</h3>
         <p>Start with one box. Type a question, paste a message that seems off, or just say it out loud. We’ll take it to the right place, whether that’s a scam check, Medicare, Social Security or help after a scam.</p>
         <ul class="h-ticks">
@@ -382,12 +401,12 @@ HOME = f'''
           <li>{I["tick"]}Every answer ends with where to go next, so it all fits together</li>
         </ul>
       </div>
-      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/home.webp?v={VERSION}" width="390" alt="The app’s home screen: What’s on your mind? Ask about Medicare, Social Security or scams, or share a message that seems off. Below it is the message bar with a plus button, a box and a microphone. Below it are example questions and sections for staying safe from scams and your benefits."></div></figure></div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/ss.webp?v={VERSION}" width="390" height="844" alt="The app’s Social Security questions screen: Ask in your own words, like you would a friend. Answers come only from official Social Security publications. Below are sample questions to tap, like What is full retirement age?, and a box to type your own question with a microphone button."></div></figure></div>
     </article>
 
     <article class="h-row">
       <div class="h-row-copy">
-        <span class="icon t-teal">{I["check"]}</span>
+        <span class="icon gl">{G["scams"]}</span>
         <h3>Check a message before you act</h3>
         <p>Paste a text or email, add a picture of your screen, or just tell us what happened. In a few seconds you’ll see what we found and exactly what to do next. It’s more than an opinion: every message goes through real checks.</p>
         <ul class="h-ticks">
@@ -398,12 +417,12 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/check/">See four real samples{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
+      <div class="h-row-art t-teal-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/bank.webp?v={VERSION}" width="390" height="1963" alt="The app’s answer to a bank text asking to move savings to a safe account: This has the signs of a scam. Don’t reply or move any money. Call your bank using the number on the back of your card."></div></figure></div>
     </article>
 
     <article class="h-row h-row-flip">
       <div class="h-row-copy">
-        <span class="icon t-blue">{I["medicare"]}</span>
+        <span class="icon-pair"><span class="icon gl">{G["medicare"]}</span><span class="icon gl">{G["ss"]}</span></span>
         <h3>Straight answers about your benefits</h3>
         <p>Ask about Medicare or Social Security in your own words, like you would ask a friend who knows them inside out. Answers come only from the official Medicare guides and Social Security publications, and you can see the exact words they’re based on.</p>
         <ul class="h-ticks">
@@ -413,12 +432,12 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/medicare/">See sample Medicare questions{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services. A box at the bottom lets you ask a follow-up by typing or speaking."></div></figure></div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" height="844" alt="Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services. A box at the bottom lets you ask a follow-up by typing or speaking."></div></figure></div>
     </article>
 
     <article class="h-row">
       <div class="h-row-copy">
-        <span class="icon t-clay">{I["alerts"]}</span>
+        <span class="icon gl">{G["alerts"]}</span>
         <h3>Know what’s going around</h3>
         <p>We follow the official scam warnings from the FTC, the FBI and the U.S. Department of Health and Human Services, and sum each one up in plain words. Ask about a scam and get an answer straight from those warnings.</p>
         <ul class="h-ticks">
@@ -428,12 +447,12 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/scams/">See sample questions{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" alt="Question: Why do scammers ask for gift cards? The app replies like a text conversation: Please don’t send them any money or gift cards, and don’t offer a smaller amount. If you already sent money or gift cards, call your bank or the gift card company right away. A box at the bottom lets you ask another question."></div></figure></div>
+      <div class="h-row-art t-clay-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/scam-giftcards.webp?v={VERSION}" width="390" height="844" alt="Question: Why do scammers ask for gift cards? The app replies like a text conversation: Please don’t send them any money or gift cards, and don’t offer a smaller amount. If you already sent money or gift cards, call your bank or the gift card company right away. A box at the bottom lets you ask another question."></div></figure></div>
     </article>
 
     <article class="h-row h-row-flip">
       <div class="h-row-copy">
-        <span class="icon t-blue">{I["lifering"]}</span>
+        <span class="icon gl">{G["help"]}</span>
         <h3>Help after a scam</h3>
         <p>It happens to careful, smart people every day, and it’s not your fault. Pick what happened, like sending money or sharing your Social Security number, and we’ll go through the next steps together, one at a time.</p>
         <ul class="h-ticks">
@@ -442,12 +461,12 @@ HOME = f'''
           <li>{I["tick"]}What you type there is matched to the steps on your phone. It isn’t sent or saved</li>
         </ul>
       </div>
-      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/protect.webp?v={VERSION}" width="390" alt="The app’s Get help after a scam screen: Let’s work out the next steps. Choices include I paid or sent money, I gave my Social Security number, I gave a password or account number, I let someone into my computer or phone, and I clicked a link."></div></figure></div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/protect.webp?v={VERSION}" width="390" height="844" alt="The app’s Get help after a scam screen: Let’s work out the next steps. Choices include I paid or sent money, I gave my Social Security number, I gave a password or account number, I let someone into my computer or phone, and I clicked a link."></div></figure></div>
     </article>
 
     <article class="h-row">
       <div class="h-row-copy">
-        <span class="icon t-sage">{I["trusted"]}</span>
+        <span class="icon gl">{G["trusted"]}</span>
         <h3>Decide together</h3>
         <p>Add a family member or friend you trust. After any check, one tap opens your own email with a note to them, so you can talk it over before doing anything.</p>
         <ul class="h-ticks">
@@ -457,7 +476,7 @@ HOME = f'''
         </ul>
         <a class="h-link" href="examples/trusted/">See how it works{I["arrow"]}</a>
       </div>
-      <div class="h-row-art t-sage-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/trusted.webp?v={VERSION}" width="390" alt="The app’s result screen with an Email Sarah button to ask someone you trust."></div></figure></div>
+      <div class="h-row-art t-sage-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/trusted.webp?v={VERSION}" width="390" height="844" alt="The app’s result screen with an Email Sarah button to ask someone you trust."></div></figure></div>
     </article>
   </div>
 </section>
