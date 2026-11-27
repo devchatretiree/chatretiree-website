@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "40"
+VERSION = "41"
 
 def ico(body, fill=False):
     if fill:
@@ -13,10 +13,34 @@ def ico(body, fill=False):
     return ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
             f'stroke-linejoin="round" aria-hidden="true" focusable="false">{body}</svg>')
 
-LOGO = ('<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect width="100" height="100" rx="24" fill="#0F5F5A"/>'
-        '<path d="M40 18a23 23 0 1 1-10.6 43.4L18 66l3.4-11.2A23 23 0 0 1 40 18z" fill="#FFFFFF"/>'
-        '<path d="M63 41a19 19 0 1 0 8.8 35.8L81 80.5l-2.8-9.3A19 19 0 0 0 63 41z" fill="#0F5F5A" stroke="#0F5F5A" stroke-width="11" stroke-linejoin="round"/>'
-        '<path d="M63 41a19 19 0 1 0 8.8 35.8L81 80.5l-2.8-9.3A19 19 0 0 0 63 41z" fill="#0F5F5A" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/></svg>')
+# The porch light mark (app, 2026-11-27): a speech bubble made of warm light on a sky split between day and night.
+# Gradients live once per page in SPRITE, so every copy of the mark can share them.
+LOGO = ('<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><clipPath id="crClip"><rect width="120" height="120" rx="28"/></clipPath>'
+        '<g clip-path="url(#crClip)"><rect width="120" height="120" fill="url(#crDusk)"/><path d="M0 0H120L0 120z" fill="url(#crDay)"/>'
+        '<circle cx="61" cy="57" r="46" fill="url(#crHalo)"/></g>'
+        '<path d="M60 26a30 30 0 1 1-13.8 56.6L30 89l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/>'
+        '<ellipse cx="52" cy="44" rx="11" ry="7" fill="#fff" fill-opacity=".6"/></svg>')
+# The light on its own: the logo's bubble without the sky, for the hero and the app mockups.
+GLOW = ('<svg viewBox="16 20 90 76" aria-hidden="true" focusable="false"><path d="M60 26a30 30 0 1 1-13.8 56.6L30 89l4.6-14.6A30 30 0 0 1 60 26z" fill="url(#crGlow)"/>'
+        '<ellipse cx="52" cy="44" rx="11" ry="7" fill="#fff" fill-opacity=".6"/></svg>')
+SPRITE = ('<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>'
+          '<radialGradient id="crGlow" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#FFF6DF"/><stop offset=".45" stop-color="#FFD58A"/><stop offset="1" stop-color="#F09A3E"/></radialGradient>'
+          '<linearGradient id="crDusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B2147"/><stop offset=".55" stop-color="#3A3566"/><stop offset=".85" stop-color="#7A4F72"/><stop offset="1" stop-color="#B9746C"/></linearGradient>'
+          '<linearGradient id="crDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8DB8E2"/><stop offset=".6" stop-color="#C3DAEC"/><stop offset="1" stop-color="#F7DCC4"/></linearGradient>'
+          '<radialGradient id="crHalo" cx="50%" cy="50%" r="50%"><stop offset=".3" stop-color="#FFC56E" stop-opacity=".55"/><stop offset="1" stop-color="#FFC56E" stop-opacity="0"/></radialGradient>'
+          '<linearGradient id="crPuff" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3EAF4"/></linearGradient>'
+          '</defs></svg>')
+
+def cloud(shape):
+    puffs = [[(42,50,20),(72,36,28),(106,40,24),(132,53,16)],[(38,54,16),(62,44,22),(96,30,30),(132,50,18)],[(44,46,24),(80,40,22),(108,50,18),(134,56,13)]][shape]
+    c = "".join(f'<circle cx="{x}" cy="{y}" r="{r}" fill="url(#crPuff)"/>' for x, y, r in puffs)
+    return (f'<svg viewBox="0 0 160 80" aria-hidden="true" focusable="false"><ellipse cx="84" cy="74" rx="62" ry="5" fill="#B7C6DA" fill-opacity=".18"/>{c}'
+            f'<rect x="24" y="48" width="124" height="24" rx="12" fill="url(#crPuff)"/><circle cx="{puffs[1][0]-8}" cy="{puffs[1][1]-8}" r="9" fill="#fff" fill-opacity=".7"/></svg>')
+
+# A sky that follows the visitor's own clock (set by site.js): sun or moon on a low arc, drifting clouds by day, stars at night.
+SKY = ('<div class="sky" aria-hidden="true"><div class="sky-stars"></div><div class="sky-body"><span class="sky-sun"></span>'
+       '<svg class="sky-moon" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" class="moon-dark"/><path class="moon-lit" d="M20 4a16 16 0 1 1 0 32a16 16 0 1 1 0-32z"/></svg></div>'
+       f'<span class="cloud c1">{cloud(0)}</span><span class="cloud c2">{cloud(1)}</span><span class="cloud c3">{cloud(2)}</span></div>')
 
 I = {
   "check": ico('<path d="M12 3a8.5 8.5 0 1 1-4.2 15.9L3.5 20.5l1.4-4.1A8.5 8.5 0 0 1 12 3z"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3.2 2.1c-.7.3-1 .8-1 1.5v.3"/><path d="M12 16.3h.01"/>'),
@@ -60,7 +84,7 @@ def page(path, title, description, body, current=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full_title}</title>
 <meta name="description" content="{description}">
-<meta name="theme-color" content="#FAF7F2">
+<meta name="theme-color" content="#F7F1E9">
 <meta property="og:title" content="{full_title}">
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="https://chatretiree.com/assets/icon.png?v={VERSION}">
@@ -71,6 +95,7 @@ def page(path, title, description, body, current=""):
 {extra_head}
 </head>
 <body>
+{SPRITE}
 <a class="skip" href="#main">Skip to main content</a>
 <header class="top"><div class="wrap">
   <a class="brand" href="{up or './'}" aria-label="ChatRetiree home">{LOGO}<span><b>Chat</b>Retiree</span></a>
@@ -267,9 +292,11 @@ PARTNER = f"""
 
 HOME = f'''
 <section class="h-hero" aria-labelledby="hero-h">
+  {SKY}
   <div class="h-hero-in">
     <div class="h-hero-copy">
       <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
+      <div class="porch" aria-hidden="true"><span class="porch-halo"></span>{GLOW}</div>
       <h1 id="hero-h">Let’s look at it together.</h1>
       <p class="h-lead">One simple place for what’s on your mind: check a message before you act, get straight answers about Medicare and Social Security, and get help if a scam already happened. In plain words, from sources you can trust.</p>
       <div class="h-actions">
@@ -503,6 +530,7 @@ ABOUT = f'''
       <p>People who have spent a lifetime working, raising families and running households know how to figure things out. What’s changed is the amount of noise. Fake texts, look-alike emails, robocalls and fine print arrive every day, and they get more convincing every year.</p>
       <p>Meanwhile, the good answers are out there, spread across long guides and official websites that take time to find and read. One “Is this real?” moment can turn into an afternoon of wondering and worrying.</p>
       <p>We built ChatRetiree to make the trustworthy information easy to reach and quick to check, so you can get on with your day.</p>
+      <p>Our logo is a porch light: someone’s home, and they’ve left the light on for you. Day or night, it’s there when something doesn’t feel right.</p>
     </div>
   </div>
 </section>

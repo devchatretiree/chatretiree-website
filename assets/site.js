@@ -68,3 +68,30 @@ function live(ph,screen){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();run()}})},{threshold:.3});
   io.observe(ph);
 }
+// The sky follows the visitor's own clock, like the app: dawn, day, golden hour, dusk and night.
+// The sun (or moon, in its real phase) sits on a low arc near the top. Nothing about the visitor is sent anywhere.
+document.addEventListener("DOMContentLoaded",function(){
+  var heroes=document.querySelectorAll(".h-hero");if(!heroes.length)return;
+  var now=new Date(),h=now.getHours()+now.getMinutes()/60;
+  var sky=h>=6&&h<9?"dawn":h>=9&&h<16?"day":h>=16&&h<18?"golden":h>=18&&h<20.5?"dusk":"night";
+  var dark=sky==="dusk"||sky==="night";
+  var t=dark?((((h-18)%24)+24)%24)/12:(h-6)/13;t=Math.min(1,Math.max(0,t));
+  var x=.12+.76*t,y=.075-.045*Math.sin(Math.PI*t);
+  // Moon phase: days since a known new moon, over the 29.53-day cycle.
+  var f=((now.getTime()-Date.UTC(2000,0,6,18,14))/864e5/29.530588853)%1;if(f<0)f+=1;
+  var r=16,k=Math.cos(2*Math.PI*f),wax=f<.5,rx=Math.max(.01,Math.abs(k)*r);
+  var d=f<.02||f>.98?"":"M20 4A16 16 0 0 "+(wax?1:0)+" 20 36A"+rx.toFixed(2)+" 16 0 0 "+(wax?(k>0?0:1):(k>0?1:0))+" 20 4z";
+  // The Home screen picture follows the same clock: the app's evening sky after dark.
+  if(dark)[].forEach.call(document.querySelectorAll('img[src*="app/home.webp"]'),function(im){im.src=im.src.replace("app/home.webp","app/home-night.webp")});
+  heroes.forEach(function(hero){
+    hero.setAttribute("data-sky",sky);
+    var body=hero.querySelector(".sky-body");if(body){body.style.setProperty("--x",x.toFixed(3));body.style.setProperty("--y",y.toFixed(3))}
+    var lit=hero.querySelector(".moon-lit");if(lit){if(d)lit.setAttribute("d",d);else lit.remove()}
+    var stars=hero.querySelector(".sky-stars");
+    if(stars&&dark&&!stars.childNodes.length){
+      var seed=7;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
+      for(var i=0;i<46;i++){var s=document.createElement("i");s.style.left=(rnd()*100).toFixed(1)+"%";s.style.top=(rnd()*100).toFixed(1)+"%";
+        var z=rnd()<.15?3:2;s.style.width=s.style.height=z+"px";s.style.animationDelay=(-rnd()*4).toFixed(2)+"s";s.style.animationDuration=(3+rnd()*4).toFixed(2)+"s";stars.appendChild(s)}
+    }
+  });
+});
