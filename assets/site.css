@@ -842,3 +842,11 @@ a.h-pill:hover{background:var(--pill-bg);filter:brightness(1.05)}
 .moon-dark{fill:#3A4180;opacity:.75}
 .sky-stars{inset:0 0 auto 0;height:min(55%,460px);-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
 @media (max-width:699px){.sky-stars{height:210px}}
+/* The app's slim top bar on inner pages (app PR 82): Home, the page name, and Me. */
+.lv-bar.lv-slim{justify-content:space-between;font-family:"Inter",sans-serif;font-weight:600;font-size:14px;color:#14202A;margin:2px -4px 6px;padding-bottom:8px;border-bottom:1px solid rgba(20,32,42,.08)}
+.lv-slim i{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#2B2F63}
+.lv-slim i.lv-me{background:rgba(255,255,255,.9);color:#14202A}
+.lv-slim svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:699px){.lv-bar.lv-slim{font-size:12px}.lv-slim i{width:22px;height:22px}.lv-slim svg{width:14px;height:14px}}
+.porch{width:84px;height:72px}
+.h-hero h1{font-size:clamp(38px,5.4vw,72px);text-wrap:wrap}.h-hero h1 span{display:block}
