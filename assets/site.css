@@ -150,6 +150,7 @@ section{padding:56px 0}
 footer{border-top:1px solid var(--line);padding:40px 0 48px;margin-top:24px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center}
 footer .tag{color:var(--ink2);margin-top:6px}
+footer .indep{color:var(--ink2);font-size:17px;line-height:1.5;margin-top:10px;max-width:46ch}
 footer nav{display:flex;flex-wrap:wrap;gap:4px}
 footer nav a{display:inline-flex;align-items:center;min-height:56px;padding:0 12px;color:var(--ink);font-weight:700}
 footer small{display:block;color:var(--ink2);font-size:17px;width:100%}
