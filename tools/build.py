@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "47"
+VERSION = "48"
 
 def ico(body, fill=False):
     if fill:
@@ -265,17 +265,17 @@ CHECK_NOTE = '<p>The app looks for the warning signs scammers rely on, checks li
 
 CHECK_EX = [
   phone_ex("package", "A text about a package", "Someone pastes a text they got into the message bar, then taps send.",
-    "package", "In the Scams chat, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks for a small fee. Fake delivery notices do this to collect card details. It warns that something bad will happen. It pushes you to act right away. What I’d do: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.",
-    "package-input", "The Scams chat with a pasted text in the message bar: PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender, with a link.", after=CHECK_NOTE),
+    "package", "In Scam check, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks for a small fee. Fake delivery notices do this to collect card details. It warns that something bad will happen. It pushes you to act right away. What I’d do: Don’t reply, click links or pay. Contact the company using a phone number or website you already trust.",
+    "package-input", "Scam check with a pasted text in the message bar: PARCEL NOTICE: Your package is on hold due to an unpaid $1.99 redelivery fee. Pay now to avoid return to sender, with a link.", after=CHECK_NOTE),
   phone_ex("bank", "A picture of a bank text", "Someone taps + and adds a screenshot. The app reads the words right on the phone, and only the words are checked.",
-    "bank", "In the Scams chat, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks you to move money to a so-called safe account. Real banks never ask you to do this. It tells you to keep it secret. It warns that something bad will happen to your account. What I’d do: Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement.",
+    "bank", "In Scam check, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks you to move money to a so-called safe account. Real banks never ask you to do this. It tells you to keep it secret. It warns that something bad will happen to your account. What I’d do: Don’t reply or move any money. Call your bank using the number on the back of your card or on your statement.",
     "bank-input", "The app’s message bar holding the words it read from a screenshot of a text from First Harbor Bank, ready to send.", after=CHECK_NOTE),
   phone_ex("call", "A worrying phone call", "Someone types or says what happened on a call.",
-    "call", "In the Scams chat, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks for payment with gift cards. Only scammers ask to be paid this way. It tells you to keep it secret. It describes a family emergency that needs money fast. What I’d do: Don’t send money. Hang up and call your family member, or another relative, on a number you already have.",
-    "call-input", "The Scams chat with a description in the message bar: a young man called saying he was my grandson, in jail, needing $3,000 bail paid in gift cards.", after=CHECK_NOTE),
+    "call", "In Scam check, the app answers: This has the signs of a scam. We’d stop here. Don’t reply, click or pay. If you’re unsure, check with them on a number you already have. Why I think so: It asks for payment with gift cards. Only scammers ask to be paid this way. It tells you to keep it secret. It describes a family emergency that needs money fast. What I’d do: Don’t send money. Hang up and call your family member, or another relative, on a number you already have.",
+    "call-input", "Scam check with a description in the message bar: a young man called saying he was my grandson, in jail, needing $3,000 bail paid in gift cards.", after=CHECK_NOTE),
   phone_ex("doctor", "A message from a doctor’s office", "Not everything is a scam. When we can’t tell, we say so.",
-    "doctor", "In the Scams chat, the app answers: Check with them before you do anything. We can’t tell either way. Contact them yourself, using a number you already trust. What I’d do: Before you respond, contact them yourself using a phone number or website you already have, not one from the message.",
-    "doctor-input", "The Scams chat with a pasted text in the message bar: Hi, this is Dr. Patel’s office calling about your recent test results. Please call us back.", after=CHECK_NOTE),
+    "doctor", "In Scam check, the app answers: Check with them before you do anything. We can’t tell either way. Contact them yourself, using a number you already trust. What I’d do: Before you respond, contact them yourself using a phone number or website you already have, not one from the message.",
+    "doctor-input", "Scam check with a pasted text in the message bar: Hi, this is Dr. Patel’s office calling about your recent test results. Please call us back.", after=CHECK_NOTE),
 ]
 
 MED_NOTE = '<p>Answers come only from the official Medicare guides. Tap “Tell me more” in the app to see the guide’s exact words and page.</p><p style="margin-top:12px">For questions about your own plan, the app points you to 1-800-MEDICARE or your free local SHIP counselor.</p>'
@@ -401,7 +401,7 @@ HOME = f'''
         <p>Start with one box. Type a question, paste a message that seems off, or just say it out loud. We’ll take it to the right place, whether that’s a scam check, Medicare, Social Security, taxes, veterans benefits or help after a scam.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}One message bar everywhere: tap + to paste a message or add a picture, or tap the mic to say it</li>
-          <li>{I["tick"]}Not sure where to start? Tap Scams, Medicare or Social Security</li>
+          <li>{I["tick"]}Not sure where to start? Tap Scam check, Medicare or Social Security</li>
           <li>{I["tick"]}In English or Spanish</li>
           <li>{I["tick"]}Every answer ends with where to go next, so it all fits together</li>
         </ul>
@@ -460,7 +460,7 @@ HOME = f'''
       <div class="h-row-copy">
         <span class="icon gl">{G["help"]}</span>
         <h3>Help after a scam</h3>
-        <p>It happens to careful, smart people every day, and it’s not your fault. Just tell the Scams chat what happened, like sending money or sharing your Social Security number, and we’ll work out the next steps together, one at a time.</p>
+        <p>It happens to careful, smart people every day, and it’s not your fault. Just tap Scam check and say what happened, like sending money or sharing your Social Security number, and we’ll work out the next steps together, one at a time.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}Steps from official sources like the FTC and IdentityTheft.gov, with links to their own websites</li>
           <li>{I["tick"]}Reach Social Security, Medicare, the IRS or the Postal Service yourself, using their official contacts</li>
@@ -468,7 +468,7 @@ HOME = f'''
           <li>{I["tick"]}Also steps to freeze your credit, cut down on robocalls, and what to do after losing a loved one</li>
         </ul>
       </div>
-      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/help.webp?v={VERSION}" width="390" height="844" alt="The Scams chat. Someone writes: A man called saying he was from Medicare and told me to buy gift cards to keep my coverage. I bought $500 of them and read him the numbers. The app replies: I’m sorry that happened. It happens to careful, smart people every day, and it’s not your fault. Tell me what happened, and we’ll work out the next steps together. Below are choices like I paid or sent money and I gave my Social Security number."></div></figure></div>
+      <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/help.webp?v={VERSION}" width="390" height="844" alt="Scam check. Someone writes: A man called saying he was from Medicare and told me to buy gift cards to keep my coverage. I bought $500 of them and read him the numbers. The app replies: I’m sorry that happened. It happens to careful, smart people every day, and it’s not your fault. Tell me what happened, and we’ll work out the next steps together. Below are choices like I paid or sent money and I gave my Social Security number."></div></figure></div>
     </article>
 
     <article class="h-row">
@@ -514,7 +514,7 @@ HOME = f'''
         <li><strong>If someone may be in danger, call 911.</strong></li>
         <li>If you already sent money or gift cards, call your bank or the gift card company right away.</li>
         <li>You can also report it to the FTC at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</li>
-        <li>In the app, just tell the Scams chat what happened. It walks you through the next steps, one at a time.</li>
+        <li>In the app, just tap Scam check and say what happened. It walks you through the next steps, one at a time.</li>
       </ul>
     </div>
   </div>
