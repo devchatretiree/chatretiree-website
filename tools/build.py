@@ -5,7 +5,7 @@ import pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 # Bump when site.css or a script changes, so browsers fetch the new copy.
-VERSION = "46"
+VERSION = "47"
 
 def ico(body, fill=False):
     if fill:
@@ -241,7 +241,7 @@ EX_LINKS = [
 WHATS_NEXT = "What we’d do next"
 WHY = "Why we think so"
 
-APP_H = {'ask': 844, 'bank': 1597, 'bank-input': 844, 'call': 1438, 'call-input': 844, 'doctor': 1116, 'doctor-input': 844, 'help': 844, 'home': 844, 'home-night': 844, 'medicare-dental': 844, 'medicare-hearing': 844, 'medicare-signup': 844, 'package': 1371, 'package-input': 844, 'scam-bail': 844, 'scam-giftcards': 844, 'scam-haggle': 844, 'ss': 844, 'trusted': 844}
+APP_H = {'ask': 844, 'bank': 1597, 'bank-input': 844, 'call': 1438, 'call-input': 844, 'doctor': 1145, 'doctor-input': 844, 'help': 844, 'home': 844, 'home-night': 844, 'medicare-dental': 844, 'medicare-hearing': 844, 'medicare-signup': 844, 'package': 1371, 'package-input': 844, 'protect': 844, 'scam-bail': 844, 'scam-giftcards': 844, 'scam-haggle': 844, 'ss': 844, 'trusted': 844}
 
 def device(img, alt, cls=""):
     return (f'<figure class="device {cls}"><div class="device-screen" tabindex="0" role="group" aria-label="App screen. Scroll to see more.">'
@@ -285,7 +285,7 @@ MEDICARE_EX = [
   phone_ex("hearing", "Hearing aids", "Someone asks in their own words.", "medicare-hearing",
     "Question: Does Medicare pay for hearing aids? The app’s answer: Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not.", after=MED_NOTE),
   phone_ex("signup", "When to sign up", "Someone asks in their own words.", "medicare-signup",
-    "Question: When can I sign up for Medicare? The app’s answer: Your Initial Enrollment Period is a 7-month window that starts 3 months before the month you turn 65, includes your birthday month, and ends 3 months after.", after=MED_NOTE),
+    "Question: When can I sign up for Medicare? The app asks what year they were born, which stays on the phone, and they answer 1958. The app’s answer: Your Initial Enrollment Period is a 7-month window that starts 3 months before the month you turn 65, includes your birthday month, and ends 3 months after.", after=MED_NOTE),
 ]
 
 SCAM_NOTE = '<p>Answers come only from official warnings by the FTC, the FBI and the U.S. Department of Health and Human Services. The app shows which alert each answer comes from.</p><p style="margin-top:12px">When the official warnings don’t cover something, we say so instead of guessing. And we never suggest paying a scammer anything.</p>'
@@ -337,7 +337,7 @@ HOME = f'''
       <a class="h-pill" href="app/">{I["phone"]}Coming soon to iPhone and Android{I["arrow"]}</a>
       <div class="porch" aria-hidden="true"><span class="porch-halo"></span>{GLOW}</div>
       <h1 id="hero-h"><span>Always home.</span> <span>Always here to help.</span></h1>
-      <p class="h-lead">One simple place for what’s on your mind: check a message before you act, get straight answers about Medicare and Social Security, and get help if a scam already happened. In plain words, from sources you can trust.</p>
+      <p class="h-lead">One simple place for what’s on your mind: check a message before you act, get straight answers about Medicare, Social Security, taxes and other benefits, and get help if a scam already happened. In plain words, from sources you can trust.</p>
       <div class="h-actions">
         <a class="btn h-btn-light" href="#help">See it in action{I["arrow"]}</a>
         <a class="btn h-btn-ghost" href="#partner">Partner with us</a>
@@ -345,7 +345,7 @@ HOME = f'''
     </div>
     <div class="h-phones">
       <figure class="h-ph h-ph-back">
-        <div class="h-ph-screen"><img src="assets/app/medicare-signup.webp?v={VERSION}" width="390" height="844" fetchpriority="high" alt="The app answering a Medicare question: When can I sign up for Medicare? Your Initial Enrollment Period is a 7-month window that starts 3 months before the month you turn 65, includes your birthday month, and ends 3 months after."></div>
+        <div class="h-ph-screen"><img src="assets/app/medicare-hearing.webp?v={VERSION}" width="390" height="844" fetchpriority="high" alt="The app answering a Medicare question: Does Medicare pay for hearing aids? Original Medicare does not cover hearing aids or exams for fitting them. Some Medicare Advantage Plans may offer coverage for hearing services that Original Medicare does not."></div>
       </figure>
       <figure class="h-ph h-ph-front h-ph-home">
         <div class="h-ph-screen"><img class="day-only" src="assets/app/home.webp?v={VERSION}" width="390" height="844" alt="The app’s home screen: What’s on your mind? Ask about Medicare, Social Security or scams, or share a message that seems off. Below it is the message bar with a plus button, a box and a microphone. Below it are example questions and sections for staying safe from scams and your benefits." fetchpriority="high"><img class="night-only" src="assets/app/home-night.webp?v={VERSION}" width="390" height="844" alt=""></div>
@@ -360,6 +360,8 @@ HOME = f'''
     <ul class="h-sources-list">
       <li><a href="https://www.medicare.gov/" rel="noopener">Official Medicare guides</a></li>
       <li><a href="https://www.ssa.gov/pubs/" rel="noopener">Social Security publications</a></li>
+      <li><a href="https://www.irs.gov/" rel="noopener">IRS publications</a></li>
+      <li><a href="https://www.va.gov/" rel="noopener">VA benefits guides</a></li>
       <li><a href="https://consumer.ftc.gov/consumer-alerts" rel="noopener">Federal Trade Commission</a></li>
       <li><a href="https://www.ic3.gov/" rel="noopener">FBI Internet Crime Complaint Center</a></li>
       <li><a href="https://oig.hhs.gov/" rel="noopener">HHS Office of Inspector General</a></li>
@@ -396,10 +398,11 @@ HOME = f'''
       <div class="h-row-copy">
         <span class="icon gl">{G["light"]}</span>
         <h3>Just ask what’s on your mind</h3>
-        <p>Start with one box. Type a question, paste a message that seems off, or just say it out loud. We’ll take it to the right place, whether that’s a scam check, Medicare, Social Security or help after a scam.</p>
+        <p>Start with one box. Type a question, paste a message that seems off, or just say it out loud. We’ll take it to the right place, whether that’s a scam check, Medicare, Social Security, taxes, veterans benefits or help after a scam.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}One message bar everywhere: tap + to paste a message or add a picture, or tap the mic to say it</li>
-          <li>{I["tick"]}Not sure where to start? Tap an example question</li>
+          <li>{I["tick"]}Not sure where to start? Tap Scams, Medicare or Social Security</li>
+          <li>{I["tick"]}In English or Spanish</li>
           <li>{I["tick"]}Every answer ends with where to go next, so it all fits together</li>
         </ul>
       </div>
@@ -426,11 +429,12 @@ HOME = f'''
       <div class="h-row-copy">
         <span class="icon-pair"><span class="icon gl">{G["medicare"]}</span><span class="icon gl">{G["ss"]}</span></span>
         <h3>Straight answers about your benefits</h3>
-        <p>Ask about Medicare or Social Security in your own words, like you would ask a friend who knows them inside out. Answers come only from the official Medicare guides and Social Security publications, and you can see the exact words they’re based on.</p>
+        <p>Ask about Medicare or Social Security in your own words, like you would ask a friend who knows them inside out. You can also ask about retirement taxes, veterans benefits, help programs like SNAP, heating help and Lifeline, and staying in your home. Answers come only from official government guides, and you can see the exact words they’re based on.</p>
         <ul class="h-ticks">
           <li>{I["tick"]}Plain-language answers in a simple back-and-forth, like texting a friend. Type it or just say it</li>
           <li>{I["tick"]}Every point checked against the official guide</li>
-          <li>{I["tick"]}For your own plan or benefits, we point you to the free official help: 1‑800‑MEDICARE, your local SHIP counselor, or Social Security</li>
+          <li>{I["tick"]}If the answer depends on your age, we ask the year you were born. It stays on your phone</li>
+          <li>{I["tick"]}For your own plan or benefits, we point you to the free official help, like 1‑800‑MEDICARE, your local SHIP counselor, Social Security or the VA</li>
         </ul>
         <a class="h-link" href="examples/medicare/">See sample Medicare questions{I["arrow"]}</a>
       </div>
@@ -461,6 +465,7 @@ HOME = f'''
           <li>{I["tick"]}Steps from official sources like the FTC and IdentityTheft.gov, with links to their own websites</li>
           <li>{I["tick"]}Reach Social Security, Medicare, the IRS or the Postal Service yourself, using their official contacts</li>
           <li>{I["tick"]}If you paid, the steps fit how you paid, like a gift card, bank transfer or app</li>
+          <li>{I["tick"]}Also steps to freeze your credit, cut down on robocalls, and what to do after losing a loved one</li>
         </ul>
       </div>
       <div class="h-row-art t-blue-bg"><figure class="h-ph"><div class="h-ph-screen"><img src="assets/app/help.webp?v={VERSION}" width="390" height="844" alt="The Scams chat. Someone writes: A man called saying he was from Medicare and told me to buy gift cards to keep my coverage. I bought $500 of them and read him the numbers. The app replies: I’m sorry that happened. It happens to careful, smart people every day, and it’s not your fault. Tell me what happened, and we’ll work out the next steps together. Below are choices like I paid or sent money and I gave my Social Security number."></div></figure></div>
@@ -509,7 +514,7 @@ HOME = f'''
         <li><strong>If someone may be in danger, call 911.</strong></li>
         <li>If you already sent money or gift cards, call your bank or the gift card company right away.</li>
         <li>You can also report it to the FTC at <a href="https://reportfraud.ftc.gov/" rel="noopener">ReportFraud.ftc.gov</a>.</li>
-        <li>In the app, “Get help after a scam” walks you through the next steps, one at a time.</li>
+        <li>In the app, just tell the Scams chat what happened. It walks you through the next steps, one at a time.</li>
       </ul>
     </div>
   </div>
@@ -539,7 +544,7 @@ ABOUT = f'''
   <div class="wrap a-hero-copy">
     <p class="h-eyebrow">About <span class="wm"><b>Chat</b>Retiree</span></p>
     <h1 id="about-h">Clear answers, and a calm second look, whenever you need one.</h1>
-    <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare and Social Security in plain words, keep up with the scams going around, and know what to do if a scam already happened. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
+    <p class="a-lead">ChatRetiree helps you check a message before you act, understand Medicare, Social Security, taxes and other benefits in plain words, keep up with the scams going around, and know what to do if a scam already happened. It works like a knowledgeable friend: it looks at things with you and lets you decide.</p>
   </div>
   <p class="a-credit">Photo by Vitaly Gariev on <a href="https://unsplash.com/photos/elderly-woman-smiling-while-looking-at-smartphone-cHbyGVOQspk" rel="noopener">Unsplash</a></p>
 </section>
@@ -561,7 +566,7 @@ ABOUT = f'''
     <p class="h-eyebrow">Our Promises</p>
     <h2 id="promise-h">What you can count on</h2>
     <ul class="a-promises">
-      <li>{I["tick"]}<div><h3>Official sources only</h3><p>Medicare answers come from the official Medicare guides, and Social Security answers from Social Security’s own publications. Scam news comes from the FTC, the FBI and the U.S. Department of Health and Human Services, and help after a scam follows the FTC and IdentityTheft.gov.</p></div></li>
+      <li>{I["tick"]}<div><h3>Official sources only</h3><p>Medicare answers come from the official Medicare guides, and Social Security answers from Social Security’s own publications. Tax answers come from IRS publications, veterans answers from the VA, and help program and housing answers from the agencies that run them. Scam news comes from the FTC, the FBI and the U.S. Department of Health and Human Services, and help after a scam follows the FTC and IdentityTheft.gov.</p></div></li>
       <li>{I["tick"]}<div><h3>Plain words</h3><p>No jargon and no alarm bells. Just what we found and what we’d do next.</p></div></li>
       <li>{I["tick"]}<div><h3>Honest about what we don’t know</h3><p>We never call anything “safe.” When we can’t tell, or the official sources don’t cover something, we say so.</p></div></li>
       <li>{I["tick"]}<div><h3>You stay in charge</h3><p>We suggest next steps. You decide. Nothing is sent to anyone unless you press send.</p></div></li>
@@ -579,13 +584,16 @@ ABOUT = f'''
       <ul class="a-src">
         <li><a href="https://www.medicare.gov/" rel="noopener">Medicare.gov</a>, including the official “Medicare &amp; You” handbook and guides</li>
         <li><a href="https://www.ssa.gov/pubs/" rel="noopener">Social Security publications</a> from SSA.gov</li>
+        <li><a href="https://www.irs.gov/" rel="noopener">IRS publications</a>, for retirement tax questions</li>
+        <li><a href="https://www.va.gov/" rel="noopener">VA.gov</a>, for veterans benefits</li>
+        <li>Official pages from USDA, HHS, the FCC, the Consumer Financial Protection Bureau and the Department of Energy, for help programs like SNAP, heating help and Lifeline, and for housing and staying home</li>
         <li><a href="https://consumer.ftc.gov/consumer-alerts" rel="noopener">Federal Trade Commission consumer alerts</a></li>
         <li><a href="https://www.ic3.gov/" rel="noopener">FBI Internet Crime Complaint Center</a></li>
         <li><a href="https://oig.hhs.gov/" rel="noopener">HHS Office of Inspector General</a></li>
         <li><a href="https://www.identitytheft.gov/" rel="noopener">IdentityTheft.gov</a>, for the official steps after your information is stolen</li>
         <li><a href="https://cloud.google.com/web-risk" rel="noopener">Google Web Risk</a>, to check links against known harmful sites without opening them</li>
       </ul>
-      <p>For questions about your own plan or benefits, we point you to the free official help that can look at your situation: 1‑800‑MEDICARE, your local SHIP counselor, or Social Security.</p>
+      <p>For questions about your own plan or benefits, we point you to the free official help that can look at your situation, like 1‑800‑MEDICARE, your local SHIP counselor, Social Security or the VA.</p>
     </div>
   </div>
 </section>
